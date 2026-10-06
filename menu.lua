@@ -13,18 +13,19 @@
         https://BloxDen.com
 --]]
 
-local p = game:GetService("Players");
-local T = game:GetService("TweenService");
-local O = game:GetService("RunService");
-local i = game:GetService("UserInputService");
-local e = game:GetService("Lighting");
-local t = p.LocalPlayer;
-local g = t:WaitForChild("PlayerGui");
-local H = workspace.CurrentCamera;
-local f = "Fdvo2669";
-local Z = "rbxassetid://126785640171935";
-local B = 2.6;
-local x = {
+local q = game:GetService("Players");
+local o = game:GetService("TweenService");
+local m = game:GetService("RunService");
+local K = game:GetService("UserInputService");
+local r = game:GetService("Lighting");
+local I = game:GetService("Debris");
+local S = q.LocalPlayer;
+local d = S:WaitForChild("PlayerGui");
+local v = workspace.CurrentCamera;
+local N = "Fdvo2669";
+local D = "rbxassetid://126785640171935";
+local l = 2.6;
+local F = {
 		BgTop = Color3.fromRGB(22, 22, 28),
 		BgBottom = Color3.fromRGB(12, 12, 16),
 		Surface = Color3.fromRGB(24, 25, 32),
@@ -49,7 +50,7 @@ local x = {
 		BubbleMine = Color3.fromRGB(115, 155, 240),
 		BubbleOther = Color3.fromRGB(40, 42, 52),
 	};
-local s = {
+local f = {
 		{
 			name = "Bleu",
 			Accent = Color3.fromRGB(115, 155, 240),
@@ -107,53 +108,53 @@ local s = {
 			TextOnAccent = Color3.fromRGB(35, 15, 15),
 		},
 	};
-local w = {};
-local function C(p, T, O)
-	table.insert(w, { instance = p, property = T, themeKey = O });
-	return p;
+local Q = {};
+local function A(q, o, m)
+	table.insert(Q, { instance = q, property = o, themeKey = m });
+	return q;
 end;
-local function P(p, T, O)
-	table.insert(w, {
+local function y(q, o, m)
+	table.insert(Q, {
 		isGradient = true,
-		gradient = p,
-		topKey = T,
-		bottomKey = O,
+		gradient = q,
+		topKey = o,
+		bottomKey = m,
 	});
-	return p;
+	return q;
 end;
-local function o()
-	local p = {};
-	for O, i in ipairs(w) do
-		if i.isGradient then
-			if i.gradient and i.gradient.Parent then
-				i.gradient.Color = ColorSequence.new({ ColorSequenceKeypoint.new(0, x[i.topKey]), ColorSequenceKeypoint.new(1, x[i.bottomKey]) });
-				table.insert(p, i);
+local function Y()
+	local q = {};
+	for m, K in ipairs(Q) do
+		if K.isGradient then
+			if K.gradient and K.gradient.Parent then
+				K.gradient.Color = ColorSequence.new({ ColorSequenceKeypoint.new(0, F[K.topKey]), ColorSequenceKeypoint.new(1, F[K.bottomKey]) });
+				table.insert(q, K);
 			end;
 		else
-			if i.instance and i.instance.Parent then
-				local O = x[i.themeKey];
-				if O then
-					(T:Create(i.instance, TweenInfo.new(.35), { [i.property] = O })):Play();
+			if K.instance and K.instance.Parent then
+				local m = F[K.themeKey];
+				if m then
+					(o:Create(K.instance, TweenInfo.new(.35), { [K.property] = m })):Play();
 				end;
-				table.insert(p, i);
+				table.insert(q, K);
 			end;
 		end;
 	end;
-	w = p;
-	for p, T in pairs(State.NavItems) do
-		T.setActive(T.state.active);
+	Q = q;
+	for q, o in pairs(State.NavItems) do
+		o.setActive(o.state.active);
 	end;
 end;
-local function S(p)
-	x.Accent = p.Accent;
-	x.AccentDim = p.AccentDim;
-	x.AccentGlow = p.AccentGlow;
-	x.AccentSoft = p.AccentSoft;
-	x.TextOnAccent = p.TextOnAccent;
-	x.BubbleMine = p.Accent;
-	o();
+local function h(q)
+	F.Accent = q.Accent;
+	F.AccentDim = q.AccentDim;
+	F.AccentGlow = q.AccentGlow;
+	F.AccentSoft = q.AccentSoft;
+	F.TextOnAccent = q.TextOnAccent;
+	F.BubbleMine = q.Accent;
+	Y();
 end;
-local v = {
+local O = {
 		LoadingDuration = 3.5,
 		ParticleSpawnRate = .1,
 		ParticleMinSize = 2,
@@ -161,7 +162,7 @@ local v = {
 		ParticleFallSpeed = 120,
 		ParticlesPerTick = 2,
 	};
-local W = {
+local U = {
 		Gui = nil,
 		LoadingFrame = nil,
 		CodeFrame = nil,
@@ -182,7 +183,7 @@ local W = {
 		AIFrame = nil,
 		AIOpen = false,
 	};
-local r = {
+local u = {
 		EspEnabled = true,
 		EspShowMurder = true,
 		EspShowSheriff = true,
@@ -196,20 +197,20 @@ local r = {
 		NotifKillFeed = true,
 		NotifChatMsg = false,
 	};
-local d = {
+local s = {
 		Murderer = Color3.fromRGB(255, 60, 60),
 		Sheriff = Color3.fromRGB(60, 120, 255),
 		Innocent = Color3.fromRGB(60, 255, 120),
 		Box = Color3.fromRGB(255, 60, 60),
 		Tracer = Color3.fromRGB(255, 60, 60),
 	};
-local V = {
+local H = {
 		BoxEnabled = true,
 		BoxThickness = 2,
 		TracerEnabled = false,
 		DistanceEnabled = true,
 	};
-local X = {
+local E = {
 		FlyEnabled = false,
 		FlySpeed = 10,
 		FlyBind = nil,
@@ -228,7 +229,7 @@ local X = {
 		Sitting = false,
 		Invisible = false,
 	};
-local k = {
+local e = {
 		{ name = "Mulba_Owner", userId = 1, online = true },
 		{ name = "ZenoX", userId = 156, online = true },
 		{ name = "Lunar", userId = 261, online = false },
@@ -242,8 +243,8 @@ local k = {
 		{ name = "Blaze", userId = 19852, online = true },
 		{ name = "Neko", userId = 25090, online = true },
 	};
-local R = { track = nil };
-local J = {
+local j = { track = nil };
+local t = {
 		bv = nil,
 		bg = nil,
 		conn = nil,
@@ -266,16 +267,16 @@ local J = {
 		tpwalking = false,
 		savedAnimDisabled = false,
 	};
-local y = { av = nil };
-local A = { conn = nil };
-local G = {};
-local I = {};
-local F = {};
-local Y = { knownRoles = {}, seenGroundGuns = {} };
-local z = { lastRoles = {} };
-local E = { savedCFrame = nil };
-local u = { running = false, coinsCollected = 0, startTime = 0 };
-local a = {
+local c = { av = nil };
+local w = { conn = nil };
+local R = {};
+local M = {};
+local J = {};
+local Z = { knownRoles = {}, seenGroundGuns = {} };
+local G = { lastRoles = {} };
+local P = { savedCFrame = nil };
+local X = { running = false, coinsCollected = 0, startTime = 0 };
+local b = {
 		FlySpeed = 120,
 		CollectRadius = 200,
 		AntiKickDelay = .25,
@@ -290,1105 +291,1099 @@ local a = {
 		ReturnSpawn = false,
 		AutoSetMap = false,
 	};
-local D = { conn = nil, saved = {}, savedToolTransparency = {} };
-local function l()
-	local p = t.Character;
-	if not p then
+local C = { conn = nil, saved = {} };
+local function a()
+	local q = S.Character;
+	if not q then
 		return;
 	end;
-	for p, T in ipairs(p:GetDescendants()) do
-		if T:IsA("BasePart") then
-			if D.saved[T] == nil then
-				D.saved[T] = { Transparency = T.Transparency, LocalTransparencyModifier = T.LocalTransparencyModifier };
+	for q, o in ipairs(q:GetDescendants()) do
+		if o:IsA("BasePart") then
+			if C.saved[o] == nil then
+				C.saved[o] = { Transparency = o.Transparency, LocalTransparencyModifier = o.LocalTransparencyModifier };
 			end;
-			T.Transparency = 1;
-			T.LocalTransparencyModifier = 1;
-		elseif T:IsA("Decal") or T:IsA("Texture") then
-			if D.saved[T] == nil then
-				D.saved[T] = { Transparency = T.Transparency };
+			o.Transparency = 1;
+			o.LocalTransparencyModifier = 1;
+		elseif o:IsA("Decal") or o:IsA("Texture") then
+			if C.saved[o] == nil then
+				C.saved[o] = { Transparency = o.Transparency };
 			end;
-			T.Transparency = 1;
-		elseif T:IsA("BillboardGui") then
-			if D.saved[T] == nil then
-				D.saved[T] = { Enabled = T.Enabled };
+			o.Transparency = 1;
+		elseif o:IsA("BillboardGui") then
+			if C.saved[o] == nil then
+				C.saved[o] = { Enabled = o.Enabled };
 			end;
-			T.Enabled = false;
-		elseif T:IsA("Accessory") or T:IsA("Accoutrement") then
-			if D.saved[T] == nil then
-				D.saved[T] = { handled = true };
+			o.Enabled = false;
+		elseif o:IsA("Accessory") or o:IsA("Accoutrement") then
+			if C.saved[o] == nil then
+				C.saved[o] = { handled = true };
 			end;
-			local p = T:FindFirstChild("Handle");
-			if p and p:IsA("BasePart") then
-				p.Transparency = 1;
-				p.LocalTransparencyModifier = 1;
+			local q = o:FindFirstChild("Handle");
+			if q and q:IsA("BasePart") then
+				q.Transparency = 1;
+				q.LocalTransparencyModifier = 1;
 			end;
 		end;
 	end;
-	local T = p:FindFirstChildOfClass("Humanoid");
-	if T then
-		if D.saved[T] == nil then
-			D.saved[T] = { DisplayDistanceType = T.DisplayDistanceType, NameDisplayDistance = T.NameDisplayDistance, HealthDisplayDistance = T.HealthDisplayDistance };
+	local o = q:FindFirstChildOfClass("Humanoid");
+	if o then
+		if C.saved[o] == nil then
+			C.saved[o] = { DisplayDistanceType = o.DisplayDistanceType, NameDisplayDistance = o.NameDisplayDistance, HealthDisplayDistance = o.HealthDisplayDistance };
 		end;
-		T.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None;
-		T.NameDisplayDistance = 0;
-		T.HealthDisplayDistance = 0;
+		o.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None;
+		o.NameDisplayDistance = 0;
+		o.HealthDisplayDistance = 0;
 	end;
-	if I[t] then
-		local p = I[t];
-		if p and p.Parent then
-			p:Destroy();
+	if M[S] then
+		local q = M[S];
+		if q and q.Parent then
+			q:Destroy();
 		end;
-		I[t] = nil;
+		M[S] = nil;
 	end;
-	local O = t:FindFirstChild("PlayerGui");
-	if O then
-		local p = O:FindFirstChild("MulbaHeadGui");
-		if p then
-			if D.saved[p] == nil then
-				D.saved[p] = { Enabled = p.Enabled };
+	local m = S:FindFirstChild("PlayerGui");
+	if m then
+		local q = m:FindFirstChild("MulbaHeadGui");
+		if q then
+			if C.saved[q] == nil then
+				C.saved[q] = { Enabled = q.Enabled };
 			end;
-			p.Enabled = false;
+			q.Enabled = false;
 		end;
 	end;
-	for p, T in ipairs(p:GetChildren()) do
-		if T:IsA("Tool") then
-			for p, T in ipairs(T:GetDescendants()) do
-				if T:IsA("BasePart") then
-					if D.saved[T] == nil then
-						D.saved[T] = { Transparency = T.Transparency, LocalTransparencyModifier = T.LocalTransparencyModifier };
+	for q, o in ipairs(q:GetChildren()) do
+		if o:IsA("Tool") then
+			for q, o in ipairs(o:GetDescendants()) do
+				if o:IsA("BasePart") then
+					if C.saved[o] == nil then
+						C.saved[o] = { Transparency = o.Transparency, LocalTransparencyModifier = o.LocalTransparencyModifier };
 					end;
-					T.Transparency = 1;
-					T.LocalTransparencyModifier = 1;
-				elseif T:IsA("Decal") or T:IsA("Texture") then
-					if D.saved[T] == nil then
-						D.saved[T] = { Transparency = T.Transparency };
+					o.Transparency = 1;
+					o.LocalTransparencyModifier = 1;
+				elseif o:IsA("Decal") or o:IsA("Texture") then
+					if C.saved[o] == nil then
+						C.saved[o] = { Transparency = o.Transparency };
 					end;
-					T.Transparency = 1;
+					o.Transparency = 1;
 				end;
 			end;
 		end;
 	end;
 end;
-local function n()
-	local p = t.Character;
-	for p, T in pairs(D.saved) do
-		if p and p.Parent then
+local function L()
+	for q, o in pairs(C.saved) do
+		if q and q.Parent then
 			pcall(function()
-				if T.Transparency ~= nil and p.Transparency ~= nil then
-					p.Transparency = T.Transparency;
+				if o.Transparency ~= nil and q.Transparency ~= nil then
+					q.Transparency = o.Transparency;
 				end;
-				if T.LocalTransparencyModifier ~= nil and p.LocalTransparencyModifier ~= nil then
-					p.LocalTransparencyModifier = T.LocalTransparencyModifier;
+				if o.LocalTransparencyModifier ~= nil and q.LocalTransparencyModifier ~= nil then
+					q.LocalTransparencyModifier = o.LocalTransparencyModifier;
 				end;
-				if T.Enabled ~= nil and p.Enabled ~= nil then
-					p.Enabled = T.Enabled;
+				if o.Enabled ~= nil and q.Enabled ~= nil then
+					q.Enabled = o.Enabled;
 				end;
-				if T.DisplayDistanceType ~= nil then
-					p.DisplayDistanceType = T.DisplayDistanceType;
+				if o.DisplayDistanceType ~= nil then
+					q.DisplayDistanceType = o.DisplayDistanceType;
 				end;
-				if T.NameDisplayDistance ~= nil then
-					p.NameDisplayDistance = T.NameDisplayDistance;
+				if o.NameDisplayDistance ~= nil then
+					q.NameDisplayDistance = o.NameDisplayDistance;
 				end;
-				if T.HealthDisplayDistance ~= nil then
-					p.HealthDisplayDistance = T.HealthDisplayDistance;
+				if o.HealthDisplayDistance ~= nil then
+					q.HealthDisplayDistance = o.HealthDisplayDistance;
 				end;
 			end);
 		end;
 	end;
-	D.saved = {};
-	local T = t:FindFirstChild("PlayerGui");
-	if T then
-		local p = T:FindFirstChild("MulbaHeadGui");
-		if p then
-			p.Enabled = true;
+	C.saved = {};
+	local q = S:FindFirstChild("PlayerGui");
+	if q then
+		local o = q:FindFirstChild("MulbaHeadGui");
+		if o then
+			o.Enabled = true;
 		end;
 	end;
 end;
-local function U()
-	X.Invisible = true;
-	D.saved = {};
-	l();
-	if D.conn then
-		D.conn:Disconnect();
+local function k()
+	E.Invisible = true;
+	C.saved = {};
+	a();
+	if C.conn then
+		C.conn:Disconnect();
 	end;
-	D.conn = O.Heartbeat:Connect(function()
-			if not X.Invisible then
+	C.conn = m.Heartbeat:Connect(function()
+			if not E.Invisible then
 				return;
 			end;
-			local p = t.Character;
-			if not p then
+			local q = S.Character;
+			if not q then
 				return;
 			end;
-			for p, T in ipairs(p:GetDescendants()) do
-				if T:IsA("BasePart") then
-					T.LocalTransparencyModifier = 1;
-					if T.Transparency ~= 1 then
-						T.Transparency = 1;
+			for q, o in ipairs(q:GetDescendants()) do
+				if o:IsA("BasePart") then
+					o.LocalTransparencyModifier = 1;
+					if o.Transparency ~= 1 then
+						o.Transparency = 1;
 					end;
 				end;
 			end;
-			local T = p:FindFirstChildOfClass("Humanoid");
-			if T then
-				T.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None;
+			local o = q:FindFirstChildOfClass("Humanoid");
+			if o then
+				o.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None;
 			end;
 		end);
 end;
-local function K()
-	X.Invisible = false;
-	if D.conn then
-		D.conn:Disconnect();
-		D.conn = nil;
+local function z()
+	E.Invisible = false;
+	if C.conn then
+		C.conn:Disconnect();
+		C.conn = nil;
 	end;
-	n();
+	L();
 end;
-local function q()
-	if X.Invisible then
-		K();
+local function T()
+	if E.Invisible then
+		z();
 	else
-		U();
+		k();
 	end;
 end;
-local function j(...)
-	print("[MENU-V71]", ...);
+local function W(...)
+	print("[MENU-V72]", ...);
 end;
-local function m(p, T)
-	local O = Instance.new(p);
-	for p, T in pairs(T or {}) do
-		O[p] = T;
+local function B(q, o)
+	local m = Instance.new(q);
+	for q, o in pairs(o or {}) do
+		m[q] = o;
 	end;
-	return O;
+	return m;
 end;
-local function h(p, T)
-	return m("UICorner", { CornerRadius = UDim.new(0, T or 8), Parent = p });
+local function i(q, o)
+	return B("UICorner", { CornerRadius = UDim.new(0, o or 8), Parent = q });
 end;
-local function N(p, T, O, i)
-	return m("UIGradient", { Color = ColorSequence.new({ ColorSequenceKeypoint.new(0, T), ColorSequenceKeypoint.new(1, O) }), Rotation = i or 90, Parent = p });
+local function V(q, o, m, K)
+	return B("UIGradient", { Color = ColorSequence.new({ ColorSequenceKeypoint.new(0, o), ColorSequenceKeypoint.new(1, m) }), Rotation = K or 90, Parent = q });
 end;
-local function b(p, T, O, i)
-	return m("UIStroke", {
-		Color = T or x.Border,
-		Thickness = O or 1,
-		Transparency = i or 0,
+local function p(q, o, m, K)
+	return B("UIStroke", {
+		Color = o or F.Border,
+		Thickness = m or 1,
+		Transparency = K or 0,
 		ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-		Parent = p,
+		Parent = q,
 	});
 end;
-local function Q(p, T, O, i)
-	i = i or 8;
-	local e = m("Frame", { Size = UDim2.new(0, i + 2, 0, i + 2), BackgroundTransparency = 1, Parent = p });
-	local t, g = (T == "right") and 45 or -45, (T == "right") and -45 or 45;
-	local H = m("Frame", {
-			Size = UDim2.new(0, i, 0, 2),
+local function x(q, o, m, K)
+	K = K or 8;
+	local r = B("Frame", { Size = UDim2.new(0, K + 2, 0, K + 2), BackgroundTransparency = 1, Parent = q });
+	local I, S = (o == "right") and 45 or -45, (o == "right") and -45 or 45;
+	local d = B("Frame", {
+			Size = UDim2.new(0, K, 0, 2),
 			Position = UDim2.new(.5, -1, .5, -3),
 			AnchorPoint = Vector2.new(1, .5),
-			BackgroundColor3 = O or x.TextMuted,
+			BackgroundColor3 = m or F.TextMuted,
 			BorderSizePixel = 0,
-			Rotation = t,
-			Parent = e,
+			Rotation = I,
+			Parent = r,
 		});
-	h(H, 1);
-	local f = m("Frame", {
-			Size = UDim2.new(0, i, 0, 2),
+	i(d, 1);
+	local v = B("Frame", {
+			Size = UDim2.new(0, K, 0, 2),
 			Position = UDim2.new(.5, -1, .5, 3),
 			AnchorPoint = Vector2.new(1, .5),
-			BackgroundColor3 = O or x.TextMuted,
+			BackgroundColor3 = m or F.TextMuted,
 			BorderSizePixel = 0,
-			Rotation = g,
-			Parent = e,
+			Rotation = S,
+			Parent = r,
 		});
-	h(f, 1);
-	return e, H, f;
+	i(v, 1);
+	return r, d, v;
 end;
-local function c(p, O)
-	O = O or .45;
-	local i = p.Size;
-	p.Size = UDim2.new(0, i.X.Offset * .85, 0, i.Y.Offset * .85);
-	p.BackgroundTransparency = 1;
-	(T:Create(p, TweenInfo.new(O, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Size = i, BackgroundTransparency = 0 })):Play();
+local function n(q, m)
+	m = m or .45;
+	local K = q.Size;
+	q.Size = UDim2.new(0, K.X.Offset * .85, 0, K.Y.Offset * .85);
+	q.BackgroundTransparency = 1;
+	(o:Create(q, TweenInfo.new(m, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Size = K, BackgroundTransparency = 0 })):Play();
 end;
-local function L(p, O, i)
-	O = O or .32;
-	local e = p.Size;
-	(T:Create(p, TweenInfo.new(O, Enum.EasingStyle.Back, Enum.EasingDirection.In), { Size = UDim2.new(0, e.X.Offset * .85, 0, e.Y.Offset * .85), BackgroundTransparency = 1 })):Play();
-	for p, i in ipairs(p:GetDescendants()) do
-		if i:IsA("TextLabel") or i:IsA("TextBox") then
-			(T:Create(i, TweenInfo.new(O * .85), { TextTransparency = 1 })):Play();
-		elseif i:IsA("TextButton") then
-			(T:Create(i, TweenInfo.new(O * .85), { BackgroundTransparency = 1 })):Play();
-		elseif i:IsA("Frame") and i.Name ~= "ParticleZone" then
-			if i.BackgroundTransparency < 1 then
-				(T:Create(i, TweenInfo.new(O * .85), { BackgroundTransparency = 1 })):Play();
+local function g(q, m, K)
+	m = m or .32;
+	local r = q.Size;
+	(o:Create(q, TweenInfo.new(m, Enum.EasingStyle.Back, Enum.EasingDirection.In), { Size = UDim2.new(0, r.X.Offset * .85, 0, r.Y.Offset * .85), BackgroundTransparency = 1 })):Play();
+	for q, K in ipairs(q:GetDescendants()) do
+		if K:IsA("TextLabel") or K:IsA("TextBox") then
+			(o:Create(K, TweenInfo.new(m * .85), { TextTransparency = 1 })):Play();
+		elseif K:IsA("TextButton") then
+			(o:Create(K, TweenInfo.new(m * .85), { BackgroundTransparency = 1 })):Play();
+		elseif K:IsA("Frame") and K.Name ~= "ParticleZone" then
+			if K.BackgroundTransparency < 1 then
+				(o:Create(K, TweenInfo.new(m * .85), { BackgroundTransparency = 1 })):Play();
 			end;
-		elseif i:IsA("ImageLabel") then
-			(T:Create(i, TweenInfo.new(O * .85), { ImageTransparency = 1 })):Play();
-		elseif i:IsA("UIStroke") then
-			(T:Create(i, TweenInfo.new(O * .85), { Transparency = 1 })):Play();
+		elseif K:IsA("ImageLabel") then
+			(o:Create(K, TweenInfo.new(m * .85), { ImageTransparency = 1 })):Play();
+		elseif K:IsA("UIStroke") then
+			(o:Create(K, TweenInfo.new(m * .85), { Transparency = 1 })):Play();
 		end;
 	end;
-	local t = p.Parent and p.Parent:FindFirstChild(p.Name .. "_ShadowHolder");
-	if t then
-		for p, i in ipairs(t:GetChildren()) do
-			if i:IsA("Frame") then
-				(T:Create(i, TweenInfo.new(O * .85), { BackgroundTransparency = 1 })):Play();
+	local I = q.Parent and q.Parent:FindFirstChild(q.Name .. "_ShadowHolder");
+	if I then
+		for q, K in ipairs(I:GetChildren()) do
+			if K:IsA("Frame") then
+				(o:Create(K, TweenInfo.new(m * .85), { BackgroundTransparency = 1 })):Play();
 			end;
 		end;
 	end;
-	task.delay(O + .05, function()
-		if t and t.Parent then
-			t:Destroy();
+	task.delay(m + .05, function()
+		if I and I.Parent then
+			I:Destroy();
 		end;
-		if p and p.Parent then
-			p:Destroy();
+		if q and q.Parent then
+			q:Destroy();
 		end;
-		if i then
-			i();
+		if K then
+			K();
 		end;
 	end);
 end;
-local function M(p, O)
-	O = O or .5;
-	local i = p.Size;
-	p.Size = UDim2.new(0, i.X.Offset * .85, 0, i.Y.Offset * .85);
-	p.BackgroundTransparency = 1;
-	for p, i in ipairs(p:GetDescendants()) do
-		if i:IsA("TextLabel") or i:IsA("TextBox") then
-			i.TextTransparency = 1;
-			(T:Create(i, TweenInfo.new(O), { TextTransparency = 0 })):Play();
-		elseif i:IsA("TextButton") then
-			i.BackgroundTransparency = 1;
-		elseif i:IsA("ImageLabel") then
-			i.ImageTransparency = 1;
-			(T:Create(i, TweenInfo.new(O), { ImageTransparency = 0 })):Play();
+local function qq(q, m)
+	m = m or .5;
+	local K = q.Size;
+	q.Size = UDim2.new(0, K.X.Offset * .85, 0, K.Y.Offset * .85);
+	q.BackgroundTransparency = 1;
+	for q, K in ipairs(q:GetDescendants()) do
+		if K:IsA("TextLabel") or K:IsA("TextBox") then
+			K.TextTransparency = 1;
+			(o:Create(K, TweenInfo.new(m), { TextTransparency = 0 })):Play();
+		elseif K:IsA("TextButton") then
+			K.BackgroundTransparency = 1;
+		elseif K:IsA("ImageLabel") then
+			K.ImageTransparency = 1;
+			(o:Create(K, TweenInfo.new(m), { ImageTransparency = 0 })):Play();
 		end;
 	end;
-	(T:Create(p, TweenInfo.new(O, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Size = i, BackgroundTransparency = 0 })):Play();
+	(o:Create(q, TweenInfo.new(m, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Size = K, BackgroundTransparency = 0 })):Play();
 end;
-local function p5(p, O, i)
-	local e = t:FindFirstChild("PlayerGui");
-	if not e then
+local function oq(q, m, K)
+	local r = S:FindFirstChild("PlayerGui");
+	if not r then
 		return;
 	end;
-	local g = e:FindFirstChild("MulbaNotif");
-	if g then
-		g:Destroy();
+	local I = r:FindFirstChild("MulbaNotif");
+	if I then
+		I:Destroy();
 	end;
-	local H = m("ScreenGui", {
+	local d = B("ScreenGui", {
 			Name = "MulbaNotif",
 			ResetOnSpawn = false,
 			IgnoreGuiInset = true,
 			DisplayOrder = 1000,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			Parent = e,
+			Parent = r,
 		});
-	local f = m("Frame", {
+	local v = B("Frame", {
 			Size = UDim2.new(0, 320, 0, 80),
 			Position = UDim2.new(1, 20, 0, 100),
-			BackgroundColor3 = x.BgTop,
+			BackgroundColor3 = F.BgTop,
 			BackgroundTransparency = .05,
 			BorderSizePixel = 0,
 			ZIndex = 1000,
-			Parent = H,
+			Parent = d,
 		});
-	h(f, 14);
-	N(f, x.BgTop, x.BgBottom, 90);
-	m("UIStroke", {
-		Color = i and Color3.fromRGB(255, 100, 100) or x.Accent,
+	i(v, 14);
+	V(v, F.BgTop, F.BgBottom, 90);
+	B("UIStroke", {
+		Color = K and Color3.fromRGB(255, 100, 100) or F.Accent,
 		Thickness = 2,
 		Transparency = .2,
 		ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-		Parent = f,
+		Parent = v,
 	});
-	m("TextLabel", {
+	B("TextLabel", {
 		Size = UDim2.new(1, -60, 0, 20),
 		Position = UDim2.new(0, 20, 0, 14),
 		BackgroundTransparency = 1,
-		Text = p,
-		TextColor3 = i and Color3.fromRGB(255, 120, 120) or x.Accent,
+		Text = q,
+		TextColor3 = K and Color3.fromRGB(255, 120, 120) or F.Accent,
 		Font = Enum.Font.GothamBold,
 		TextSize = 13,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		ZIndex = 1001,
-		Parent = f,
+		Parent = v,
 	});
-	m("TextLabel", {
+	B("TextLabel", {
 		Size = UDim2.new(1, -60, 0, 30),
 		Position = UDim2.new(0, 20, 0, 36),
 		BackgroundTransparency = 1,
-		Text = O,
-		TextColor3 = x.TextPrimary,
+		Text = m,
+		TextColor3 = F.TextPrimary,
 		Font = Enum.Font.GothamBold,
 		TextSize = 14,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		TextWrapped = true,
 		ZIndex = 1001,
-		Parent = f,
+		Parent = v,
 	});
-	(T:Create(f, TweenInfo.new(.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Position = UDim2.new(1, -340, 0, 100) })):Play();
+	(o:Create(v, TweenInfo.new(.5, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Position = UDim2.new(1, -340, 0, 100) })):Play();
 	task.delay(5, function()
-		if not f.Parent then
+		if not v.Parent then
 			return;
 		end;
-		(T:Create(f, TweenInfo.new(.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), { Position = UDim2.new(1, 20, 0, 100), BackgroundTransparency = 1 })):Play();
-		for p, O in ipairs(f:GetDescendants()) do
-			if O:IsA("TextLabel") then
-				(T:Create(O, TweenInfo.new(.4), { TextTransparency = 1 })):Play();
+		(o:Create(v, TweenInfo.new(.4, Enum.EasingStyle.Quad, Enum.EasingDirection.In), { Position = UDim2.new(1, 20, 0, 100), BackgroundTransparency = 1 })):Play();
+		for q, m in ipairs(v:GetDescendants()) do
+			if m:IsA("TextLabel") then
+				(o:Create(m, TweenInfo.new(.4), { TextTransparency = 1 })):Play();
 			end;
 		end;
 		task.wait(.5);
-		H:Destroy();
+		d:Destroy();
 	end);
 end;
-local T5 = nil;
-local O5 = nil;
-local function i5()
-	local p = t:FindFirstChild("PlayerGui");
-	if not p then
+local mq = nil;
+local Kq = nil;
+local function rq()
+	local q = S:FindFirstChild("PlayerGui");
+	if not q then
 		return;
 	end;
-	if T5 and T5.Parent then
+	if mq and mq.Parent then
 		return;
 	end;
-	T5 = m("ScreenGui", {
+	mq = B("ScreenGui", {
 			Name = "MulbaKillFeed",
 			ResetOnSpawn = false,
 			IgnoreGuiInset = true,
 			DisplayOrder = 950,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
-			Parent = p,
+			Parent = q,
 		});
-	local T = m("Frame", {
+	local o = B("Frame", {
 			Size = UDim2.new(0, 340, 0, 500),
 			Position = UDim2.new(1, -360, 1, -520),
 			BackgroundTransparency = 1,
 			ZIndex = 950,
-			Parent = T5,
+			Parent = mq,
 		});
-	O5 = m("Frame", {
+	Kq = B("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
 			ZIndex = 951,
-			Parent = T,
+			Parent = o,
 		});
-	m("UIListLayout", {
+	B("UIListLayout", {
 		Padding = UDim.new(0, 6),
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		VerticalAlignment = Enum.VerticalAlignment.Bottom,
-		Parent = O5,
+		Parent = Kq,
 	});
 end;
-local function e5(p, O)
-	if not r.NotifKillFeed then
+local function Iq(q, m)
+	if not u.NotifKillFeed then
 		return;
 	end;
-	i5();
-	if not O5 then
+	rq();
+	if not Kq then
 		return;
 	end;
-	local i = m("Frame", {
+	local K = B("Frame", {
 			Size = UDim2.new(1, 0, 0, 42),
-			BackgroundColor3 = x.Surface,
+			BackgroundColor3 = F.Surface,
 			BackgroundTransparency = .15,
 			BorderSizePixel = 0,
 			ZIndex = 952,
-			Parent = O5,
+			Parent = Kq,
 		});
-	h(i, 10);
-	m("UIStroke", {
-		Color = x.Border,
+	i(K, 10);
+	B("UIStroke", {
+		Color = F.Border,
 		Thickness = 1,
 		Transparency = .5,
 		ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-		Parent = i,
+		Parent = K,
 	});
-	local e = m("Frame", {
+	local r = B("Frame", {
 			Size = UDim2.new(0, 3, 0, 26),
 			Position = UDim2.new(0, 10, .5, 0),
 			AnchorPoint = Vector2.new(0, .5),
-			BackgroundColor3 = O or Color3.fromRGB(255, 80, 80),
+			BackgroundColor3 = m or Color3.fromRGB(255, 80, 80),
 			BorderSizePixel = 0,
 			ZIndex = 953,
-			Parent = i,
+			Parent = K,
 		});
-	h(e, 2);
-	m("TextLabel", {
+	i(r, 2);
+	B("TextLabel", {
 		Size = UDim2.new(1, -30, 1, 0),
 		Position = UDim2.new(0, 22, 0, 0),
 		BackgroundTransparency = 1,
-		Text = p,
-		TextColor3 = O or x.TextPrimary,
+		Text = q,
+		TextColor3 = m or F.TextPrimary,
 		Font = Enum.Font.GothamBold,
 		TextSize = 12,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		ZIndex = 953,
-		Parent = i,
+		Parent = K,
 	});
 	task.delay(6, function()
-		if not i.Parent then
+		if not K.Parent then
 			return;
 		end;
-		(T:Create(i, TweenInfo.new(.4), { BackgroundTransparency = 1 })):Play();
-		for p, O in ipairs(i:GetDescendants()) do
-			if O:IsA("TextLabel") then
-				(T:Create(O, TweenInfo.new(.4), { TextTransparency = 1 })):Play();
+		(o:Create(K, TweenInfo.new(.4), { BackgroundTransparency = 1 })):Play();
+		for q, m in ipairs(K:GetDescendants()) do
+			if m:IsA("TextLabel") then
+				(o:Create(m, TweenInfo.new(.4), { TextTransparency = 1 })):Play();
 			end;
-			if O:IsA("Frame") then
-				(T:Create(O, TweenInfo.new(.4), { BackgroundTransparency = 1 })):Play();
+			if m:IsA("Frame") then
+				(o:Create(m, TweenInfo.new(.4), { BackgroundTransparency = 1 })):Play();
 			end;
 		end;
 		task.wait(.5);
-		i:Destroy();
+		K:Destroy();
 	end);
 end;
-local function t5(p)
-	if not p then
+local function Sq(q)
+	if not q then
 		return "Innocent";
 	end;
-	if p:FindFirstChild("Role") then
-		local T, O = pcall(function()
-				return tostring(p.Role.Value);
+	if q:FindFirstChild("Role") then
+		local o, m = pcall(function()
+				return tostring(q.Role.Value);
 			end);
-		if T and (O and O ~= "") then
-			return O;
+		if o and (m and m ~= "") then
+			return m;
 		end;
 	end;
-	local T = p.Character;
-	local O = p:FindFirstChild("Backpack");
-	if T then
-		if T:FindFirstChild("Knife") then
+	local o = q.Character;
+	local m = q:FindFirstChild("Backpack");
+	if o then
+		if o:FindFirstChild("Knife") then
 			return "Murderer";
 		end;
-		if T:FindFirstChild("Gun") then
+		if o:FindFirstChild("Gun") then
 			return "Sheriff";
 		end;
 	end;
-	if O then
-		if O:FindFirstChild("Knife") then
+	if m then
+		if m:FindFirstChild("Knife") then
 			return "Murderer";
 		end;
-		if O:FindFirstChild("Gun") then
+		if m:FindFirstChild("Gun") then
 			return "Sheriff";
 		end;
 	end;
 	return "Innocent";
 end;
-local function g5()
-	for p, T in ipairs(p:GetPlayers()) do
-		if T == t then
+local function dq()
+	for q, o in ipairs(q:GetPlayers()) do
+		if o == S then
 			continue;
 		end;
-		if t5(T) == "Murderer" then
-			return T;
+		if Sq(o) == "Murderer" then
+			return o;
 		end;
 	end;
 	return nil;
 end;
-local function H5()
-	for p, T in ipairs(p:GetPlayers()) do
-		if T == t then
+local function vq()
+	for q, o in ipairs(q:GetPlayers()) do
+		if o == S then
 			continue;
 		end;
-		if t5(T) == "Sheriff" then
-			return T;
+		if Sq(o) == "Sheriff" then
+			return o;
 		end;
 	end;
 	return nil;
 end;
-local function f5(p)
-	if p == "Murderer" then
-		return d.Murderer;
+local function Nq(q)
+	if q == "Murderer" then
+		return s.Murderer;
 	end;
-	if p == "Sheriff" then
-		return d.Sheriff;
+	if q == "Sheriff" then
+		return s.Sheriff;
 	end;
-	return d.Innocent;
+	return s.Innocent;
 end;
-local function Z5(p)
-	if p == "Murderer" then
-		return r.EspShowMurder;
+local function Dq(q)
+	if q == "Murderer" then
+		return u.EspShowMurder;
 	end;
-	if p == "Sheriff" then
-		return r.EspShowSheriff;
+	if q == "Sheriff" then
+		return u.EspShowSheriff;
 	end;
-	return r.EspShowInnocent;
+	return u.EspShowInnocent;
 end;
 task.spawn(function()
 	while true do
 		task.wait(.5);
-		if r.NotifKillFeed then
-			for p, T in ipairs(p:GetPlayers()) do
-				if T == t then
+		if u.NotifKillFeed then
+			for q, o in ipairs(q:GetPlayers()) do
+				if o == S then
 					continue;
 				end;
-				local O = t5(T);
-				local i = Y.knownRoles[T];
-				if O ~= i then
-					Y.knownRoles[T] = O;
-					if O == "Murderer" then
-						e5("\240\159\148\170 " .. (T.Name .. " est Murderer"), Color3.fromRGB(255, 80, 80));
-					elseif O == "Sheriff" then
-						e5("\240\159\148\171 " .. (T.Name .. " est Sheriff"), Color3.fromRGB(80, 140, 255));
-					elseif i == "Murderer" or i == "Sheriff" then
-						e5("\240\159\146\128 " .. (T.Name .. (" n\'est plus " .. ((i or "?")))), Color3.fromRGB(200, 200, 200));
+				local m = Sq(o);
+				local K = Z.knownRoles[o];
+				if m ~= K then
+					Z.knownRoles[o] = m;
+					if m == "Murderer" then
+						Iq("\240\159\148\170 " .. (o.Name .. " est Murderer"), Color3.fromRGB(255, 80, 80));
+					elseif m == "Sheriff" then
+						Iq("\240\159\148\171 " .. (o.Name .. " est Sheriff"), Color3.fromRGB(80, 140, 255));
+					elseif K == "Murderer" or K == "Sheriff" then
+						Iq("\240\159\146\128 " .. (o.Name .. (" n\'est plus " .. ((K or "?")))), Color3.fromRGB(200, 200, 200));
 					end;
 				end;
 			end;
-			for p, T in ipairs(workspace:GetChildren()) do
-				if T:IsA("Tool") and (T.Name == "Gun" and T:FindFirstChild("Handle")) then
-					if not Y.seenGroundGuns[T] then
-						Y.seenGroundGuns[T] = true;
-						e5("\240\159\148\171 Gun au sol !", Color3.fromRGB(255, 180, 80));
+			for q, o in ipairs(workspace:GetChildren()) do
+				if o:IsA("Tool") and (o.Name == "Gun" and o:FindFirstChild("Handle")) then
+					if not Z.seenGroundGuns[o] then
+						Z.seenGroundGuns[o] = true;
+						Iq("\240\159\148\171 Gun au sol !", Color3.fromRGB(255, 180, 80));
 					end;
 				end;
 			end;
 		end;
 	end;
 end);
-local function B5(p)
-	local T = t:FindFirstChild("PlayerGui");
-	if not T then
-		return;
-	end;
+local function lq(q)
 	pcall(function()
-		(game:GetService("StarterGui")):SetCore("ChatMakeSystemMessage", { Text = "[Mulba] " .. p, Color = Color3.fromRGB(115, 155, 240), Font = Enum.Font.GothamBold });
+		(game:GetService("StarterGui")):SetCore("ChatMakeSystemMessage", { Text = "[Mulba] " .. q, Color = Color3.fromRGB(115, 155, 240), Font = Enum.Font.GothamBold });
 	end);
 end;
-local function x5()
-	local T, O = {}, {};
-	for p, i in ipairs(p:GetPlayers()) do
-		if i == t then
+local function Fq()
+	local o, m = {}, {};
+	for q, K in ipairs(q:GetPlayers()) do
+		if K == S then
 			continue;
 		end;
-		local e = t5(i);
-		if e == "Murderer" then
-			table.insert(T, i.Name);
+		local r = Sq(K);
+		if r == "Murderer" then
+			table.insert(o, K.Name);
 		end;
-		if e == "Sheriff" then
-			table.insert(O, i.Name);
+		if r == "Sheriff" then
+			table.insert(m, K.Name);
 		end;
 	end;
-	local i = #T > 0 and table.concat(T, ", ") or "?";
-	local e = #O > 0 and table.concat(O, ", ") or "?";
-	B5("Murder : " .. (i .. (" | Sheriff : " .. e)));
+	local K = #o > 0 and table.concat(o, ", ") or "?";
+	local r = #m > 0 and table.concat(m, ", ") or "?";
+	lq("Murder : " .. (K .. (" | Sheriff : " .. r)));
 end;
 task.spawn(function()
 	while true do
 		task.wait(1);
-		if r.NotifChatMsg then
-			local T = false;
-			for p, O in ipairs(p:GetPlayers()) do
-				if O == t then
+		if u.NotifChatMsg then
+			local o = false;
+			for q, m in ipairs(q:GetPlayers()) do
+				if m == S then
 					continue;
 				end;
-				local i = t5(O);
-				if i ~= z.lastRoles[O] then
-					z.lastRoles[O] = i;
-					T = true;
+				local K = Sq(m);
+				if K ~= G.lastRoles[m] then
+					G.lastRoles[m] = K;
+					o = true;
 				end;
 			end;
-			if T then
-				x5();
+			if o then
+				Fq();
 			end;
 		end;
 	end;
 end);
-local function s5()
-	local p = t.Character;
-	if not p then
+local function fq()
+	local q = S.Character;
+	if not q then
 		return;
 	end;
-	local T = p:FindFirstChildOfClass("Humanoid");
-	if not T then
+	local o = q:FindFirstChildOfClass("Humanoid");
+	if not o then
 		return;
 	end;
-	local O = "rbxassetid://77643987647373";
-	local i = Instance.new("Animation");
-	i.AnimationId = O;
+	local m = Instance.new("Animation");
+	m.AnimationId = "rbxassetid://77643987647373";
 	pcall(function()
-		local p = T:LoadAnimation(i);
-		p.Priority = Enum.AnimationPriority.Action4;
-		p.Looped = true;
-		p:Play();
-		R.track = p;
+		local q = o:LoadAnimation(m);
+		q.Priority = Enum.AnimationPriority.Action4;
+		q.Looped = true;
+		q:Play();
+		j.track = q;
 	end);
 end;
-local function w5()
-	if R.track then
+local function Qq()
+	if j.track then
 		pcall(function()
-			R.track:Stop();
+			j.track:Stop();
 		end);
-		R.track = nil;
+		j.track = nil;
 	end;
 end;
-local function C5()
-	if not X.FlyEnabled and not J.nowe then
+local function Aq()
+	if not E.FlyEnabled and not t.nowe then
 		return;
 	end;
-	X.FlyEnabled = false;
-	J.nowe = false;
-	J.tpwalking = false;
-	if J.conn then
-		J.conn:Disconnect();
-		J.conn = nil;
+	E.FlyEnabled = false;
+	t.nowe = false;
+	t.tpwalking = false;
+	if t.conn then
+		t.conn:Disconnect();
+		t.conn = nil;
 	end;
-	if J.bg then
+	if t.bg then
 		pcall(function()
-			J.bg:Destroy();
+			t.bg:Destroy();
 		end);
-		J.bg = nil;
+		t.bg = nil;
 	end;
-	if J.bv then
+	if t.bv then
 		pcall(function()
-			J.bv:Destroy();
+			t.bv:Destroy();
 		end);
-		J.bv = nil;
+		t.bv = nil;
 	end;
-	J.ctrl = {
+	t.ctrl = {
 			f = 0,
 			b = 0,
 			l = 0,
 			r = 0,
 		};
-	J.lastctrl = {
+	t.lastctrl = {
 			f = 0,
 			b = 0,
 			l = 0,
 			r = 0,
 		};
-	J.speed = 0;
-	w5();
-	local p = t.Character;
-	if not p then
+	t.speed = 0;
+	Qq();
+	local q = S.Character;
+	if not q then
 		return;
 	end;
-	local T = p:FindFirstChildOfClass("Humanoid");
-	if T then
+	local o = q:FindFirstChildOfClass("Humanoid");
+	if o then
 		pcall(function()
-			T.PlatformStand = false;
-			T:SetStateEnabled(Enum.HumanoidStateType.Climbing, true);
-			T:SetStateEnabled(Enum.HumanoidStateType.FallingDown, true);
-			T:SetStateEnabled(Enum.HumanoidStateType.Flying, true);
-			T:SetStateEnabled(Enum.HumanoidStateType.Freefall, true);
-			T:SetStateEnabled(Enum.HumanoidStateType.GettingUp, true);
-			T:SetStateEnabled(Enum.HumanoidStateType.Jumping, true);
-			T:SetStateEnabled(Enum.HumanoidStateType.Landed, true);
-			T:SetStateEnabled(Enum.HumanoidStateType.Physics, true);
-			T:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding, true);
-			T:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, true);
-			T:SetStateEnabled(Enum.HumanoidStateType.Running, true);
-			T:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics, true);
-			T:SetStateEnabled(Enum.HumanoidStateType.Seated, true);
-			T:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics, true);
-			T:SetStateEnabled(Enum.HumanoidStateType.Swimming, true);
+			o.PlatformStand = false;
+			o:SetStateEnabled(Enum.HumanoidStateType.Climbing, true);
+			o:SetStateEnabled(Enum.HumanoidStateType.FallingDown, true);
+			o:SetStateEnabled(Enum.HumanoidStateType.Flying, true);
+			o:SetStateEnabled(Enum.HumanoidStateType.Freefall, true);
+			o:SetStateEnabled(Enum.HumanoidStateType.GettingUp, true);
+			o:SetStateEnabled(Enum.HumanoidStateType.Jumping, true);
+			o:SetStateEnabled(Enum.HumanoidStateType.Landed, true);
+			o:SetStateEnabled(Enum.HumanoidStateType.Physics, true);
+			o:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding, true);
+			o:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, true);
+			o:SetStateEnabled(Enum.HumanoidStateType.Running, true);
+			o:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics, true);
+			o:SetStateEnabled(Enum.HumanoidStateType.Seated, true);
+			o:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics, true);
+			o:SetStateEnabled(Enum.HumanoidStateType.Swimming, true);
 		end);
 	end;
-	local O = p:FindFirstChild("Animate");
-	if O then
-		O.Disabled = J.savedAnimDisabled or false;
+	local m = q:FindFirstChild("Animate");
+	if m then
+		m.Disabled = t.savedAnimDisabled or false;
 	end;
 end;
-local function P5()
-	local p = t.Character;
-	if not p then
+local function yq()
+	local q = S.Character;
+	if not q then
 		return;
 	end;
-	local T = p:FindFirstChildOfClass("Humanoid");
-	if not T then
+	local o = q:FindFirstChildOfClass("Humanoid");
+	if not o then
 		return;
 	end;
-	X.FlyEnabled = true;
-	J.nowe = true;
-	J.tpwalking = true;
-	J.savedAnimDisabled = p:FindFirstChild("Animate") and p.Animate.Disabled or false;
-	local e = math.clamp(math.floor(X.FlySpeed / 10), 1, 50);
-	for p = 1, e, 1 do
+	E.FlyEnabled = true;
+	t.nowe = true;
+	t.tpwalking = true;
+	t.savedAnimDisabled = q:FindFirstChild("Animate") and q.Animate.Disabled or false;
+	local r = math.clamp(math.floor(E.FlySpeed / 10), 1, 50);
+	for q = 1, r, 1 do
 		task.spawn(function()
-			local p = O.Heartbeat;
-			while J.tpwalking and p:Wait() do
-				local p = t.Character;
-				local T = p and p:FindFirstChildOfClass("Humanoid");
-				if not ((p and (T and T.Parent))) then
+			local q = m.Heartbeat;
+			while t.tpwalking and q:Wait() do
+				local q = S.Character;
+				local o = q and q:FindFirstChildOfClass("Humanoid");
+				if not ((q and (o and o.Parent))) then
 					break;
 				end;
-				if T.MoveDirection.Magnitude > 0 then
+				if o.MoveDirection.Magnitude > 0 then
 					pcall(function()
-						p:TranslateBy(T.MoveDirection);
+						q:TranslateBy(o.MoveDirection);
 					end);
 				end;
 			end;
 		end);
 	end;
-	local g = p:FindFirstChild("Animate");
-	if g then
-		g.Disabled = true;
+	local I = q:FindFirstChild("Animate");
+	if I then
+		I.Disabled = true;
 	end;
-	for p, T in next, T:GetPlayingAnimationTracks() do
+	for q, o in next, o:GetPlayingAnimationTracks() do
 		pcall(function()
-			T:AdjustSpeed(0);
+			o:AdjustSpeed(0);
 		end);
 	end;
 	pcall(function()
-		T:SetStateEnabled(Enum.HumanoidStateType.Climbing, false);
-		T:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false);
-		T:SetStateEnabled(Enum.HumanoidStateType.Flying, false);
-		T:SetStateEnabled(Enum.HumanoidStateType.Freefall, false);
-		T:SetStateEnabled(Enum.HumanoidStateType.GettingUp, false);
-		T:SetStateEnabled(Enum.HumanoidStateType.Jumping, false);
-		T:SetStateEnabled(Enum.HumanoidStateType.Landed, false);
-		T:SetStateEnabled(Enum.HumanoidStateType.Physics, false);
-		T:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding, false);
-		T:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false);
-		T:SetStateEnabled(Enum.HumanoidStateType.Running, false);
-		T:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics, false);
-		T:SetStateEnabled(Enum.HumanoidStateType.Seated, false);
-		T:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics, false);
-		T:SetStateEnabled(Enum.HumanoidStateType.Swimming, false);
-		T:ChangeState(Enum.HumanoidStateType.Swimming);
+		o:SetStateEnabled(Enum.HumanoidStateType.Climbing, false);
+		o:SetStateEnabled(Enum.HumanoidStateType.FallingDown, false);
+		o:SetStateEnabled(Enum.HumanoidStateType.Flying, false);
+		o:SetStateEnabled(Enum.HumanoidStateType.Freefall, false);
+		o:SetStateEnabled(Enum.HumanoidStateType.GettingUp, false);
+		o:SetStateEnabled(Enum.HumanoidStateType.Jumping, false);
+		o:SetStateEnabled(Enum.HumanoidStateType.Landed, false);
+		o:SetStateEnabled(Enum.HumanoidStateType.Physics, false);
+		o:SetStateEnabled(Enum.HumanoidStateType.PlatformStanding, false);
+		o:SetStateEnabled(Enum.HumanoidStateType.Ragdoll, false);
+		o:SetStateEnabled(Enum.HumanoidStateType.Running, false);
+		o:SetStateEnabled(Enum.HumanoidStateType.RunningNoPhysics, false);
+		o:SetStateEnabled(Enum.HumanoidStateType.Seated, false);
+		o:SetStateEnabled(Enum.HumanoidStateType.StrafingNoPhysics, false);
+		o:SetStateEnabled(Enum.HumanoidStateType.Swimming, false);
+		o:ChangeState(Enum.HumanoidStateType.Swimming);
 	end);
-	local H = (T.RigType == Enum.HumanoidRigType.R6);
-	local f = H and p:FindFirstChild("Torso") or p:FindFirstChild("UpperTorso");
-	if not f then
-		f = p:FindFirstChild("HumanoidRootPart");
+	local d = (o.RigType == Enum.HumanoidRigType.R6);
+	local v = d and q:FindFirstChild("Torso") or q:FindFirstChild("UpperTorso");
+	if not v then
+		v = q:FindFirstChild("HumanoidRootPart");
 	end;
-	if not f then
-		C5();
+	if not v then
+		Aq();
 		return;
 	end;
-	local Z = Instance.new("BodyGyro");
-	Z.P = 90000;
-	Z.MaxTorque = Vector3.new(9000000000, 9000000000, 9000000000);
-	Z.CFrame = f.CFrame;
-	Z.Parent = f;
-	J.bg = Z;
-	local B = Instance.new("BodyVelocity");
-	B.Velocity = Vector3.new(0, .1, 0);
-	B.MaxForce = Vector3.new(9000000000, 9000000000, 9000000000);
-	B.Parent = f;
-	J.bv = B;
+	local N = Instance.new("BodyGyro");
+	N.P = 90000;
+	N.MaxTorque = Vector3.new(9000000000, 9000000000, 9000000000);
+	N.CFrame = v.CFrame;
+	N.Parent = v;
+	t.bg = N;
+	local D = Instance.new("BodyVelocity");
+	D.Velocity = Vector3.new(0, .1, 0);
+	D.MaxForce = Vector3.new(9000000000, 9000000000, 9000000000);
+	D.Parent = v;
+	t.bv = D;
 	pcall(function()
-		T.PlatformStand = true;
+		o.PlatformStand = true;
 	end);
 	task.wait(.15);
-	s5();
-	J.conn = O.RenderStepped:Connect(function()
-			if not J.nowe then
+	fq();
+	t.conn = m.RenderStepped:Connect(function()
+			if not t.nowe then
 				return;
 			end;
-			local p = t.Character;
-			if not p then
+			local q = S.Character;
+			if not q then
 				return;
 			end;
-			local T = p:FindFirstChildOfClass("Humanoid");
-			if not T or T.Health <= 0 then
+			local o = q:FindFirstChildOfClass("Humanoid");
+			if not o or o.Health <= 0 then
 				return;
 			end;
-			local O = workspace.CurrentCamera;
-			if not O then
+			local m = workspace.CurrentCamera;
+			if not m then
 				return;
 			end;
-			local e = J.ctrl;
-			e.f = i:IsKeyDown(Enum.KeyCode.W) and 1 or 0;
-			e.b = i:IsKeyDown(Enum.KeyCode.S) and 1 or 0;
-			e.l = i:IsKeyDown(Enum.KeyCode.A) and 1 or 0;
-			e.r = i:IsKeyDown(Enum.KeyCode.D) and 1 or 0;
-			local g = J.maxspeed;
-			if e.l + e.r ~= 0 or e.f + e.b ~= 0 then
-				J.speed = (J.speed + .5) + (J.speed / g);
-				if J.speed > g then
-					J.speed = g;
+			local r = t.ctrl;
+			r.f = K:IsKeyDown(Enum.KeyCode.W) and 1 or 0;
+			r.b = K:IsKeyDown(Enum.KeyCode.S) and 1 or 0;
+			r.l = K:IsKeyDown(Enum.KeyCode.A) and 1 or 0;
+			r.r = K:IsKeyDown(Enum.KeyCode.D) and 1 or 0;
+			local I = t.maxspeed;
+			if r.l + r.r ~= 0 or r.f + r.b ~= 0 then
+				t.speed = (t.speed + .5) + (t.speed / I);
+				if t.speed > I then
+					t.speed = I;
 				end;
-			elseif not ((e.l + e.r ~= 0 or e.f + e.b ~= 0)) and J.speed ~= 0 then
-				J.speed = J.speed - 1;
-				if J.speed < 0 then
-					J.speed = 0;
+			elseif not ((r.l + r.r ~= 0 or r.f + r.b ~= 0)) and t.speed ~= 0 then
+				t.speed = t.speed - 1;
+				if t.speed < 0 then
+					t.speed = 0;
 				end;
 			end;
-			if J.bv then
-				if (e.l + e.r) ~= 0 or (e.f + e.b) ~= 0 then
-					J.bv.Velocity = (((O.CFrame.LookVector * ((e.f + e.b))) + (((O.CFrame * (CFrame.new(e.l + e.r, ((e.f + e.b)) * .2, 0)).p) - O.CFrame.p)))) * J.speed;
-					J.lastctrl = {
-							f = e.f,
-							b = e.b,
-							l = e.l,
-							r = e.r,
+			if t.bv then
+				if (r.l + r.r) ~= 0 or (r.f + r.b) ~= 0 then
+					t.bv.Velocity = (((m.CFrame.LookVector * ((r.f + r.b))) + (((m.CFrame * (CFrame.new(r.l + r.r, ((r.f + r.b)) * .2, 0)).p) - m.CFrame.p)))) * t.speed;
+					t.lastctrl = {
+							f = r.f,
+							b = r.b,
+							l = r.l,
+							r = r.r,
 						};
-				elseif (e.l + e.r) == 0 and ((e.f + e.b) == 0 and J.speed ~= 0) then
-					J.bv.Velocity = (((O.CFrame.LookVector * ((J.lastctrl.f + J.lastctrl.b))) + (((O.CFrame * (CFrame.new(J.lastctrl.l + J.lastctrl.r, ((J.lastctrl.f + J.lastctrl.b)) * .2, 0)).p) - O.CFrame.p)))) * J.speed;
+				elseif (r.l + r.r) == 0 and ((r.f + r.b) == 0 and t.speed ~= 0) then
+					t.bv.Velocity = (((m.CFrame.LookVector * ((t.lastctrl.f + t.lastctrl.b))) + (((m.CFrame * (CFrame.new(t.lastctrl.l + t.lastctrl.r, ((t.lastctrl.f + t.lastctrl.b)) * .2, 0)).p) - m.CFrame.p)))) * t.speed;
 				else
-					J.bv.Velocity = Vector3.new(0, 0, 0);
+					t.bv.Velocity = Vector3.new(0, 0, 0);
 				end;
 			end;
-			if J.bg then
-				J.bg.CFrame = O.CFrame * CFrame.Angles(-math.rad(((((e.f + e.b)) * 50) * J.speed) / g), 0, 0);
+			if t.bg then
+				t.bg.CFrame = m.CFrame * CFrame.Angles(-math.rad(((((r.f + r.b)) * 50) * t.speed) / I), 0, 0);
 			end;
 		end);
 end;
-local function o5()
-	if X.FlyEnabled or J.nowe then
-		C5();
+local function Yq()
+	if E.FlyEnabled or t.nowe then
+		Aq();
 	else
-		P5();
+		yq();
 	end;
 end;
-local function S5()
-	if J.bindConn then
-		J.bindConn:Disconnect();
-		J.bindConn = nil;
+local function hq()
+	if t.bindConn then
+		t.bindConn:Disconnect();
+		t.bindConn = nil;
 	end;
-	if not X.FlyBind then
+	if not E.FlyBind then
 		return;
 	end;
-	J.bindConn = i.InputBegan:Connect(function(p, T)
-			if T then
+	t.bindConn = K.InputBegan:Connect(function(q, o)
+			if o then
 				return;
 			end;
-			if p.UserInputType ~= Enum.UserInputType.Keyboard then
+			if q.UserInputType ~= Enum.UserInputType.Keyboard then
 				return;
 			end;
-			if p.KeyCode == X.FlyBind then
-				o5();
+			if q.KeyCode == E.FlyBind then
+				Yq();
 			end;
 		end);
 end;
-local function v5(p)
-	X.FlyBind = p;
-	S5();
+local function Oq(q)
+	E.FlyBind = q;
+	hq();
 end;
-local function W5()
-	X.SpinEnabled = false;
-	if y.av then
-		y.av:Destroy();
-		y.av = nil;
+local function Uq()
+	E.SpinEnabled = false;
+	if c.av then
+		c.av:Destroy();
+		c.av = nil;
 	end;
 end;
-local function r5()
-	local p = t.Character;
-	if not p then
+local function uq()
+	local q = S.Character;
+	if not q then
 		return;
 	end;
-	local T = p:FindFirstChild("HumanoidRootPart");
-	if not T then
+	local o = q:FindFirstChild("HumanoidRootPart");
+	if not o then
 		return;
 	end;
-	X.SpinEnabled = true;
-	local O = Instance.new("BodyAngularVelocity");
-	O.AngularVelocity = Vector3.new(0, X.SpinSpeed, 0);
-	O.MaxTorque = Vector3.new(0, 9000000000, 0);
-	O.P = 1250;
-	O.Parent = T;
-	y.av = O;
+	E.SpinEnabled = true;
+	local m = Instance.new("BodyAngularVelocity");
+	m.AngularVelocity = Vector3.new(0, E.SpinSpeed, 0);
+	m.MaxTorque = Vector3.new(0, 9000000000, 0);
+	m.P = 1250;
+	m.Parent = o;
+	c.av = m;
 end;
-local function d5()
-	if X.SpinEnabled then
-		W5();
+local function sq()
+	if E.SpinEnabled then
+		Uq();
 	else
-		r5();
+		uq();
 	end;
 end;
-local function V5(p)
-	X.SpinSpeed = p;
-	if y.av then
-		y.av.AngularVelocity = Vector3.new(0, p, 0);
+local function Hq(q)
+	E.SpinSpeed = q;
+	if c.av then
+		c.av.AngularVelocity = Vector3.new(0, q, 0);
 	end;
 end;
-local function X5()
-	X.JerkEnabled = false;
-	if A.conn then
-		A.conn:Disconnect();
-		A.conn = nil;
+local function Eq()
+	E.JerkEnabled = false;
+	if w.conn then
+		w.conn:Disconnect();
+		w.conn = nil;
 	end;
-	local p = t.Character;
-	local T = p and p:FindFirstChild("HumanoidRootPart");
-	if T then
+	local q = S.Character;
+	local o = q and q:FindFirstChild("HumanoidRootPart");
+	if o then
 		pcall(function()
-			T.AssemblyLinearVelocity = Vector3.zero;
-			T.Velocity = Vector3.zero;
+			o.AssemblyLinearVelocity = Vector3.zero;
+			o.Velocity = Vector3.zero;
 		end);
 	end;
 end;
-local function k5()
-	local p = t.Character;
-	if not p then
+local function eq()
+	local q = S.Character;
+	if not q then
 		return;
 	end;
-	local T = p:FindFirstChild("HumanoidRootPart");
-	if not T then
+	local o = q:FindFirstChild("HumanoidRootPart");
+	if not o then
 		return;
 	end;
-	X.JerkEnabled = true;
-	A.conn = O.Heartbeat:Connect(function()
-			if not X.JerkEnabled then
+	E.JerkEnabled = true;
+	w.conn = m.Heartbeat:Connect(function()
+			if not E.JerkEnabled then
 				return;
 			end;
-			local p = t.Character;
-			local T = p and p:FindFirstChild("HumanoidRootPart");
-			if not T then
+			local q = S.Character;
+			local o = q and q:FindFirstChild("HumanoidRootPart");
+			if not o then
 				return;
 			end;
-			local O = X.JerkIntensity;
-			local i = Vector3.new((((math.random() - .5)) * O) * 8, (((math.random() - .5)) * O) * 8, (((math.random() - .5)) * O) * 8);
+			local m = E.JerkIntensity;
+			local K = Vector3.new((((math.random() - .5)) * m) * 8, (((math.random() - .5)) * m) * 8, (((math.random() - .5)) * m) * 8);
 			pcall(function()
-				T.AssemblyLinearVelocity = T.AssemblyLinearVelocity + i;
-				T.Velocity = T.Velocity + i;
+				o.AssemblyLinearVelocity = o.AssemblyLinearVelocity + K;
+				o.Velocity = o.Velocity + K;
 			end);
 		end);
 end;
-local function R5()
-	if X.JerkEnabled then
-		X5();
+local function jq()
+	if E.JerkEnabled then
+		Eq();
 	else
-		k5();
+		eq();
 	end;
 end;
-local function J5(p)
-	X.JerkIntensity = p;
+local function tq(q)
+	E.JerkIntensity = q;
 end;
-local function y5()
-	X.Sitting = not X.Sitting;
-	local p = t.Character;
-	local T = p and p:FindFirstChildOfClass("Humanoid");
-	if not T then
+local function cq()
+	E.Sitting = not E.Sitting;
+	local q = S.Character;
+	local o = q and q:FindFirstChildOfClass("Humanoid");
+	if not o then
 		return;
 	end;
-	T.Sit = X.Sitting;
+	o.Sit = E.Sitting;
 end;
 task.spawn(function()
 	while true do
 		task.wait(.15);
-		if X.NoclipEnabled and not X.FlyEnabled then
-			local p = t.Character;
-			if p then
-				for p, T in ipairs(p:GetDescendants()) do
-					if T:IsA("BasePart") and T.CanCollide then
-						T.CanCollide = false;
+		if E.NoclipEnabled and not E.FlyEnabled then
+			local q = S.Character;
+			if q then
+				for q, o in ipairs(q:GetDescendants()) do
+					if o:IsA("BasePart") and o.CanCollide then
+						o.CanCollide = false;
 					end;
 				end;
 			end;
 		end;
 	end;
 end);
-local function A5()
-	X.NoclipEnabled = not X.NoclipEnabled;
-	local p = t.Character;
-	if p and not X.NoclipEnabled then
-		for p, T in ipairs(p:GetDescendants()) do
-			if T:IsA("BasePart") then
-				T.CanCollide = true;
+local function wq()
+	E.NoclipEnabled = not E.NoclipEnabled;
+	local q = S.Character;
+	if q and not E.NoclipEnabled then
+		for q, o in ipairs(q:GetDescendants()) do
+			if o:IsA("BasePart") then
+				o.CanCollide = true;
 			end;
 		end;
 	end;
 end;
-local function G5(p)
-	X.WalkSpeed = p;
-	local T = t.Character;
-	local O = T and T:FindFirstChildOfClass("Humanoid");
-	if O then
-		O.WalkSpeed = p;
+local function Rq(q)
+	E.WalkSpeed = q;
+	local o = S.Character;
+	local m = o and o:FindFirstChildOfClass("Humanoid");
+	if m then
+		m.WalkSpeed = q;
 	end;
 end;
-local function I5(p)
-	X.JumpPower = p;
-	local T = t.Character;
-	local O = T and T:FindFirstChildOfClass("Humanoid");
-	if O then
-		O.UseJumpPower = true;
-		O.JumpPower = p;
+local function Mq(q)
+	E.JumpPower = q;
+	local o = S.Character;
+	local m = o and o:FindFirstChildOfClass("Humanoid");
+	if m then
+		m.UseJumpPower = true;
+		m.JumpPower = q;
 	end;
 end;
-local function F5(p)
-	X.Gravity = p;
-	workspace.Gravity = p;
+local function Jq(q)
+	E.Gravity = q;
+	workspace.Gravity = q;
 end;
-local Y5 = nil;
-local function z5()
-	X.InfiniteJump = not X.InfiniteJump;
-	if X.InfiniteJump then
-		if Y5 then
-			Y5:Disconnect();
+local Zq = nil;
+local function Gq()
+	E.InfiniteJump = not E.InfiniteJump;
+	if E.InfiniteJump then
+		if Zq then
+			Zq:Disconnect();
 		end;
-		Y5 = i.JumpRequest:Connect(function()
-				local p = t.Character;
-				local T = p and p:FindFirstChildOfClass("Humanoid");
-				if T then
-					T:ChangeState(Enum.HumanoidStateType.Jumping);
+		Zq = K.JumpRequest:Connect(function()
+				local q = S.Character;
+				local o = q and q:FindFirstChildOfClass("Humanoid");
+				if o then
+					o:ChangeState(Enum.HumanoidStateType.Jumping);
 				end;
 			end);
 	else
-		if Y5 then
-			Y5:Disconnect();
-			Y5 = nil;
+		if Zq then
+			Zq:Disconnect();
+			Zq = nil;
 		end;
 	end;
 end;
-local E5 = nil;
-local function u5()
-	X.AntiAFK = not X.AntiAFK;
-	if X.AntiAFK then
-		if E5 then
-			E5:Disconnect();
+local Pq = nil;
+local function Xq()
+	E.AntiAFK = not E.AntiAFK;
+	if E.AntiAFK then
+		if Pq then
+			Pq:Disconnect();
 		end;
-		E5 = t.Idled:Connect(function()
-				local p = game:GetService("VirtualUser");
-				p:CaptureController();
-				p:ClickButton2(Vector2.new());
+		Pq = S.Idled:Connect(function()
+				local q = game:GetService("VirtualUser");
+				q:CaptureController();
+				q:ClickButton2(Vector2.new());
 			end);
 	else
-		if E5 then
-			E5:Disconnect();
-			E5 = nil;
+		if Pq then
+			Pq:Disconnect();
+			Pq = nil;
 		end;
 	end;
 end;
-local a5 = {};
-local function D5()
-	X.Fullbright = not X.Fullbright;
-	if X.Fullbright then
-		a5.Ambient = e.Ambient;
-		a5.OutdoorAmbient = e.OutdoorAmbient;
-		a5.Brightness = e.Brightness;
-		a5.ClockTime = e.ClockTime;
-		e.Ambient = Color3.fromRGB(255, 255, 255);
-		e.OutdoorAmbient = Color3.fromRGB(255, 255, 255);
-		e.Brightness = 3;
-		e.ClockTime = 14;
-		local p = e:FindFirstChild("MulbaFullbright");
-		if not p then
-			p = Instance.new("ColorCorrectionEffect");
-			p.Name = "MulbaFullbright";
-			p.Parent = e;
+local bq = {};
+local function Cq()
+	E.Fullbright = not E.Fullbright;
+	if E.Fullbright then
+		bq.Ambient = r.Ambient;
+		bq.OutdoorAmbient = r.OutdoorAmbient;
+		bq.Brightness = r.Brightness;
+		bq.ClockTime = r.ClockTime;
+		r.Ambient = Color3.fromRGB(255, 255, 255);
+		r.OutdoorAmbient = Color3.fromRGB(255, 255, 255);
+		r.Brightness = 3;
+		r.ClockTime = 14;
+		local q = r:FindFirstChild("MulbaFullbright");
+		if not q then
+			q = Instance.new("ColorCorrectionEffect");
+			q.Name = "MulbaFullbright";
+			q.Parent = r;
 		end;
 	else
-		if a5.Ambient then
-			e.Ambient = a5.Ambient;
+		if bq.Ambient then
+			r.Ambient = bq.Ambient;
 		end;
-		if a5.OutdoorAmbient then
-			e.OutdoorAmbient = a5.OutdoorAmbient;
+		if bq.OutdoorAmbient then
+			r.OutdoorAmbient = bq.OutdoorAmbient;
 		end;
-		if a5.Brightness then
-			e.Brightness = a5.Brightness;
+		if bq.Brightness then
+			r.Brightness = bq.Brightness;
 		end;
-		if a5.ClockTime then
-			e.ClockTime = a5.ClockTime;
+		if bq.ClockTime then
+			r.ClockTime = bq.ClockTime;
 		end;
-		local p = e:FindFirstChild("MulbaFullbright");
-		if p then
-			p:Destroy();
+		local q = r:FindFirstChild("MulbaFullbright");
+		if q then
+			q:Destroy();
 		end;
 	end;
 end;
-local function l5()
-	X.AntiFling = not X.AntiFling;
+local function aq()
+	E.AntiFling = not E.AntiFling;
 end;
 task.spawn(function()
 	while true do
 		task.wait(.1);
-		if X.AntiFling then
-			local p = t.Character;
-			local T = p and p:FindFirstChild("HumanoidRootPart");
-			if T then
-				for p, T in ipairs(T:GetChildren()) do
-					if T:IsA("BodyVelocity") then
-						if T.Velocity.Magnitude > 500 then
-							T.Velocity = T.Velocity.Unit * 500;
+		if E.AntiFling then
+			local q = S.Character;
+			local o = q and q:FindFirstChild("HumanoidRootPart");
+			if o then
+				for q, o in ipairs(o:GetChildren()) do
+					if o:IsA("BodyVelocity") then
+						if o.Velocity.Magnitude > 500 then
+							o.Velocity = o.Velocity.Unit * 500;
 						end;
 					end;
 				end;
@@ -1396,124 +1391,124 @@ task.spawn(function()
 		end;
 	end;
 end);
-local function n5()
-	local p = t.Character;
-	local T = p and p:FindFirstChildOfClass("Humanoid");
-	if T then
-		T.Health = 0;
+local function Lq()
+	local q = S.Character;
+	local o = q and q:FindFirstChildOfClass("Humanoid");
+	if o then
+		o.Health = 0;
 	end;
 end;
-local function U5()
-	local p = t.Character;
-	local T = p and p:FindFirstChild("HumanoidRootPart");
-	if not T then
+local function kq()
+	local q = S.Character;
+	local o = q and q:FindFirstChild("HumanoidRootPart");
+	if not o then
 		return;
 	end;
-	for p, O in ipairs(workspace:GetDescendants()) do
-		if O:IsA("SpawnLocation") then
+	for q, m in ipairs(workspace:GetDescendants()) do
+		if m:IsA("SpawnLocation") then
 			pcall(function()
-				T.CFrame = O.CFrame + Vector3.new(0, 3, 0);
+				o.CFrame = m.CFrame + Vector3.new(0, 3, 0);
 			end);
 			return;
 		end;
 	end;
 end;
-local function K5(p)
-	local T = t.Character;
-	local O = T and T:FindFirstChild("HumanoidRootPart");
-	if not O then
+local function zq(q)
+	local o = S.Character;
+	local m = o and o:FindFirstChild("HumanoidRootPart");
+	if not m then
 		return;
 	end;
-	E.savedCFrame = O.CFrame;
-	if not p then
-		p5("MAP", "Position sauvegard\195\169e", false);
+	P.savedCFrame = m.CFrame;
+	if not q then
+		oq("MAP", "Position sauvegard\195\169e", false);
 	end;
 end;
-local function q5()
-	if not E.savedCFrame then
-		p5("MAP", "Aucune position sauvegard\195\169e", true);
+local function Tq()
+	if not P.savedCFrame then
+		oq("MAP", "Aucune position sauvegard\195\169e", true);
 		return;
 	end;
-	local p = t.Character;
-	local T = p and p:FindFirstChild("HumanoidRootPart");
-	if not T then
+	local q = S.Character;
+	local o = q and q:FindFirstChild("HumanoidRootPart");
+	if not o then
 		return;
 	end;
 	pcall(function()
-		T.CFrame = E.savedCFrame + Vector3.new(0, 3, 0);
+		o.CFrame = P.savedCFrame + Vector3.new(0, 3, 0);
 	end);
-	p5("MAP", "TP \195\160 la position sauvegard\195\169e", false);
+	oq("MAP", "TP \195\160 la position sauvegard\195\169e", false);
 end;
-local function j5()
-	local p = {};
-	for T, O in ipairs(workspace:GetDescendants()) do
-		if O:IsA("BasePart") then
-			local T = O.Name;
-			if T == "Coin" or T:find("Coin") or T:find("coin") then
-				if O.Transparency < 1 then
-					table.insert(p, O);
+local function Wq()
+	local q = {};
+	for o, m in ipairs(workspace:GetDescendants()) do
+		if m:IsA("BasePart") then
+			local o = m.Name;
+			if o == "Coin" or o:find("Coin") or o:find("coin") then
+				if m.Transparency < 1 then
+					table.insert(q, m);
 				end;
 			end;
 		end;
 	end;
-	return p;
+	return q;
 end;
-local function m5()
-	local p = t.Character;
-	return p and p:FindFirstChild("HumanoidRootPart");
+local function Bq()
+	local q = S.Character;
+	return q and q:FindFirstChild("HumanoidRootPart");
 end;
-local function h5(p, T)
-	local O = m5();
-	if not O then
+local function iq(q, o)
+	local m = Bq();
+	if not m then
 		return;
 	end;
-	T = T or a.FlySpeed;
-	local i = O.Position;
-	local e = p - i;
-	local t = e.Magnitude;
-	if t < 1 then
+	o = o or b.FlySpeed;
+	local K = m.Position;
+	local r = q - K;
+	local I = r.Magnitude;
+	if I < 1 then
 		return;
 	end;
-	local g = 5;
-	local H = math.max(1, math.floor(t / g));
-	local f = math.max(.015, ((t / T)) / H);
-	for p = 1, H, 1 do
-		if not u.running then
+	local S = 5;
+	local d = math.max(1, math.floor(I / S));
+	local v = math.max(.015, ((I / o)) / d);
+	for q = 1, d, 1 do
+		if not X.running then
 			return;
 		end;
-		local T = p / H;
-		local t = i + e * T;
+		local o = q / d;
+		local I = K + r * o;
 		pcall(function()
-			O.CFrame = CFrame.new(t);
-			O.AssemblyLinearVelocity = Vector3.zero;
-			O.Velocity = Vector3.zero;
+			m.CFrame = CFrame.new(I);
+			m.AssemblyLinearVelocity = Vector3.zero;
+			m.Velocity = Vector3.zero;
 		end);
-		task.wait(f);
+		task.wait(v);
 	end;
 end;
-local function N5(p, T, O)
-	local i = m5();
-	if not i then
+local function Vq(q, o, m)
+	local K = Bq();
+	if not K then
 		return;
 	end;
-	local e = ((O or i.Position.Y)) - a.UnderMapDepth;
-	local t = Vector3.new(p or i.Position.X, e, T or i.Position.Z);
-	h5(t, a.FlySpeed * 1.5);
+	local r = ((m or K.Position.Y)) - b.UnderMapDepth;
+	local I = Vector3.new(q or K.Position.X, r, o or K.Position.Z);
+	iq(I, b.FlySpeed * 1.5);
 end;
-local function b5()
-	local T = m5();
-	if not T then
+local function pq()
+	local o = Bq();
+	if not o then
 		return false;
 	end;
-	for p, O in ipairs(p:GetPlayers()) do
-		if O == t then
+	for q, m in ipairs(q:GetPlayers()) do
+		if m == S then
 			continue;
 		end;
-		if t5(O) == "Murderer" then
-			local p = O.Character and O.Character:FindFirstChild("HumanoidRootPart");
-			if p then
-				local O = ((p.Position - T.Position)).Magnitude;
-				if O <= a.MurderDistance then
+		if Sq(m) == "Murderer" then
+			local q = m.Character and m.Character:FindFirstChild("HumanoidRootPart");
+			if q then
+				local m = ((q.Position - o.Position)).Magnitude;
+				if m <= b.MurderDistance then
 					return true;
 				end;
 			end;
@@ -1521,756 +1516,756 @@ local function b5()
 	end;
 	return false;
 end;
-local function Q5()
-	if u.running then
+local function xq()
+	if X.running then
 		return;
 	end;
-	u.running = true;
-	u.coinsCollected = 0;
-	u.startTime = tick();
+	X.running = true;
+	X.coinsCollected = 0;
+	X.startTime = tick();
 	task.spawn(function()
-		while u.running do
-			local p = t.Character;
-			local T = p and p:FindFirstChild("HumanoidRootPart");
-			if not T then
+		while X.running do
+			local q = S.Character;
+			local o = q and q:FindFirstChild("HumanoidRootPart");
+			if not o then
 				task.wait(.3);
 				continue;
 			end;
-			if a.IgnoreIfMurderNear and b5() then
-				if a.GoUnderMap then
-					N5(T.Position.X, T.Position.Z, T.Position.Y);
+			if b.IgnoreIfMurderNear and pq() then
+				if b.GoUnderMap then
+					Vq(o.Position.X, o.Position.Z, o.Position.Y);
 				end;
 				task.wait(1);
 				continue;
 			end;
-			local O = j5();
-			if #O == 0 then
-				if a.GoUnderMap then
-					N5(T.Position.X, T.Position.Z, T.Position.Y);
+			local m = Wq();
+			if #m == 0 then
+				if b.GoUnderMap then
+					Vq(o.Position.X, o.Position.Z, o.Position.Y);
 				end;
 				task.wait(1.5);
 				continue;
 			end;
-			local i, e = nil, math.huge;
-			for p, O in ipairs(O) do
-				if O and O.Parent then
-					local p = ((O.Position - T.Position)).Magnitude;
-					if p < e and p <= a.CollectRadius then
-						e = p;
-						i = O;
+			local K, r = nil, math.huge;
+			for q, m in ipairs(m) do
+				if m and m.Parent then
+					local q = ((m.Position - o.Position)).Magnitude;
+					if q < r and q <= b.CollectRadius then
+						r = q;
+						K = m;
 					end;
 				end;
 			end;
-			if not i then
-				if a.GoUnderMap then
-					N5(T.Position.X, T.Position.Z, T.Position.Y);
+			if not K then
+				if b.GoUnderMap then
+					Vq(o.Position.X, o.Position.Z, o.Position.Y);
 				end;
 				task.wait(1);
 				continue;
 			end;
-			local g = i.Position + Vector3.new(0, a.CollectDistance, 0);
-			if a.TpDirect then
+			local I = K.Position + Vector3.new(0, b.CollectDistance, 0);
+			if b.TpDirect then
 				pcall(function()
-					T.CFrame = CFrame.new(g);
-					T.AssemblyLinearVelocity = Vector3.zero;
-					T.Velocity = Vector3.zero;
+					o.CFrame = CFrame.new(I);
+					o.AssemblyLinearVelocity = Vector3.zero;
+					o.Velocity = Vector3.zero;
 				end);
 				task.wait(.15);
 			else
-				h5(g, a.FlySpeed);
+				iq(I, b.FlySpeed);
 				task.wait(.1);
 			end;
-			u.coinsCollected = u.coinsCollected + 1;
-			if a.GoUnderMap then
-				N5(i.Position.X, i.Position.Z, i.Position.Y);
+			X.coinsCollected = X.coinsCollected + 1;
+			if b.GoUnderMap then
+				Vq(K.Position.X, K.Position.Z, K.Position.Y);
 			end;
-			task.wait(a.AntiKickDelay);
+			task.wait(b.AntiKickDelay);
 		end;
 	end);
 end;
-local function c5()
-	u.running = false;
-	local p = t.Character;
-	local T = p and p:FindFirstChildOfClass("Humanoid");
-	if T then
-		T.WalkSpeed = X.WalkSpeed;
+local function nq()
+	X.running = false;
+	local q = S.Character;
+	local o = q and q:FindFirstChildOfClass("Humanoid");
+	if o then
+		o.WalkSpeed = E.WalkSpeed;
 	end;
 end;
-local function L5()
-	if u.running then
-		c5();
+local function gq()
+	if X.running then
+		nq();
 	else
-		Q5();
+		xq();
 	end;
 end;
-local M5 = { running = false, conn = nil };
-local function pA()
-	if M5.running then
+local qY = { running = false, conn = nil };
+local function oY()
+	if qY.running then
 		return;
 	end;
-	M5.running = true;
-	M5.conn = O.Heartbeat:Connect(function()
-			if not M5.running then
+	qY.running = true;
+	qY.conn = m.Heartbeat:Connect(function()
+			if not qY.running then
 				return;
 			end;
-			local T = t.Character;
-			if not T then
+			local o = S.Character;
+			if not o then
 				return;
 			end;
-			local O = T:FindFirstChild("HumanoidRootPart");
-			if not O then
+			local m = o:FindFirstChild("HumanoidRootPart");
+			if not m then
 				return;
 			end;
-			local i = O.CFrame;
-			local e = 4;
-			local g = i.Position + (i.LookVector * e);
-			for p, T in ipairs(p:GetPlayers()) do
-				if T ~= t and T.Character then
-					local p = T.Character:FindFirstChild("HumanoidRootPart");
-					if p then
+			local K = m.CFrame;
+			local r = 4;
+			local I = K.Position + (K.LookVector * r);
+			for q, o in ipairs(q:GetPlayers()) do
+				if o ~= S and o.Character then
+					local q = o.Character:FindFirstChild("HumanoidRootPart");
+					if q then
 						pcall(function()
-							p.CFrame = CFrame.new(g, g + i.LookVector);
-							p.AssemblyLinearVelocity = Vector3.zero;
-							p.Velocity = Vector3.zero;
+							q.CFrame = CFrame.new(I, I + K.LookVector);
+							q.AssemblyLinearVelocity = Vector3.zero;
+							q.Velocity = Vector3.zero;
 						end);
 					end;
 				end;
 			end;
 		end);
 end;
-local function TA()
-	M5.running = false;
-	if M5.conn then
-		M5.conn:Disconnect();
-		M5.conn = nil;
+local function mY()
+	qY.running = false;
+	if qY.conn then
+		qY.conn:Disconnect();
+		qY.conn = nil;
 	end;
 end;
-local function OA()
-	if M5.running then
-		TA();
+local function KY()
+	if qY.running then
+		mY();
 	else
-		pA();
+		oY();
 	end;
 end;
-local iA = { conn = nil, weld = nil, target = nil };
-local function eA()
-	if iA.conn then
-		iA.conn:Disconnect();
-		iA.conn = nil;
+local rY = { conn = nil, weld = nil, target = nil };
+local function IY()
+	if rY.conn then
+		rY.conn:Disconnect();
+		rY.conn = nil;
 	end;
-	if iA.weld and iA.weld.Parent then
-		iA.weld:Destroy();
+	if rY.weld and rY.weld.Parent then
+		rY.weld:Destroy();
 	end;
-	iA.weld = nil;
-	iA.target = nil;
-	local p = t.Character;
-	local T = p and p:FindFirstChildOfClass("Humanoid");
-	if T then
+	rY.weld = nil;
+	rY.target = nil;
+	local q = S.Character;
+	local o = q and q:FindFirstChildOfClass("Humanoid");
+	if o then
 		pcall(function()
-			T.PlatformStand = false;
-			T.Sit = false;
+			o.PlatformStand = false;
+			o.Sit = false;
 		end);
 	end;
 end;
-local function tA()
-	local p = W.TrollSelected;
-	if not p or not p.Character then
-		p5("Attach", "Aucune cible valide", true);
+local function SY()
+	local q = U.TrollSelected;
+	if not q or not q.Character then
+		oq("Attach", "Aucune cible valide", true);
 		return;
 	end;
-	local T = p.Character:FindFirstChild("Head");
-	local i = t.Character;
-	local e = i and i:FindFirstChild("HumanoidRootPart");
-	if not T or not e then
-		p5("Attach", "Impossible de s\'accrocher", true);
+	local o = q.Character:FindFirstChild("Head");
+	local K = S.Character;
+	local r = K and K:FindFirstChild("HumanoidRootPart");
+	if not o or not r then
+		oq("Attach", "Impossible de s\'accrocher", true);
 		return;
 	end;
-	local g = T:FindFirstChild("MulbaAttachPoint");
-	if not g then
-		g = Instance.new("Attachment");
-		g.Name = "MulbaAttachPoint";
-		g.CFrame = CFrame.new(0, .7, 0);
-		g.Parent = T;
+	local I = o:FindFirstChild("MulbaAttachPoint");
+	if not I then
+		I = Instance.new("Attachment");
+		I.Name = "MulbaAttachPoint";
+		I.CFrame = CFrame.new(0, .7, 0);
+		I.Parent = o;
 	end;
-	local H = Instance.new("WeldConstraint");
-	H.Part0 = e;
-	H.Part1 = T;
-	H.Parent = e;
-	iA.weld = H;
-	iA.target = p;
-	e.CFrame = T.CFrame * CFrame.new(0, 2, 0);
-	local f = i:FindFirstChildOfClass("Humanoid");
-	if f then
+	local d = Instance.new("WeldConstraint");
+	d.Part0 = r;
+	d.Part1 = o;
+	d.Parent = r;
+	rY.weld = d;
+	rY.target = q;
+	r.CFrame = o.CFrame * CFrame.new(0, 2, 0);
+	local v = K:FindFirstChildOfClass("Humanoid");
+	if v then
 		pcall(function()
-			f.PlatformStand = true;
+			v.PlatformStand = true;
 		end);
 	end;
-	iA.conn = O.Heartbeat:Connect(function()
-			local p = iA.target;
-			if not p or not p.Character then
-				eA();
+	rY.conn = m.Heartbeat:Connect(function()
+			local q = rY.target;
+			if not q or not q.Character then
+				IY();
 				return;
 			end;
-			local T = p.Character:FindFirstChild("Head");
-			if not T then
-				eA();
+			local o = q.Character:FindFirstChild("Head");
+			if not o then
+				IY();
 				return;
 			end;
-			local O = t.Character;
-			local i = O and O:FindFirstChild("HumanoidRootPart");
-			if not i then
+			local m = S.Character;
+			local K = m and m:FindFirstChild("HumanoidRootPart");
+			if not K then
 				return;
 			end;
-			if not iA.weld or not iA.weld.Parent then
-				local p = Instance.new("WeldConstraint");
-				p.Part0 = i;
-				p.Part1 = T;
-				p.Parent = i;
-				iA.weld = p;
+			if not rY.weld or not rY.weld.Parent then
+				local q = Instance.new("WeldConstraint");
+				q.Part0 = K;
+				q.Part1 = o;
+				q.Parent = K;
+				rY.weld = q;
 			end;
 			pcall(function()
-				i.CFrame = T.CFrame * CFrame.new(0, 2, 0);
-				i.AssemblyLinearVelocity = Vector3.zero;
-				i.Velocity = Vector3.zero;
+				K.CFrame = o.CFrame * CFrame.new(0, 2, 0);
+				K.AssemblyLinearVelocity = Vector3.zero;
+				K.Velocity = Vector3.zero;
 			end);
 		end);
-	p5("Attach", "Accroch\195\169 \195\160 " .. p.Name, false);
+	oq("Attach", "Accroch\195\169 \195\160 " .. q.Name, false);
 end;
-local function gA()
-	if iA.conn then
-		eA();
+local function dY()
+	if rY.conn then
+		IY();
 	else
-		tA();
+		SY();
 	end;
 end;
-local function HA(p, T)
-	if not p then
+local function vY(q, o)
+	if not q then
 		return;
 	end;
-	if I[T] and I[T].Parent then
+	if M[o] and M[o].Parent then
 		return;
 	end;
-	local O = m("Highlight", {
+	local m = B("Highlight", {
 			FillColor = Color3.fromRGB(255, 255, 255),
 			FillTransparency = .85,
 			OutlineColor = Color3.fromRGB(255, 255, 255),
 			OutlineTransparency = 0,
 			DepthMode = Enum.HighlightDepthMode.AlwaysOnTop,
-			Adornee = p,
-			Parent = p,
+			Adornee = q,
+			Parent = q,
 		});
-	I[T] = O;
+	M[o] = m;
 end;
-local function fA(p)
-	local T = I[p];
-	if T and T.Parent then
-		T:Destroy();
+local function NY(q)
+	local o = M[q];
+	if o and o.Parent then
+		o:Destroy();
 	end;
-	I[p] = nil;
+	M[q] = nil;
 end;
-local function ZA()
-	if r.XRayEnabled then
-		for p, T in ipairs(p:GetPlayers()) do
-			if T.Character then
-				HA(T.Character, T);
+local function DY()
+	if u.XRayEnabled then
+		for q, o in ipairs(q:GetPlayers()) do
+			if o.Character then
+				vY(o.Character, o);
 			end;
 		end;
 	else
-		for p in pairs(I) do
-			fA(p);
+		for q in pairs(M) do
+			NY(q);
 		end;
 	end;
 end;
-local function BA(p)
-	if p == t then
+local function lY(q)
+	if q == S then
 		return;
 	end;
-	if G[p] then
-		local T = pcall(function()
-				G[p].Box.Visible = G[p].Box.Visible;
+	if R[q] then
+		local o = pcall(function()
+				R[q].Box.Visible = R[q].Box.Visible;
 			end);
-		if T then
+		if o then
 			return;
 		end;
-		removeESP(p);
+		removeESP(q);
 	end;
-	local T = Drawing.new("Square");
-	T.Thickness = V.BoxThickness;
-	T.Filled = false;
-	T.Visible = false;
-	local O = Drawing.new("Text");
-	O.Center = true;
-	O.Outline = true;
-	O.Size = 16;
-	O.Visible = false;
-	local i = Drawing.new("Text");
-	i.Center = true;
-	i.Outline = true;
-	i.Size = 13;
-	i.Visible = false;
-	local e = Drawing.new("Line");
-	e.Thickness = 1;
-	e.Visible = false;
-	G[p] = {
-			Box = T,
-			Text = O,
-			DistanceText = i,
-			Tracer = e,
+	local o = Drawing.new("Square");
+	o.Thickness = H.BoxThickness;
+	o.Filled = false;
+	o.Visible = false;
+	local m = Drawing.new("Text");
+	m.Center = true;
+	m.Outline = true;
+	m.Size = 16;
+	m.Visible = false;
+	local K = Drawing.new("Text");
+	K.Center = true;
+	K.Outline = true;
+	K.Size = 13;
+	K.Visible = false;
+	local r = Drawing.new("Line");
+	r.Thickness = 1;
+	r.Visible = false;
+	R[q] = {
+			Box = o,
+			Text = m,
+			DistanceText = K,
+			Tracer = r,
 		};
 end;
-local function xA(p)
-	local T = G[p];
-	if T then
-		for p, T in pairs(T) do
+local function FY(q)
+	local o = R[q];
+	if o then
+		for q, o in pairs(o) do
 			pcall(function()
-				T:Remove();
+				o:Remove();
 			end);
 		end;
-		G[p] = nil;
+		R[q] = nil;
 	end;
 end;
-local function sA(p)
-	if not p or not p:IsA("BasePart") then
+local function fY(q)
+	if not q or not q:IsA("BasePart") then
 		return false;
 	end;
-	local T = p.Name;
-	if T == "Coin" or T:find("Coin") or T:find("coin") then
-		return p.Transparency < 1;
+	local o = q.Name;
+	if o == "Coin" or o:find("Coin") or o:find("coin") then
+		return q.Transparency < 1;
 	end;
 	return false;
 end;
-local function wA(p)
-	if F[p] then
+local function QY(q)
+	if J[q] then
 		return;
 	end;
-	local T = Drawing.new("Square");
-	T.Thickness = 1.5;
-	T.Filled = false;
-	T.Visible = false;
-	T.Color = Color3.fromRGB(255, 215, 0);
-	local O = Drawing.new("Text");
-	O.Center = true;
-	O.Outline = true;
-	O.Size = 12;
-	O.Color = Color3.fromRGB(255, 215, 0);
-	O.Visible = false;
-	F[p] = { Box = T, Text = O };
+	local o = Drawing.new("Square");
+	o.Thickness = 1.5;
+	o.Filled = false;
+	o.Visible = false;
+	o.Color = Color3.fromRGB(255, 215, 0);
+	local m = Drawing.new("Text");
+	m.Center = true;
+	m.Outline = true;
+	m.Size = 12;
+	m.Color = Color3.fromRGB(255, 215, 0);
+	m.Visible = false;
+	J[q] = { Box = o, Text = m };
 end;
-local function CA(p)
-	local T = F[p];
-	if T then
+local function AY(q)
+	local o = J[q];
+	if o then
 		pcall(function()
-			T.Box:Remove();
+			o.Box:Remove();
 		end);
 		pcall(function()
-			T.Text:Remove();
+			o.Text:Remove();
 		end);
-		F[p] = nil;
+		J[q] = nil;
 	end;
 end;
-local function PA()
-	for p in pairs(F) do
-		CA(p);
+local function yY()
+	for q in pairs(J) do
+		AY(q);
 	end;
 end;
 task.spawn(function()
 	while true do
 		task.wait(1);
-		if r.EspShowCoins then
-			for p, T in ipairs(workspace:GetDescendants()) do
-				if sA(T) and not F[T] then
-					wA(T);
+		if u.EspShowCoins then
+			for q, o in ipairs(workspace:GetDescendants()) do
+				if fY(o) and not J[o] then
+					QY(o);
 				end;
 			end;
-			for p in pairs(F) do
-				if not p or not p.Parent or not sA(p) then
-					CA(p);
+			for q in pairs(J) do
+				if not q or not q.Parent or not fY(q) then
+					AY(q);
 				end;
 			end;
-		elseif next(F) ~= nil then
-			PA();
+		elseif next(J) ~= nil then
+			yY();
 		end;
 	end;
 end);
-O.RenderStepped:Connect(function()
-	if not r.EspShowCoins then
-		for p, T in pairs(F) do
+m.RenderStepped:Connect(function()
+	if not u.EspShowCoins then
+		for q, o in pairs(J) do
 			pcall(function()
-				T.Box.Visible = false;
+				o.Box.Visible = false;
 			end);
 			pcall(function()
-				T.Text.Visible = false;
+				o.Text.Visible = false;
 			end);
 		end;
 		return;
 	end;
-	local p = workspace.CurrentCamera;
-	if not p then
+	local q = workspace.CurrentCamera;
+	if not q then
 		return;
 	end;
-	for T, O in pairs(F) do
-		local i = pcall(function()
-				return O.Box.Visible;
+	for o, m in pairs(J) do
+		local K = pcall(function()
+				return m.Box.Visible;
 			end);
-		if not i or not T or not T.Parent then
-			CA(T);
+		if not K or not o or not o.Parent then
+			AY(o);
 			continue;
 		end;
-		local e, t = p:WorldToViewportPoint(T.Position);
-		if t then
-			local i = 14;
-			local t = ((p.CFrame.Position - T.Position)).Magnitude;
-			local g = math.clamp(200 / t, .6, 2.5);
-			local H = ((i * g)) / 2;
+		local r, I = q:WorldToViewportPoint(o.Position);
+		if I then
+			local K = 14;
+			local I = ((q.CFrame.Position - o.Position)).Magnitude;
+			local S = math.clamp(200 / I, .6, 2.5);
+			local d = ((K * S)) / 2;
 			pcall(function()
-				O.Box.Size = Vector2.new(i * g, i * g);
-				O.Box.Position = Vector2.new(e.X - H, e.Y - H);
-				O.Box.Visible = true;
-				O.Text.Text = "\240\159\146\176";
-				O.Text.Position = Vector2.new(e.X, (e.Y - H) - 12);
-				O.Text.Visible = true;
+				m.Box.Size = Vector2.new(K * S, K * S);
+				m.Box.Position = Vector2.new(r.X - d, r.Y - d);
+				m.Box.Visible = true;
+				m.Text.Text = "\240\159\146\176";
+				m.Text.Position = Vector2.new(r.X, (r.Y - d) - 12);
+				m.Text.Visible = true;
 			end);
 		else
 			pcall(function()
-				O.Box.Visible = false;
+				m.Box.Visible = false;
 			end);
 			pcall(function()
-				O.Text.Visible = false;
+				m.Text.Visible = false;
 			end);
 		end;
 	end;
 end);
-local function oA(p)
-	local T, O = H:WorldToViewportPoint(p);
-	return Vector2.new(T.X, T.Y), O;
+local function YY(q)
+	local o, m = v:WorldToViewportPoint(q);
+	return Vector2.new(o.X, o.Y), m;
 end;
-O.RenderStepped:Connect(function()
-	if not r.EspEnabled then
-		for p, T in pairs(G) do
+m.RenderStepped:Connect(function()
+	if not u.EspEnabled then
+		for q, o in pairs(R) do
 			pcall(function()
-				T.Box.Visible = false;
-				T.Text.Visible = false;
-				T.DistanceText.Visible = false;
-				T.Tracer.Visible = false;
+				o.Box.Visible = false;
+				o.Text.Visible = false;
+				o.DistanceText.Visible = false;
+				o.Tracer.Visible = false;
 			end);
 		end;
 		return;
 	end;
-	local p = workspace.CurrentCamera;
-	if p then
-		H = p;
+	local q = workspace.CurrentCamera;
+	if q then
+		v = q;
 	end;
-	local T = t.Character;
-	local O = T and T:FindFirstChild("HumanoidRootPart");
-	local i = O and O.Position;
-	for p, T in pairs(G) do
-		local O = pcall(function()
-				return T.Box.Visible;
+	local o = S.Character;
+	local m = o and o:FindFirstChild("HumanoidRootPart");
+	local K = m and m.Position;
+	for q, o in pairs(R) do
+		local m = pcall(function()
+				return o.Box.Visible;
 			end);
-		if not O then
-			G[p] = nil;
+		if not m then
+			R[q] = nil;
 			continue;
 		end;
-		local e = p.Character;
-		local t = e and e:FindFirstChild("HumanoidRootPart");
-		local g = e and e:FindFirstChild("Head");
-		local f = e and e:FindFirstChildOfClass("Humanoid");
-		local Z = function()
+		local r = q.Character;
+		local I = r and r:FindFirstChild("HumanoidRootPart");
+		local S = r and r:FindFirstChild("Head");
+		local d = r and r:FindFirstChildOfClass("Humanoid");
+		local N = function()
 				pcall(function()
-					T.Box.Visible = false;
-					T.Text.Visible = false;
-					T.DistanceText.Visible = false;
-					T.Tracer.Visible = false;
+					o.Box.Visible = false;
+					o.Text.Visible = false;
+					o.DistanceText.Visible = false;
+					o.Tracer.Visible = false;
 				end);
 			end;
-		if not ((t and (g and (f and f.Health > 0)))) then
-			Z();
+		if not ((I and (S and (d and d.Health > 0)))) then
+			N();
 			continue;
 		end;
-		local B = t5(p);
-		if not Z5(B) then
-			Z();
+		local D = Sq(q);
+		if not Dq(D) then
+			N();
 			continue;
 		end;
-		local x, s = oA(g.Position + Vector3.new(0, .5, 0));
-		local w, C = oA(t.Position - Vector3.new(0, 3, 0));
-		if s or C then
-			local O = math.abs(x.Y - w.Y);
-			local e = O / 2;
-			local g = f5(B);
-			local f = ((tick() * .5)) % 1;
-			local Z = Color3.fromHSV(f, 1, 1);
-			if V.BoxEnabled then
+		local l, F = YY(S.Position + Vector3.new(0, .5, 0));
+		local f, Q = YY(I.Position - Vector3.new(0, 3, 0));
+		if F or Q then
+			local m = math.abs(l.Y - f.Y);
+			local r = m / 2;
+			local S = Nq(D);
+			local d = ((tick() * .5)) % 1;
+			local N = Color3.fromHSV(d, 1, 1);
+			if H.BoxEnabled then
 				pcall(function()
-					T.Box.Size = Vector2.new(e, O);
-					T.Box.Position = Vector2.new(x.X - e / 2, x.Y);
-					T.Box.Color = Z;
-					T.Box.Thickness = 2;
-					T.Box.Visible = true;
+					o.Box.Size = Vector2.new(r, m);
+					o.Box.Position = Vector2.new(l.X - r / 2, l.Y);
+					o.Box.Color = N;
+					o.Box.Thickness = 2;
+					o.Box.Visible = true;
 				end);
 			else
 				pcall(function()
-					T.Box.Visible = false;
+					o.Box.Visible = false;
 				end);
 			end;
 			pcall(function()
-				T.Text.Text = p.DisplayName .. (" [" .. (B .. "]"));
-				T.Text.Position = Vector2.new(x.X, x.Y - 18);
-				T.Text.Color = g;
-				T.Text.Visible = true;
+				o.Text.Text = q.DisplayName .. (" [" .. (D .. "]"));
+				o.Text.Position = Vector2.new(l.X, l.Y - 18);
+				o.Text.Color = S;
+				o.Text.Visible = true;
 			end);
-			if V.DistanceEnabled and i then
+			if H.DistanceEnabled and K then
 				pcall(function()
-					local p = ((t.Position - i)).Magnitude;
-					T.DistanceText.Text = string.format("%.1f m", p * .28);
-					T.DistanceText.Position = Vector2.new(x.X, w.Y + 2);
-					T.DistanceText.Color = g;
-					T.DistanceText.Visible = true;
+					local q = ((I.Position - K)).Magnitude;
+					o.DistanceText.Text = string.format("%.1f m", q * .28);
+					o.DistanceText.Position = Vector2.new(l.X, f.Y + 2);
+					o.DistanceText.Color = S;
+					o.DistanceText.Visible = true;
 				end);
 			else
 				pcall(function()
-					T.DistanceText.Visible = false;
+					o.DistanceText.Visible = false;
 				end);
 			end;
-			if V.TracerEnabled then
+			if H.TracerEnabled then
 				pcall(function()
-					T.Tracer.From = Vector2.new(H.ViewportSize.X / 2, H.ViewportSize.Y);
-					T.Tracer.To = Vector2.new(x.X, x.Y);
-					T.Tracer.Color = Z;
-					T.Tracer.Thickness = 1;
-					T.Tracer.Visible = true;
+					o.Tracer.From = Vector2.new(v.ViewportSize.X / 2, v.ViewportSize.Y);
+					o.Tracer.To = Vector2.new(l.X, l.Y);
+					o.Tracer.Color = N;
+					o.Tracer.Thickness = 1;
+					o.Tracer.Visible = true;
 				end);
 			else
 				pcall(function()
-					T.Tracer.Visible = false;
+					o.Tracer.Visible = false;
 				end);
 			end;
 		else
-			Z();
+			N();
 		end;
 	end;
 end);
-p.PlayerAdded:Connect(function(p)
+q.PlayerAdded:Connect(function(q)
 	task.wait(1);
-	BA(p);
-	if r.XRayEnabled and p.Character then
-		HA(p.Character, p);
+	lY(q);
+	if u.XRayEnabled and q.Character then
+		vY(q.Character, q);
 	end;
 end);
-p.PlayerRemoving:Connect(function(p)
-	xA(p);
-	fA(p);
-	Y.knownRoles[p] = nil;
-	z.lastRoles[p] = nil;
+q.PlayerRemoving:Connect(function(q)
+	FY(q);
+	NY(q);
+	Z.knownRoles[q] = nil;
+	G.lastRoles[q] = nil;
 end);
-for p, T in ipairs(p:GetPlayers()) do
-	BA(T);
+for q, o in ipairs(q:GetPlayers()) do
+	lY(o);
 end;
-local function SA(p)
-	local O = p.AbsoluteSize;
-	if O.X < 5 or O.Y < 5 then
+local function hY(q)
+	local m = q.AbsoluteSize;
+	if m.X < 5 or m.Y < 5 then
 		return;
 	end;
-	local i = math.random(v.ParticleMinSize, v.ParticleMaxSize);
-	local e = math.random(0, math.max(1, O.X - i));
-	local t = ((O.Y + 40)) / v.ParticleFallSpeed;
-	local g = m("Frame", {
-			Size = UDim2.new(0, i, 0, i),
-			Position = UDim2.new(0, e, 0, -i),
-			BackgroundColor3 = x.Particle,
+	local K = math.random(O.ParticleMinSize, O.ParticleMaxSize);
+	local r = math.random(0, math.max(1, m.X - K));
+	local I = ((m.Y + 40)) / O.ParticleFallSpeed;
+	local S = B("Frame", {
+			Size = UDim2.new(0, K, 0, K),
+			Position = UDim2.new(0, r, 0, -K),
+			BackgroundColor3 = F.Particle,
 			BackgroundTransparency = .5,
 			BorderSizePixel = 0,
 			ZIndex = 5,
-			Parent = p,
+			Parent = q,
 		});
-	h(g, math.floor(i / 2));
-	local H = T:Create(g, TweenInfo.new(t, Enum.EasingStyle.Linear), { Position = UDim2.new(0, e + math.random(-40, 40), 0, O.Y + 20), BackgroundTransparency = .85 + math.random() * .1 });
-	H:Play();
-	H.Completed:Connect(function()
-		g:Destroy();
+	i(S, math.floor(K / 2));
+	local d = o:Create(S, TweenInfo.new(I, Enum.EasingStyle.Linear), { Position = UDim2.new(0, r + math.random(-40, 40), 0, m.Y + 20), BackgroundTransparency = .85 + math.random() * .1 });
+	d:Play();
+	d.Completed:Connect(function()
+		S:Destroy();
 	end);
 end;
-local function vA(p)
+local function OY(q)
 	task.spawn(function()
-		while p and p.Parent do
-			for T = 1, v.ParticlesPerTick, 1 do
-				SA(p);
+		while q and q.Parent do
+			for o = 1, O.ParticlesPerTick, 1 do
+				hY(q);
 			end;
-			task.wait(v.ParticleSpawnRate);
+			task.wait(O.ParticleSpawnRate);
 		end;
 	end);
 end;
-local function WA(p, T, i)
-	local e = m("Frame", {
-			Name = p .. "_ShadowHolder",
-			Size = T,
+local function UY(q, o, K)
+	local r = B("Frame", {
+			Name = q .. "_ShadowHolder",
+			Size = o,
 			Position = UDim2.new(.5, 0, .5, 0),
 			AnchorPoint = Vector2.new(.5, .5),
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			ZIndex = 1,
-			Parent = i,
+			Parent = K,
 		});
-	for p = 1, 6, 1 do
-		local T = m("Frame", {
+	for q = 1, 6, 1 do
+		local o = B("Frame", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundColor3 = Color3.fromRGB(0, 0, 0),
-				BackgroundTransparency = .88 + (p * .008),
+				BackgroundTransparency = .88 + (q * .008),
 				BorderSizePixel = 0,
 				ZIndex = 1,
-				Parent = e,
+				Parent = r,
 			});
-		h(T, 20 + p * 5);
+		i(o, 20 + q * 5);
 	end;
-	local t = m("Frame", {
-			Name = p,
-			Size = T,
+	local I = B("Frame", {
+			Name = q,
+			Size = o,
 			Position = UDim2.new(.5, 0, .5, 0),
 			AnchorPoint = Vector2.new(.5, .5),
-			BackgroundColor3 = x.BgTop,
+			BackgroundColor3 = F.BgTop,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			Active = true,
 			Draggable = true,
 			ZIndex = 2,
-			Parent = i,
+			Parent = K,
 		});
-	h(t, 20);
-	b(t, x.Border, 1, .4);
-	N(t, x.BgTop, x.BgBottom, 90);
-	O.Heartbeat:Connect(function()
-		if e.Parent and t.Parent then
-			e.Position = t.Position + UDim2.new(0, 0, 0, 12);
-			e.Size = t.Size;
-			e.Visible = t.Visible;
+	i(I, 20);
+	p(I, F.Border, 1, .4);
+	V(I, F.BgTop, F.BgBottom, 90);
+	m.Heartbeat:Connect(function()
+		if r.Parent and I.Parent then
+			r.Position = I.Position + UDim2.new(0, 0, 0, 12);
+			r.Size = I.Size;
+			r.Visible = I.Visible;
 		end;
 	end);
-	local g = m("Frame", {
+	local S = B("Frame", {
 			Name = "ParticleZone",
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
 			ClipsDescendants = true,
 			ZIndex = 5,
-			Parent = t,
+			Parent = I,
 		});
-	h(g, 20);
-	vA(g);
-	return t;
+	i(S, 20);
+	OY(S);
+	return I;
 end;
-local function rA(p, T)
-	L(p, .35, T);
+local function uY(q, o)
+	g(q, .35, o);
 end;
-local function dA()
-	if not ((W.Shell and W.Shell.Parent)) then
+local function sY()
+	if not ((U.Shell and U.Shell.Parent)) then
 		return;
 	end;
-	L(W.Shell, .35, function()
-		W.Shell = nil;
-		W.Sidebar = nil;
-		W.Content = nil;
-		W.Scroll = nil;
-		W.NavItems = {};
-		W.CurrentPage = nil;
-		W.MenuOpen = false;
+	g(U.Shell, .35, function()
+		U.Shell = nil;
+		U.Sidebar = nil;
+		U.Content = nil;
+		U.Scroll = nil;
+		U.NavItems = {};
+		U.CurrentPage = nil;
+		U.MenuOpen = false;
 	end);
 end;
 task.spawn(function()
 	while true do
-		task.wait(r.AutoShootDelay);
-		if not r.AutoShootEnabled then
+		task.wait(u.AutoShootDelay);
+		if not u.AutoShootEnabled then
 			continue;
 		end;
-		local p = t5(t);
-		if p ~= "Sheriff" then
+		local q = Sq(S);
+		if q ~= "Sheriff" then
 			continue;
 		end;
-		local T = t.Character;
-		if not T then
+		local o = S.Character;
+		if not o then
 			continue;
 		end;
-		local O = T:FindFirstChild("Gun");
-		if not O then
-			local p = t:FindFirstChild("Backpack");
-			if p then
-				local O = p:FindFirstChild("Gun");
-				if O then
+		local m = o:FindFirstChild("Gun");
+		if not m then
+			local q = S:FindFirstChild("Backpack");
+			if q then
+				local m = q:FindFirstChild("Gun");
+				if m then
 					pcall(function()
-						T.Humanoid:EquipTool(O);
+						o.Humanoid:EquipTool(m);
 					end);
 				end;
 			end;
 			continue;
 		end;
-		local i = g5();
-		if not i then
+		local K = dq();
+		if not K then
 			continue;
 		end;
-		local e = i.Character;
-		if not e then
+		local r = K.Character;
+		if not r then
 			continue;
 		end;
-		local g = e:FindFirstChild("HumanoidRootPart");
-		local H = e:FindFirstChild("Head");
-		if not g then
+		local I = r:FindFirstChild("HumanoidRootPart");
+		local d = r:FindFirstChild("Head");
+		if not I then
 			continue;
 		end;
-		local f = T:FindFirstChild("HumanoidRootPart");
-		if not f then
+		local v = o:FindFirstChild("HumanoidRootPart");
+		if not v then
 			continue;
 		end;
-		local Z = ((g.Position - f.Position)).Magnitude;
-		if Z > r.AutoShootRange then
+		local N = ((I.Position - v.Position)).Magnitude;
+		if N > u.AutoShootRange then
 			continue;
 		end;
-		local B = workspace.CurrentCamera;
-		if B then
+		local D = workspace.CurrentCamera;
+		if D then
 			pcall(function()
-				B.CFrame = CFrame.new(B.CFrame.Position, H and H.Position or g.Position);
+				D.CFrame = CFrame.new(D.CFrame.Position, d and d.Position or I.Position);
 			end);
 		end;
 		pcall(function()
-			O:Activate();
+			m:Activate();
 		end);
 	end;
 end);
-local VA, XA, kA;
-local RA, JA, yA, AA, GA, IA;
-local FA, YA, zA, EA, uA;
-local aA, DA, lA, nA, UA, KA;
-local qA, jA;
-local mA, hA;
-XA = function()
-		local i = t:FindFirstChild("PlayerGui");
-		if i then
-			local p = i:FindFirstChild("MulbaHeadGui");
-			if p then
-				p:Destroy();
+local HY, EY, eY;
+local jY, tY, cY, wY, RY, MY;
+local JY, ZY, GY, PY, XY;
+local bY, CY, aY, LY, kY, zY;
+local TY, WY;
+local BY, iY;
+EY = function()
+		local K = S:FindFirstChild("PlayerGui");
+		if K then
+			local q = K:FindFirstChild("MulbaHeadGui");
+			if q then
+				q:Destroy();
 			end;
 		end;
-		local e = t.Character;
-		if not e or not e:FindFirstChild("Head") then
+		local r = S.Character;
+		if not r or not r:FindFirstChild("Head") then
 			task.delay(1, function()
-				if XA then
-					XA();
+				if EY then
+					EY();
 				end;
 			end);
 			return;
 		end;
-		local g = e:FindFirstChild("Head");
-		if not g then
+		local I = r:FindFirstChild("Head");
+		if not I then
 			return;
 		end;
-		local H = m("ScreenGui", {
+		local d = B("ScreenGui", {
 				Name = "MulbaHeadGui",
 				ResetOnSpawn = false,
 				IgnoreGuiInset = true,
 				ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 				DisplayOrder = 997,
-				Parent = i,
+				Parent = K,
 			});
-		local f, Z = 200, 50;
-		local s = m("TextButton", {
-				Size = UDim2.new(0, f, 0, Z),
+		local v, N = 200, 50;
+		local D = B("TextButton", {
+				Size = UDim2.new(0, v, 0, N),
 				Position = UDim2.new(0, 0, 0, 0),
 				AnchorPoint = Vector2.new(.5, 1),
 				BackgroundColor3 = Color3.fromRGB(12, 16, 28),
@@ -2280,56 +2275,56 @@ XA = function()
 				AutoButtonColor = false,
 				Active = true,
 				ZIndex = 1,
-				Parent = H,
+				Parent = d,
 			});
-		h(s, 25);
-		N(s, Color3.fromRGB(16, 22, 38), Color3.fromRGB(8, 10, 18), 90);
-		m("UIStroke", {
+		i(D, 25);
+		V(D, Color3.fromRGB(16, 22, 38), Color3.fromRGB(8, 10, 18), 90);
+		B("UIStroke", {
 			Color = Color3.fromRGB(90, 150, 255),
 			Thickness = 1.5,
 			Transparency = .15,
 			ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-			Parent = s,
+			Parent = D,
 		});
-		local w = m("Frame", {
+		local f = B("Frame", {
 				Size = UDim2.new(0, 36, 0, 36),
 				Position = UDim2.new(0, 8, .5, 0),
 				AnchorPoint = Vector2.new(0, .5),
 				BackgroundColor3 = Color3.fromRGB(70, 130, 245),
 				BorderSizePixel = 0,
 				ZIndex = 6,
-				Parent = s,
+				Parent = D,
 			});
-		h(w, 18);
-		local C = m("Frame", {
+		i(f, 18);
+		local Q = B("Frame", {
 				Size = UDim2.new(1, -4, 1, -4),
 				Position = UDim2.new(.5, 0, .5, 0),
 				AnchorPoint = Vector2.new(.5, .5),
 				BackgroundColor3 = Color3.fromRGB(50, 100, 220),
 				BorderSizePixel = 0,
 				ZIndex = 7,
-				Parent = w,
+				Parent = f,
 			});
-		h(C, 16);
-		local P = m("ImageLabel", {
+		i(Q, 16);
+		local A = B("ImageLabel", {
 				Size = UDim2.new(1, 0, 1, 0),
 				Position = UDim2.new(.5, 0, .5, 0),
 				AnchorPoint = Vector2.new(.5, .5),
 				BackgroundTransparency = 1,
 				Image = "",
 				ZIndex = 8,
-				Parent = C,
+				Parent = Q,
 			});
-		h(P, 16);
+		i(A, 16);
 		task.spawn(function()
-			local T, O = pcall(function()
-					return p:GetUserThumbnailAsync(t.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100);
+			local o, m = pcall(function()
+					return q:GetUserThumbnailAsync(S.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100);
 				end);
-			if T and O then
-				P.Image = O;
+			if o and m then
+				A.Image = m;
 			end;
 		end);
-		local o = m("TextLabel", {
+		local y = B("TextLabel", {
 				Size = UDim2.new(1, -90, 0, 16),
 				Position = UDim2.new(0, 52, 0, 8),
 				BackgroundTransparency = 1,
@@ -2339,35 +2334,35 @@ XA = function()
 				TextSize = 13,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				ZIndex = 9,
-				Parent = s,
+				Parent = D,
 			});
-		local S = m("UIGradient", { Color = ColorSequence.new({
+		local Y = B("UIGradient", { Color = ColorSequence.new({
 					ColorSequenceKeypoint.new(0, Color3.fromRGB(120, 180, 255)),
 					ColorSequenceKeypoint.new(.2, Color3.fromRGB(170, 120, 255)),
 					ColorSequenceKeypoint.new(.4, Color3.fromRGB(255, 120, 200)),
 					ColorSequenceKeypoint.new(.6, Color3.fromRGB(255, 180, 120)),
 					ColorSequenceKeypoint.new(.8, Color3.fromRGB(120, 255, 180)),
 					ColorSequenceKeypoint.new(1, Color3.fromRGB(120, 180, 255)),
-				}), Rotation = 0, Parent = o });
+				}), Rotation = 0, Parent = y });
 		task.spawn(function()
-			while S.Parent do
-				S.Rotation = ((S.Rotation + 3)) % 360;
+			while Y.Parent do
+				Y.Rotation = ((Y.Rotation + 3)) % 360;
 				task.wait(.03);
 			end;
 		end);
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, -90, 0, 12),
 			Position = UDim2.new(0, 52, 0, 23),
 			BackgroundTransparency = 1,
-			Text = t.DisplayName .. " / lifetime",
-			TextColor3 = x.Accent,
+			Text = S.DisplayName .. " / lifetime",
+			TextColor3 = F.Accent,
 			Font = Enum.Font.GothamMedium,
 			TextSize = 9,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 9,
-			Parent = s,
+			Parent = D,
 		});
-		local v = m("TextLabel", {
+		local h = B("TextLabel", {
 				Size = UDim2.new(1, -90, 0, 14),
 				Position = UDim2.new(0, 52, 0, 35),
 				BackgroundTransparency = 1,
@@ -2377,33 +2372,33 @@ XA = function()
 				TextSize = 10,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				ZIndex = 9,
-				Parent = s,
+				Parent = D,
 			});
-		local r = m("UIGradient", { Color = ColorSequence.new({
+		local O = B("UIGradient", { Color = ColorSequence.new({
 					ColorSequenceKeypoint.new(0, Color3.fromRGB(255, 80, 80)),
 					ColorSequenceKeypoint.new(.2, Color3.fromRGB(255, 180, 80)),
 					ColorSequenceKeypoint.new(.4, Color3.fromRGB(255, 255, 80)),
 					ColorSequenceKeypoint.new(.6, Color3.fromRGB(120, 255, 120)),
 					ColorSequenceKeypoint.new(.8, Color3.fromRGB(120, 200, 255)),
 					ColorSequenceKeypoint.new(1, Color3.fromRGB(255, 80, 80)),
-				}), Rotation = 0, Parent = v });
+				}), Rotation = 0, Parent = h });
 		task.spawn(function()
-			while r.Parent do
-				r.Rotation = ((r.Rotation + 4)) % 360;
+			while O.Parent do
+				O.Rotation = ((O.Rotation + 4)) % 360;
 				task.wait(.03);
 			end;
 		end);
-		local d = m("Frame", {
+		local u = B("Frame", {
 				Size = UDim2.new(0, 30, 0, 30),
 				Position = UDim2.new(1, -38, .5, 0),
 				AnchorPoint = Vector2.new(0, .5),
 				BackgroundColor3 = Color3.fromRGB(70, 130, 245),
 				BorderSizePixel = 0,
 				ZIndex = 6,
-				Parent = s,
+				Parent = D,
 			});
-		h(d, 15);
-		local V = m("TextLabel", {
+		i(u, 15);
+		local s = B("TextLabel", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				Text = "M",
@@ -2411,2329 +2406,2969 @@ XA = function()
 				Font = Enum.Font.GothamBlack,
 				TextSize = 15,
 				ZIndex = 8,
-				Parent = d,
+				Parent = u,
 			});
-		m("UIGradient", { Color = ColorSequence.new({ ColorSequenceKeypoint.new(0, Color3.fromRGB(200, 230, 255)), ColorSequenceKeypoint.new(1, Color3.fromRGB(90, 150, 255)) }), Rotation = 90, Parent = V });
-		s.BackgroundTransparency = 1;
-		s.Size = UDim2.new(0, f * .7, 0, Z * .7);
-		for p, O in ipairs(s:GetDescendants()) do
-			if O:IsA("TextLabel") then
-				O.TextTransparency = 1;
-				(T:Create(O, TweenInfo.new(.5), { TextTransparency = 0 })):Play();
+		B("UIGradient", { Color = ColorSequence.new({ ColorSequenceKeypoint.new(0, Color3.fromRGB(200, 230, 255)), ColorSequenceKeypoint.new(1, Color3.fromRGB(90, 150, 255)) }), Rotation = 90, Parent = s });
+		D.BackgroundTransparency = 1;
+		D.Size = UDim2.new(0, v * .7, 0, N * .7);
+		for q, m in ipairs(D:GetDescendants()) do
+			if m:IsA("TextLabel") then
+				m.TextTransparency = 1;
+				(o:Create(m, TweenInfo.new(.5), { TextTransparency = 0 })):Play();
 			end;
-			if O:IsA("ImageLabel") then
-				O.ImageTransparency = 1;
-				(T:Create(O, TweenInfo.new(.5), { ImageTransparency = 0 })):Play();
+			if m:IsA("ImageLabel") then
+				m.ImageTransparency = 1;
+				(o:Create(m, TweenInfo.new(.5), { ImageTransparency = 0 })):Play();
 			end;
 		end;
-		(T:Create(s, TweenInfo.new(.55, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Size = UDim2.new(0, f, 0, Z), BackgroundTransparency = .05 })):Play();
-		O.RenderStepped:Connect(function()
-			if not H.Parent then
+		(o:Create(D, TweenInfo.new(.55, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Size = UDim2.new(0, v, 0, N), BackgroundTransparency = .05 })):Play();
+		m.RenderStepped:Connect(function()
+			if not d.Parent then
 				return;
 			end;
-			if not ((s and s.Parent)) then
+			if not ((D and D.Parent)) then
 				return;
 			end;
-			local p = t.Character;
-			if not p then
-				s.Visible = false;
+			local q = S.Character;
+			if not q then
+				D.Visible = false;
 				return;
 			end;
-			local T = p:FindFirstChild("Head");
-			if not T then
-				s.Visible = false;
+			local o = q:FindFirstChild("Head");
+			if not o then
+				D.Visible = false;
 				return;
 			end;
-			local O = workspace.CurrentCamera;
-			if not O then
+			local m = workspace.CurrentCamera;
+			if not m then
 				return;
 			end;
-			local i = T.Position + Vector3.new(0, B, 0);
-			local e, g = O:WorldToViewportPoint(i);
-			if not g then
-				s.Visible = false;
+			local K = o.Position + Vector3.new(0, l, 0);
+			local r, I = m:WorldToViewportPoint(K);
+			if not I then
+				D.Visible = false;
 				return;
 			end;
-			s.Visible = true;
-			s.Position = UDim2.new(0, e.X, 0, e.Y);
+			D.Visible = true;
+			D.Position = UDim2.new(0, r.X, 0, r.Y);
 		end);
-		s.MouseButton1Click:Connect(function()
-			if not W.Authenticated then
+		D.MouseButton1Click:Connect(function()
+			if not U.Authenticated then
 				return;
 			end;
-			if W.Shell and W.Shell.Parent then
+			if U.Shell and U.Shell.Parent then
 				return;
 			end;
-			if VA then
-				VA();
+			if HY then
+				HY();
 			end;
 		end);
-		W.BillboardRef = H;
+		U.BillboardRef = d;
 	end;
-RA = function(p)
-		m("TextLabel", {
+jY = function(q)
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 42),
 			BackgroundTransparency = 1,
 			Text = "MULBA",
-			TextColor3 = x.TextPrimary,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamBlack,
 			TextSize = 32,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 20),
 			Position = UDim2.new(0, 0, 0, 46),
 			BackgroundTransparency = 1,
 			Text = "Le menu qui change tout.",
-			TextColor3 = x.Accent,
+			TextColor3 = F.Accent,
 			Font = Enum.Font.GothamMedium,
 			TextSize = 13,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		local O = m("TextButton", {
+		local m = B("TextButton", {
 				Size = UDim2.new(0, 170, 0, 42),
 				Position = UDim2.new(1, -170, 0, 0),
-				BackgroundColor3 = x.SurfaceHi,
+				BackgroundColor3 = F.SurfaceHi,
 				BackgroundTransparency = .1,
 				BorderSizePixel = 0,
 				Text = "",
 				AutoButtonColor = false,
 				ZIndex = 26,
-				Parent = p,
+				Parent = q,
 			});
-		h(O, 10);
-		b(O, x.Border, 1, .4);
-		local i = m("TextLabel", {
+		i(m, 10);
+		p(m, F.Border, 1, .4);
+		local K = B("TextLabel", {
 				Size = UDim2.new(1, -14, 1, 0),
 				Position = UDim2.new(0, 10, 0, 0),
 				BackgroundTransparency = 1,
 				Text = "Assistance IA",
-				TextColor3 = x.TextPrimary,
+				TextColor3 = F.TextPrimary,
 				Font = Enum.Font.GothamBold,
 				TextSize = 13,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				ZIndex = 27,
-				Parent = O,
+				Parent = m,
 			});
-		local e, t, g = Q(O, "right", x.TextSecondary, 7);
-		e.Position = UDim2.new(1, -20, .5, 0);
-		e.AnchorPoint = Vector2.new(.5, .5);
-		O.MouseEnter:Connect(function()
-			(T:Create(O, TweenInfo.new(.18), { BackgroundColor3 = x.SurfaceHi, BackgroundTransparency = 0 })):Play();
-			(T:Create(i, TweenInfo.new(.18), { TextColor3 = x.Accent })):Play();
+		local r, I, S = x(m, "right", F.TextSecondary, 7);
+		r.Position = UDim2.new(1, -20, .5, 0);
+		r.AnchorPoint = Vector2.new(.5, .5);
+		m.MouseEnter:Connect(function()
+			(o:Create(m, TweenInfo.new(.18), { BackgroundColor3 = F.SurfaceHi, BackgroundTransparency = 0 })):Play();
+			(o:Create(K, TweenInfo.new(.18), { TextColor3 = F.Accent })):Play();
 		end);
-		O.MouseLeave:Connect(function()
-			(T:Create(O, TweenInfo.new(.18), { BackgroundColor3 = x.SurfaceHi, BackgroundTransparency = .1 })):Play();
-			(T:Create(i, TweenInfo.new(.18), { TextColor3 = x.TextPrimary })):Play();
+		m.MouseLeave:Connect(function()
+			(o:Create(m, TweenInfo.new(.18), { BackgroundColor3 = F.SurfaceHi, BackgroundTransparency = .1 })):Play();
+			(o:Create(K, TweenInfo.new(.18), { TextColor3 = F.TextPrimary })):Play();
 		end);
-		O.MouseButton1Click:Connect(function()
-			if mA then
-				mA();
+		m.MouseButton1Click:Connect(function()
+			if BY then
+				BY();
 			end;
 		end);
-		m("Frame", {
+		B("Frame", {
 			Size = UDim2.new(1, 0, 0, 1),
 			Position = UDim2.new(0, 0, 0, 80),
-			BackgroundColor3 = x.Border,
+			BackgroundColor3 = F.Border,
 			BackgroundTransparency = .5,
 			BorderSizePixel = 0,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		local H = 100;
-		local function f(T, O, i, e)
-			local t = m("TextLabel", {
+		local d = 100;
+		local function v(o, m, K, r)
+			local I = B("TextLabel", {
 					Size = UDim2.new(1, -8, 0, 0),
-					Position = UDim2.new(0, 0, 0, H),
+					Position = UDim2.new(0, 0, 0, d),
 					BackgroundTransparency = 1,
-					Text = T,
-					TextColor3 = O or x.TextSecondary,
-					Font = e or Enum.Font.Gotham,
-					TextSize = i or 12,
+					Text = o,
+					TextColor3 = m or F.TextSecondary,
+					Font = r or Enum.Font.Gotham,
+					TextSize = K or 12,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					TextYAlignment = Enum.TextYAlignment.Top,
 					TextWrapped = true,
 					AutomaticSize = Enum.AutomaticSize.Y,
 					ZIndex = 25,
-					Parent = p,
+					Parent = q,
 				});
-			local g = 1;
-			for p in string.gmatch(T, "\n") do
-				g = g + 1;
+			local S = 1;
+			for q in string.gmatch(o, "\n") do
+				S = S + 1;
 			end;
-			local f = (g * ((i or 12)) + 8) + math.floor(#T / 60) * ((i or 12));
-			H = H + f;
-			return t;
+			local v = (S * ((K or 12)) + 8) + math.floor(#o / 60) * ((K or 12));
+			d = d + v;
+			return I;
 		end;
-		local function Z(T)
-			m("TextLabel", {
+		local function N(o)
+			B("TextLabel", {
 				Size = UDim2.new(1, 0, 0, 22),
-				Position = UDim2.new(0, 0, 0, H),
+				Position = UDim2.new(0, 0, 0, d),
 				BackgroundTransparency = 1,
-				Text = T,
-				TextColor3 = x.Accent,
+				Text = o,
+				TextColor3 = F.Accent,
 				Font = Enum.Font.GothamBold,
 				TextSize = 15,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				ZIndex = 25,
-				Parent = p,
+				Parent = q,
 			});
-			H = H + 28;
+			d = d + 28;
 		end;
-		f("Bienvenue dans l\'exp\195\169rience ultime sur Murder Mystery 2.\nIci, chaque partie devient une d\195\169monstration. Tu vois tout, tu contr\195\180les tout, tu d\195\169cides tout. Aucun round ne t\'\195\169chappe.", x.TextSecondary, 12);
-		H = H + 10;
-		Z("Ce que tu d\195\169bloques");
-		f("Vision totale", x.TextPrimary, 13, Enum.Font.GothamBold);
-		f("R\195\180les, box et tracers en temps r\195\169el. Tu sais qui est qui avant m\195\170me que la partie commence.", x.TextSecondary, 12);
-		H = H + 8;
-		f("Libert\195\169 absolue", x.TextPrimary, 13, Enum.Font.GothamBold);
-		f("Fly, spin, jerk, noclip, invisibilit\195\169, emote zen. Ton personnage fait ce que tu veux, quand tu veux.", x.TextSecondary, 12);
-		H = H + 8;
-		f("Contr\195\180le des joueurs", x.TextPrimary, 13, Enum.Font.GothamBold);
-		f("Ciblage, t\195\169l\195\169portation, spectate, accrochage. Les autres ne sont plus que des pions.", x.TextSecondary, 12);
-		H = H + 8;
-		f("Domination Murder et Sheriff", x.TextPrimary, 13, Enum.Font.GothamBold);
-		f("Auto shoot, TP assassin, TP sh\195\169rif. Chaque r\195\180le a son arsenal.", x.TextSecondary, 12);
-		H = H + 8;
-		f("Auto Farm", x.TextPrimary, 13, Enum.Font.GothamBold);
-		f("Les pi\195\168ces viennent \195\160 toi. Automatiquement. Round apr\195\168s round.", x.TextSecondary, 12);
-		H = H + 8;
-		f("Notifications en direct", x.TextPrimary, 13, Enum.Font.GothamBold);
-		f("Tu sais avant tout le monde. Murder, Sheriff, gun au sol \226\128\148 rien ne t\'\195\169chappe.", x.TextSecondary, 12);
-		H = H + 16;
-		Z("Pr\195\170t \195\160 jouer");
-		f("Appuie sur M.", x.Accent, 14, Enum.Font.GothamBold);
-		f("Le menu s\'ouvre. Le jeu change.\nBonne chance. Tu n\'en auras pas besoin.", x.TextSecondary, 12);
-		H = H + 20;
-		m("TextLabel", {
+		v("Bienvenue dans l\'exp\195\169rience ultime sur Murder Mystery 2.\nIci, chaque partie devient une d\195\169monstration. Tu vois tout, tu contr\195\180les tout, tu d\195\169cides tout. Aucun round ne t\'\195\169chappe.", F.TextSecondary, 12);
+		d = d + 10;
+		N("Ce que tu d\195\169bloques");
+		v("Vision totale", F.TextPrimary, 13, Enum.Font.GothamBold);
+		v("R\195\180les, box et tracers en temps r\195\169el. Tu sais qui est qui avant m\195\170me que la partie commence.", F.TextSecondary, 12);
+		d = d + 8;
+		v("Libert\195\169 absolue", F.TextPrimary, 13, Enum.Font.GothamBold);
+		v("Fly, spin, jerk, noclip, invisibilit\195\169, emote zen. Ton personnage fait ce que tu veux, quand tu veux.", F.TextSecondary, 12);
+		d = d + 8;
+		v("Mouvement avanc\195\169", F.TextPrimary, 13, Enum.Font.GothamBold);
+		v("Dash, slide, wall run, wall jump, grapple, roll, paraglide. Tout le r\195\169pertoire du parkour pro.", F.TextSecondary, 12);
+		d = d + 8;
+		v("Contr\195\180le des joueurs", F.TextPrimary, 13, Enum.Font.GothamBold);
+		v("Ciblage, t\195\169l\195\169portation, spectate, accrochage. Les autres ne sont plus que des pions.", F.TextSecondary, 12);
+		d = d + 8;
+		v("Domination Murder et Sheriff", F.TextPrimary, 13, Enum.Font.GothamBold);
+		v("Auto shoot, TP assassin, TP sh\195\169rif. Chaque r\195\180le a son arsenal.", F.TextSecondary, 12);
+		d = d + 8;
+		v("Auto Farm", F.TextPrimary, 13, Enum.Font.GothamBold);
+		v("Les pi\195\168ces viennent \195\160 toi. Automatiquement. Round apr\195\168s round.", F.TextSecondary, 12);
+		d = d + 8;
+		v("Notifications en direct", F.TextPrimary, 13, Enum.Font.GothamBold);
+		v("Tu sais avant tout le monde. Murder, Sheriff, gun au sol \226\128\148 rien ne t\'\195\169chappe.", F.TextSecondary, 12);
+		d = d + 16;
+		N("Pr\195\170t \195\160 jouer");
+		v("Appuie sur M.", F.Accent, 14, Enum.Font.GothamBold);
+		v("Le menu s\'ouvre. Le jeu change.\nBonne chance. Tu n\'en auras pas besoin.", F.TextSecondary, 12);
+		d = d + 20;
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 24),
-			Position = UDim2.new(0, 0, 0, H),
+			Position = UDim2.new(0, 0, 0, d),
 			BackgroundTransparency = 1,
 			Text = "L\'\195\169quipe Mulba",
-			TextColor3 = x.Accent,
+			TextColor3 = F.Accent,
 			Font = Enum.Font.GothamBold,
 			TextSize = 14,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		m("Frame", {
+		B("Frame", {
 			Size = UDim2.new(1, 0, 0, 1),
-			Position = UDim2.new(0, 0, 0, H + 40),
-			BackgroundColor3 = x.Border,
+			Position = UDim2.new(0, 0, 0, d + 40),
+			BackgroundColor3 = F.Border,
 			BackgroundTransparency = .5,
 			BorderSizePixel = 0,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 24),
-			Position = UDim2.new(0, 0, 0, H + 50),
+			Position = UDim2.new(0, 0, 0, d + 50),
 			BackgroundTransparency = 1,
 			Text = "\240\159\146\161 Appuie sur M pour ouvrir ou fermer le menu",
-			TextColor3 = x.TextMuted,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.GothamMedium,
 			TextSize = 12,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
 	end;
-JA = function(p)
-		m("TextLabel", {
+tY = function(q)
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 32),
 			BackgroundTransparency = 1,
 			Text = "Param\195\168tres",
-			TextColor3 = x.TextPrimary,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamBold,
 			TextSize = 22,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 16),
 			Position = UDim2.new(0, 0, 0, 50),
 			BackgroundTransparency = 1,
 			Text = "COULEUR D\'ACCENT",
-			TextColor3 = x.TextMuted,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.GothamBold,
 			TextSize = 10,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		local O = m("Frame", {
+		local m = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 140),
 				Position = UDim2.new(0, 0, 0, 72),
 				BackgroundTransparency = 1,
 				ZIndex = 25,
-				Parent = p,
+				Parent = q,
 			});
-		m("UIGridLayout", {
+		B("UIGridLayout", {
 			CellSize = UDim2.new(0, 58, 0, 58),
 			CellPadding = UDim2.new(0, 14, 0, 14),
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			HorizontalAlignment = Enum.HorizontalAlignment.Left,
-			Parent = O,
+			Parent = m,
 		});
-		local i = {};
-		for p, e in ipairs(s) do
-			local t = m("TextButton", {
-					BackgroundColor3 = e.Accent,
+		local K = {};
+		for q, r in ipairs(f) do
+			local I = B("TextButton", {
+					BackgroundColor3 = r.Accent,
 					BorderSizePixel = 0,
 					Text = "",
 					AutoButtonColor = false,
-					LayoutOrder = p,
+					LayoutOrder = q,
 					ZIndex = 26,
-					Parent = O,
+					Parent = m,
 				});
-			h(t, 29);
-			local g = m("UIStroke", {
-					Color = x.TextPrimary,
+			i(I, 29);
+			local S = B("UIStroke", {
+					Color = F.TextPrimary,
 					Thickness = 2,
-					Transparency = (e.name == W.CurrentPreset) and 0 or 1,
+					Transparency = (r.name == U.CurrentPreset) and 0 or 1,
 					ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-					Parent = t,
+					Parent = I,
 				});
-			i[e.name] = g;
-			t.MouseButton1Click:Connect(function()
-				if W.CurrentPreset == e.name then
+			K[r.name] = S;
+			I.MouseButton1Click:Connect(function()
+				if U.CurrentPreset == r.name then
 					return;
 				end;
-				W.CurrentPreset = e.name;
-				S(e);
-				for p, O in pairs(i) do
-					(T:Create(O, TweenInfo.new(.2), { Transparency = (p == e.name) and 0 or 1 })):Play();
+				U.CurrentPreset = r.name;
+				h(r);
+				for q, m in pairs(K) do
+					(o:Create(m, TweenInfo.new(.2), { Transparency = (q == r.name) and 0 or 1 })):Play();
 				end;
 			end);
 		end;
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 16),
 			Position = UDim2.new(0, 0, 0, 240),
 			BackgroundTransparency = 1,
 			Text = "NOTIFICATIONS",
-			TextColor3 = x.TextMuted,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.GothamBold,
 			TextSize = 10,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		local e = m("Frame", {
+		local r = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 0),
 				Position = UDim2.new(0, 0, 0, 262),
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 25,
-				Parent = p,
+				Parent = q,
 			});
-		m("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder, Parent = e });
-		KA(e, 1, "NOTIFICATION", "Kill feed bas droite (Murder/Sheriff/Gun au sol)", function()
-			return r.NotifKillFeed;
-		end, function(p)
-			r.NotifKillFeed = p;
-		end, x.Accent);
-		KA(e, 2, "NOTIF MESSAGE CHAT", "Murder/Sheriff dans ton chat (local)", function()
-			return r.NotifChatMsg;
-		end, function(p)
-			r.NotifChatMsg = p;
-		end, x.Accent);
-		lA(e, 3, "SPAM CHAT", "Renvoie Murder/Sheriff dans le chat", Color3.fromRGB(240, 165, 95), function()
-			x5();
+		B("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder, Parent = r });
+		zY(r, 1, "NOTIFICATION", "Kill feed bas droite (Murder/Sheriff/Gun au sol)", function()
+			return u.NotifKillFeed;
+		end, function(q)
+			u.NotifKillFeed = q;
+		end, F.Accent);
+		zY(r, 2, "NOTIF MESSAGE CHAT", "Murder/Sheriff dans ton chat (local)", function()
+			return u.NotifChatMsg;
+		end, function(q)
+			u.NotifChatMsg = q;
+		end, F.Accent);
+		aY(r, 3, "SPAM CHAT", "Renvoie Murder/Sheriff dans le chat", Color3.fromRGB(240, 165, 95), function()
+			Fq();
 			task.wait(.05);
-			x5();
+			Fq();
 			task.wait(.05);
-			x5();
+			Fq();
 		end);
 	end;
-UA = function(p, T, O)
-		local i = m("Frame", {
+kY = function(q, o, m)
+		local K = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 26),
 				BackgroundTransparency = 1,
-				LayoutOrder = T,
+				LayoutOrder = o,
 				ZIndex = 19,
-				Parent = p,
+				Parent = q,
 			});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 1, 0),
 			Position = UDim2.new(0, 4, 0, 0),
 			BackgroundTransparency = 1,
-			Text = string.upper(O),
-			TextColor3 = x.TextMuted,
+			Text = string.upper(m),
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.GothamBold,
 			TextSize = 10,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 19,
-			Parent = i,
+			Parent = K,
 		});
-		m("Frame", {
+		B("Frame", {
 			Size = UDim2.new(1, 0, 0, 1),
 			Position = UDim2.new(0, 0, 1, -1),
-			BackgroundColor3 = x.Border,
+			BackgroundColor3 = F.Border,
 			BackgroundTransparency = .5,
 			BorderSizePixel = 0,
 			ZIndex = 19,
-			Parent = i,
+			Parent = K,
 		});
 	end;
-aA = function(p, O, i, e, t, g, H)
-		local f = m("Frame", {
+bY = function(q, m, K, r, I, S, d)
+		local v = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 58),
-				BackgroundColor3 = x.Surface,
+				BackgroundColor3 = F.Surface,
 				BackgroundTransparency = .25,
 				BorderSizePixel = 0,
-				LayoutOrder = O,
+				LayoutOrder = m,
 				ZIndex = 26,
-				Parent = p,
+				Parent = q,
 			});
-		h(f, 12);
-		b(f, x.Border, 1, .5);
-		local Z = m("Frame", {
+		i(v, 12);
+		p(v, F.Border, 1, .5);
+		local N = B("Frame", {
 				Size = UDim2.new(0, 3, 0, 32),
 				Position = UDim2.new(0, 14, .5, 0),
 				AnchorPoint = Vector2.new(0, .5),
-				BackgroundColor3 = H,
+				BackgroundColor3 = d,
 				BorderSizePixel = 0,
 				ZIndex = 27,
-				Parent = f,
+				Parent = v,
 			});
-		h(Z, 2);
-		m("TextLabel", {
+		i(N, 2);
+		B("TextLabel", {
 			Size = UDim2.new(1, -100, 0, 18),
 			Position = UDim2.new(0, 26, 0, 10),
 			BackgroundTransparency = 1,
-			Text = i,
-			TextColor3 = x.TextPrimary,
+			Text = K,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamBold,
 			TextSize = 14,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 27,
-			Parent = f,
+			Parent = v,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, -100, 0, 14),
 			Position = UDim2.new(0, 26, 0, 32),
 			BackgroundTransparency = 1,
-			Text = e,
-			TextColor3 = x.TextMuted,
+			Text = r,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.Gotham,
 			TextSize = 10,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 27,
-			Parent = f,
+			Parent = v,
 		});
-		local B = m("TextButton", {
+		local D = B("TextButton", {
 				Size = UDim2.new(0, 46, 0, 24),
 				Position = UDim2.new(1, -58, .5, 0),
 				AnchorPoint = Vector2.new(0, .5),
-				BackgroundColor3 = t() and H or x.SurfaceHi,
+				BackgroundColor3 = I() and d or F.SurfaceHi,
 				BorderSizePixel = 0,
 				Text = "",
 				AutoButtonColor = false,
 				ZIndex = 28,
-				Parent = f,
+				Parent = v,
 			});
-		h(B, 12);
-		local s = m("Frame", {
+		i(D, 12);
+		local l = B("Frame", {
 				Size = UDim2.new(0, 18, 0, 18),
-				Position = t() and UDim2.new(1, -21, .5, 0) or UDim2.new(0, 3, .5, 0),
+				Position = I() and UDim2.new(1, -21, .5, 0) or UDim2.new(0, 3, .5, 0),
 				AnchorPoint = Vector2.new(0, .5),
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				BorderSizePixel = 0,
 				ZIndex = 29,
-				Parent = B,
+				Parent = D,
 			});
-		h(s, 9);
-		B.MouseButton1Click:Connect(function()
-			g();
-			local p = t();
-			(T:Create(B, TweenInfo.new(.2), { BackgroundColor3 = p and H or x.SurfaceHi })):Play();
-			(T:Create(s, TweenInfo.new(.2, Enum.EasingStyle.Quad), { Position = p and UDim2.new(1, -21, .5, 0) or UDim2.new(0, 3, .5, 0) })):Play();
+		i(l, 9);
+		D.MouseButton1Click:Connect(function()
+			S();
+			local q = I();
+			(o:Create(D, TweenInfo.new(.2), { BackgroundColor3 = q and d or F.SurfaceHi })):Play();
+			(o:Create(l, TweenInfo.new(.2, Enum.EasingStyle.Quad), { Position = q and UDim2.new(1, -21, .5, 0) or UDim2.new(0, 3, .5, 0) })):Play();
 		end);
-		return f;
+		return v;
 	end;
-DA = function(p, T, O, e, t, g, H, f)
-		local Z = m("Frame", {
+CY = function(q, o, m, r, I, S, d, v)
+		local N = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 52),
-				BackgroundColor3 = x.Surface,
+				BackgroundColor3 = F.Surface,
 				BackgroundTransparency = .25,
 				BorderSizePixel = 0,
-				LayoutOrder = T,
+				LayoutOrder = o,
 				ZIndex = 26,
-				Parent = p,
+				Parent = q,
 			});
-		h(Z, 12);
-		b(Z, x.Border, 1, .5);
-		m("TextLabel", {
+		i(N, 12);
+		p(N, F.Border, 1, .5);
+		B("TextLabel", {
 			Size = UDim2.new(0, 130, 0, 14),
 			Position = UDim2.new(0, 26, 0, 8),
 			BackgroundTransparency = 1,
-			Text = O,
-			TextColor3 = x.TextMuted,
+			Text = m,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.GothamBold,
 			TextSize = 10,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 27,
-			Parent = Z,
+			Parent = N,
 		});
-		local B = m("TextLabel", {
+		local D = B("TextLabel", {
 				Size = UDim2.new(0, 60, 0, 14),
 				Position = UDim2.new(1, -70, 0, 8),
 				BackgroundTransparency = 1,
-				Text = tostring(g()),
-				TextColor3 = x.TextPrimary,
+				Text = tostring(S()),
+				TextColor3 = F.TextPrimary,
 				Font = Enum.Font.GothamBold,
 				TextSize = 11,
 				TextXAlignment = Enum.TextXAlignment.Right,
 				ZIndex = 27,
-				Parent = Z,
+				Parent = N,
 			});
-		local s = m("Frame", {
+		local l = B("Frame", {
 				Size = UDim2.new(1, -52, 0, 8),
 				Position = UDim2.new(0, 26, 0, 32),
-				BackgroundColor3 = x.SurfaceHi,
+				BackgroundColor3 = F.SurfaceHi,
 				BorderSizePixel = 0,
 				ZIndex = 27,
-				Parent = Z,
+				Parent = N,
 			});
-		h(s, 4);
-		local w = ((g() - e)) / ((t - e));
-		local C = m("Frame", {
-				Size = UDim2.new(w, 0, 1, 0),
-				BackgroundColor3 = f,
+		i(l, 4);
+		local f = ((S() - r)) / ((I - r));
+		local Q = B("Frame", {
+				Size = UDim2.new(f, 0, 1, 0),
+				BackgroundColor3 = v,
 				BorderSizePixel = 0,
 				ZIndex = 28,
-				Parent = s,
+				Parent = l,
 			});
-		h(C, 4);
-		local P = m("Frame", {
+		i(Q, 4);
+		local A = B("Frame", {
 				Size = UDim2.new(0, 14, 0, 14),
-				Position = UDim2.new(w, 0, .5, 0),
+				Position = UDim2.new(f, 0, .5, 0),
 				AnchorPoint = Vector2.new(.5, .5),
 				BackgroundColor3 = Color3.fromRGB(255, 255, 255),
 				BorderSizePixel = 0,
 				ZIndex = 29,
-				Parent = s,
+				Parent = l,
 			});
-		h(P, 7);
-		b(P, Color3.fromRGB(0, 0, 0), 2, .3);
-		local o = m("TextButton", {
+		i(A, 7);
+		p(A, Color3.fromRGB(0, 0, 0), 2, .3);
+		local y = B("TextButton", {
 				Size = UDim2.new(1, -52, 0, 22),
 				Position = UDim2.new(0, 26, 0, 20),
 				BackgroundTransparency = 1,
 				Text = "",
 				AutoButtonColor = false,
 				ZIndex = 30,
-				Parent = Z,
+				Parent = N,
 			});
-		local S = false;
-		local function v(p)
-			local T = s.AbsolutePosition.X;
-			local O = s.AbsoluteSize.X;
-			if O <= 0 then
+		local Y = false;
+		local function h(q)
+			local o = l.AbsolutePosition.X;
+			local m = l.AbsoluteSize.X;
+			if m <= 0 then
 				return;
 			end;
-			local i = math.clamp(((p - T)) / O, 0, 1);
-			local g = e + i * ((t - e));
-			g = math.floor(g * 10 + .5) / 10;
-			H(g);
-			P.Position = UDim2.new(i, 0, .5, 0);
-			C.Size = UDim2.new(i, 0, 1, 0);
-			B.Text = tostring(g);
+			local K = math.clamp(((q - o)) / m, 0, 1);
+			local S = r + K * ((I - r));
+			S = math.floor(S * 10 + .5) / 10;
+			d(S);
+			A.Position = UDim2.new(K, 0, .5, 0);
+			Q.Size = UDim2.new(K, 0, 1, 0);
+			D.Text = tostring(S);
 		end;
-		o.InputBegan:Connect(function(p)
-			if p.UserInputType == Enum.UserInputType.MouseButton1 or p.UserInputType == Enum.UserInputType.Touch then
-				S = true;
-				v(p.Position.X);
+		y.InputBegan:Connect(function(q)
+			if q.UserInputType == Enum.UserInputType.MouseButton1 or q.UserInputType == Enum.UserInputType.Touch then
+				Y = true;
+				h(q.Position.X);
 			end;
 		end);
-		o.InputChanged:Connect(function(p)
-			if not S then
+		y.InputChanged:Connect(function(q)
+			if not Y then
 				return;
 			end;
-			if p.UserInputType == Enum.UserInputType.MouseMovement or p.UserInputType == Enum.UserInputType.Touch then
-				v(p.Position.X);
+			if q.UserInputType == Enum.UserInputType.MouseMovement or q.UserInputType == Enum.UserInputType.Touch then
+				h(q.Position.X);
 			end;
 		end);
-		i.InputEnded:Connect(function(p)
-			if p.UserInputType == Enum.UserInputType.MouseButton1 or p.UserInputType == Enum.UserInputType.Touch then
-				S = false;
+		K.InputEnded:Connect(function(q)
+			if q.UserInputType == Enum.UserInputType.MouseButton1 or q.UserInputType == Enum.UserInputType.Touch then
+				Y = false;
 			end;
 		end);
 	end;
-lA = function(p, O, i, e, t, g)
-		local H = m("TextButton", {
+aY = function(q, m, K, r, I, S)
+		local d = B("TextButton", {
 				Size = UDim2.new(1, 0, 0, 58),
-				BackgroundColor3 = x.Surface,
+				BackgroundColor3 = F.Surface,
 				BackgroundTransparency = .25,
 				BorderSizePixel = 0,
 				Text = "",
 				AutoButtonColor = false,
-				LayoutOrder = O,
+				LayoutOrder = m,
 				ZIndex = 26,
-				Parent = p,
+				Parent = q,
 			});
-		h(H, 12);
-		b(H, x.Border, 1, .5);
-		local f = m("Frame", {
+		i(d, 12);
+		p(d, F.Border, 1, .5);
+		local v = B("Frame", {
 				Size = UDim2.new(0, 3, 0, 32),
 				Position = UDim2.new(0, 14, .5, 0),
 				AnchorPoint = Vector2.new(0, .5),
-				BackgroundColor3 = t,
+				BackgroundColor3 = I,
 				BorderSizePixel = 0,
 				ZIndex = 27,
-				Parent = H,
+				Parent = d,
 			});
-		h(f, 2);
-		local Z = m("TextLabel", {
+		i(v, 2);
+		local N = B("TextLabel", {
 				Size = UDim2.new(1, -60, 0, 18),
 				Position = UDim2.new(0, 26, 0, 10),
 				BackgroundTransparency = 1,
-				Text = i,
-				TextColor3 = x.TextPrimary,
+				Text = K,
+				TextColor3 = F.TextPrimary,
 				Font = Enum.Font.GothamBold,
 				TextSize = 14,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				ZIndex = 27,
-				Parent = H,
+				Parent = d,
 			});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, -60, 0, 14),
 			Position = UDim2.new(0, 26, 0, 32),
 			BackgroundTransparency = 1,
-			Text = e,
-			TextColor3 = x.TextMuted,
+			Text = r,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.Gotham,
 			TextSize = 10,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 27,
-			Parent = H,
+			Parent = d,
 		});
-		local B, s, w = Q(H, "right", x.TextMuted, 7);
-		B.Position = UDim2.new(1, -26, .5, 0);
-		B.AnchorPoint = Vector2.new(.5, .5);
-		H.MouseEnter:Connect(function()
-			(T:Create(H, TweenInfo.new(.18), { BackgroundColor3 = x.SurfaceHi, BackgroundTransparency = .1 })):Play();
-			(T:Create(Z, TweenInfo.new(.18), { TextColor3 = t })):Play();
-			(T:Create(s, TweenInfo.new(.18), { BackgroundColor3 = t })):Play();
-			(T:Create(w, TweenInfo.new(.18), { BackgroundColor3 = t })):Play();
+		local D, l, f = x(d, "right", F.TextMuted, 7);
+		D.Position = UDim2.new(1, -26, .5, 0);
+		D.AnchorPoint = Vector2.new(.5, .5);
+		d.MouseEnter:Connect(function()
+			(o:Create(d, TweenInfo.new(.18), { BackgroundColor3 = F.SurfaceHi, BackgroundTransparency = .1 })):Play();
+			(o:Create(N, TweenInfo.new(.18), { TextColor3 = I })):Play();
+			(o:Create(l, TweenInfo.new(.18), { BackgroundColor3 = I })):Play();
+			(o:Create(f, TweenInfo.new(.18), { BackgroundColor3 = I })):Play();
 		end);
-		H.MouseLeave:Connect(function()
-			(T:Create(H, TweenInfo.new(.18), { BackgroundColor3 = x.Surface, BackgroundTransparency = .25 })):Play();
-			(T:Create(Z, TweenInfo.new(.18), { TextColor3 = x.TextPrimary })):Play();
-			(T:Create(s, TweenInfo.new(.18), { BackgroundColor3 = x.TextMuted })):Play();
-			(T:Create(w, TweenInfo.new(.18), { BackgroundColor3 = x.TextMuted })):Play();
+		d.MouseLeave:Connect(function()
+			(o:Create(d, TweenInfo.new(.18), { BackgroundColor3 = F.Surface, BackgroundTransparency = .25 })):Play();
+			(o:Create(N, TweenInfo.new(.18), { TextColor3 = F.TextPrimary })):Play();
+			(o:Create(l, TweenInfo.new(.18), { BackgroundColor3 = F.TextMuted })):Play();
+			(o:Create(f, TweenInfo.new(.18), { BackgroundColor3 = F.TextMuted })):Play();
 		end);
-		H.MouseButton1Click:Connect(g);
-		return H;
+		d.MouseButton1Click:Connect(S);
+		return d;
 	end;
-KA = function(p, O, i, e, t, g, H)
-		local f = m("TextButton", {
+zY = function(q, m, K, r, I, S, d)
+		local v = B("TextButton", {
 				Size = UDim2.new(1, 0, 0, 58),
-				BackgroundColor3 = x.Surface,
+				BackgroundColor3 = F.Surface,
 				BackgroundTransparency = .25,
 				BorderSizePixel = 0,
 				Text = "",
 				AutoButtonColor = false,
-				LayoutOrder = O,
+				LayoutOrder = m,
 				ZIndex = 26,
-				Parent = p,
+				Parent = q,
 			});
-		h(f, 12);
-		b(f, x.Border, 1, .5);
-		local Z = x.ToggleOff;
-		local B = x.Accent;
-		local s = m("Frame", {
+		i(v, 12);
+		p(v, F.Border, 1, .5);
+		local N = F.ToggleOff;
+		local D = F.Accent;
+		local l = B("Frame", {
 				Size = UDim2.new(0, 3, 0, 32),
 				Position = UDim2.new(0, 14, .5, 0),
 				AnchorPoint = Vector2.new(0, .5),
-				BackgroundColor3 = t() and B or Z,
+				BackgroundColor3 = I() and D or N,
 				BorderSizePixel = 0,
 				ZIndex = 27,
-				Parent = f,
+				Parent = v,
 			});
-		h(s, 2);
-		local w = m("TextLabel", {
+		i(l, 2);
+		local f = B("TextLabel", {
 				Size = UDim2.new(1, -60, 0, 18),
 				Position = UDim2.new(0, 26, 0, 10),
 				BackgroundTransparency = 1,
-				Text = i,
-				TextColor3 = x.TextPrimary,
+				Text = K,
+				TextColor3 = F.TextPrimary,
 				Font = Enum.Font.GothamBold,
 				TextSize = 14,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				ZIndex = 27,
-				Parent = f,
+				Parent = v,
 			});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, -60, 0, 14),
 			Position = UDim2.new(0, 26, 0, 32),
 			BackgroundTransparency = 1,
-			Text = e,
-			TextColor3 = x.TextMuted,
+			Text = r,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.Gotham,
 			TextSize = 10,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 27,
-			Parent = f,
+			Parent = v,
 		});
-		local C, P, o = Q(f, "right", t() and B or Z, 7);
-		C.Position = UDim2.new(1, -26, .5, 0);
-		C.AnchorPoint = Vector2.new(.5, .5);
-		local function S()
-			local p = t();
-			local T = p and B or Z;
-			s.BackgroundColor3 = T;
-			P.BackgroundColor3 = T;
-			o.BackgroundColor3 = T;
-			w.TextColor3 = p and B or x.TextPrimary;
+		local Q, A, y = x(v, "right", I() and D or N, 7);
+		Q.Position = UDim2.new(1, -26, .5, 0);
+		Q.AnchorPoint = Vector2.new(.5, .5);
+		local function Y()
+			local q = I();
+			local o = q and D or N;
+			l.BackgroundColor3 = o;
+			A.BackgroundColor3 = o;
+			y.BackgroundColor3 = o;
+			f.TextColor3 = q and D or F.TextPrimary;
 		end;
-		f.MouseEnter:Connect(function()
-			(T:Create(f, TweenInfo.new(.18), { BackgroundColor3 = x.SurfaceHi, BackgroundTransparency = .1 })):Play();
+		v.MouseEnter:Connect(function()
+			(o:Create(v, TweenInfo.new(.18), { BackgroundColor3 = F.SurfaceHi, BackgroundTransparency = .1 })):Play();
 		end);
-		f.MouseLeave:Connect(function()
-			(T:Create(f, TweenInfo.new(.18), { BackgroundColor3 = x.Surface, BackgroundTransparency = .25 })):Play();
+		v.MouseLeave:Connect(function()
+			(o:Create(v, TweenInfo.new(.18), { BackgroundColor3 = F.Surface, BackgroundTransparency = .25 })):Play();
 		end);
-		f.MouseButton1Click:Connect(function()
-			g(not t());
-			S();
+		v.MouseButton1Click:Connect(function()
+			S(not I());
+			Y();
 		end);
-		return f;
+		return v;
 	end;
-local function NA(O)
-	m("TextLabel", {
+local function VY(m)
+	B("TextLabel", {
 		Size = UDim2.new(1, 0, 0, 14),
 		Position = UDim2.new(0, 0, 0, 76),
 		BackgroundTransparency = 1,
 		Text = "JOUEUR CIBL\195\137",
-		TextColor3 = x.TextMuted,
+		TextColor3 = F.TextMuted,
 		Font = Enum.Font.GothamBold,
 		TextSize = 10,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		ZIndex = 25,
-		Parent = O,
+		Parent = m,
 	});
-	local i = m("TextButton", {
+	local K = B("TextButton", {
 			Size = UDim2.new(1, 0, 0, 44),
 			Position = UDim2.new(0, 0, 0, 96),
-			BackgroundColor3 = x.Surface,
+			BackgroundColor3 = F.Surface,
 			BackgroundTransparency = .25,
 			BorderSizePixel = 0,
 			Text = "",
 			AutoButtonColor = false,
 			ZIndex = 30,
-			Parent = O,
+			Parent = m,
 		});
-	h(i, 10);
-	b(i, x.Border, 1, .4);
-	local e = m("TextLabel", {
+	i(K, 10);
+	p(K, F.Border, 1, .4);
+	local r = B("TextLabel", {
 			Size = UDim2.new(1, -70, 1, 0),
 			Position = UDim2.new(0, 16, 0, 0),
 			BackgroundTransparency = 1,
 			Text = "\226\128\148 Aucun joueur s\195\169lectionn\195\169 \226\128\148",
-			TextColor3 = x.TextMuted,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.GothamMedium,
 			TextSize = 13,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 31,
-			Parent = i,
+			Parent = K,
 		});
-	local g, H, f = Q(i, "right", x.TextMuted, 8);
-	g.Position = UDim2.new(1, -24, .5, 0);
-	g.AnchorPoint = Vector2.new(.5, .5);
-	local Z = m("Frame", {
+	local I, d, v = x(K, "right", F.TextMuted, 8);
+	I.Position = UDim2.new(1, -24, .5, 0);
+	I.AnchorPoint = Vector2.new(.5, .5);
+	local N = B("Frame", {
 			Size = UDim2.new(1, 0, 0, 0),
 			Position = UDim2.new(0, 0, 0, 148),
-			BackgroundColor3 = x.Surface,
+			BackgroundColor3 = F.Surface,
 			BackgroundTransparency = .05,
 			BorderSizePixel = 0,
 			Visible = false,
 			AutomaticSize = Enum.AutomaticSize.Y,
 			ZIndex = 40,
-			Parent = O,
+			Parent = m,
 		});
-	h(Z, 12);
-	b(Z, x.Border, 1, .3);
-	local B = m("Frame", {
+	i(N, 12);
+	p(N, F.Border, 1, .3);
+	local D = B("Frame", {
 			Size = UDim2.new(1, -12, 0, 6),
 			Position = UDim2.new(0, 6, 0, 6),
 			BackgroundTransparency = 1,
 			AutomaticSize = Enum.AutomaticSize.Y,
 			ZIndex = 41,
-			Parent = Z,
+			Parent = N,
 		});
-	m("UIListLayout", { Padding = UDim.new(0, 2), SortOrder = Enum.SortOrder.LayoutOrder, Parent = B });
-	local function s()
-		for p, T in ipairs(B:GetChildren()) do
-			if T:IsA("TextButton") or (T:IsA("TextLabel") and T.Name == "EmptyLbl") then
-				T:Destroy();
+	B("UIListLayout", { Padding = UDim.new(0, 2), SortOrder = Enum.SortOrder.LayoutOrder, Parent = D });
+	local function l()
+		for q, o in ipairs(D:GetChildren()) do
+			if o:IsA("TextButton") or (o:IsA("TextLabel") and o.Name == "EmptyLbl") then
+				o:Destroy();
 			end;
 		end;
-		local O = 0;
-		for p, i in ipairs(p:GetPlayers()) do
-			if i == t then
+		local m = 0;
+		for q, K in ipairs(q:GetPlayers()) do
+			if K == S then
 				continue;
 			end;
-			O = O + 1;
-			local g = m("TextButton", {
+			m = m + 1;
+			local I = B("TextButton", {
 					Size = UDim2.new(1, 0, 0, 34),
-					BackgroundColor3 = x.SurfaceHi,
+					BackgroundColor3 = F.SurfaceHi,
 					BackgroundTransparency = .6,
 					BorderSizePixel = 0,
 					Text = "",
 					AutoButtonColor = false,
-					LayoutOrder = O,
+					LayoutOrder = m,
 					ZIndex = 42,
-					Parent = B,
+					Parent = D,
 				});
-			h(g, 8);
-			local s = t5(i);
-			local w = f5(s);
-			m("TextLabel", {
+			i(I, 8);
+			local l = Sq(K);
+			local f = Nq(l);
+			B("TextLabel", {
 				Size = UDim2.new(1, -50, 1, 0),
 				Position = UDim2.new(0, 12, 0, 0),
 				BackgroundTransparency = 1,
-				Text = i.Name .. ("  (" .. (s .. ")")),
-				TextColor3 = x.TextPrimary,
+				Text = K.Name .. ("  (" .. (l .. ")")),
+				TextColor3 = F.TextPrimary,
 				Font = Enum.Font.GothamMedium,
 				TextSize = 13,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				ZIndex = 43,
-				Parent = g,
+				Parent = I,
 			});
-			m("Frame", {
+			B("Frame", {
 				Size = UDim2.new(0, 4, 0, 18),
 				Position = UDim2.new(1, -14, .5, 0),
 				AnchorPoint = Vector2.new(0, .5),
-				BackgroundColor3 = w,
+				BackgroundColor3 = f,
 				BorderSizePixel = 0,
 				ZIndex = 43,
-				Parent = g,
+				Parent = I,
 			});
-			g.MouseEnter:Connect(function()
-				(T:Create(g, TweenInfo.new(.15), { BackgroundTransparency = .25 })):Play();
+			I.MouseEnter:Connect(function()
+				(o:Create(I, TweenInfo.new(.15), { BackgroundTransparency = .25 })):Play();
 			end);
-			g.MouseLeave:Connect(function()
-				(T:Create(g, TweenInfo.new(.15), { BackgroundTransparency = .6 })):Play();
+			I.MouseLeave:Connect(function()
+				(o:Create(I, TweenInfo.new(.15), { BackgroundTransparency = .6 })):Play();
 			end);
-			g.MouseButton1Click:Connect(function()
-				W.TrollSelected = i;
-				e.Text = i.Name;
-				e.TextColor3 = x.Accent;
-				Z.Visible = false;
-				(T:Create(H, TweenInfo.new(.15), { Rotation = 45 })):Play();
-				(T:Create(f, TweenInfo.new(.15), { Rotation = -45 })):Play();
-				e5("\240\159\142\175 Cible : " .. i.Name, x.Accent);
+			I.MouseButton1Click:Connect(function()
+				U.TrollSelected = K;
+				r.Text = K.Name;
+				r.TextColor3 = F.Accent;
+				N.Visible = false;
+				(o:Create(d, TweenInfo.new(.15), { Rotation = 45 })):Play();
+				(o:Create(v, TweenInfo.new(.15), { Rotation = -45 })):Play();
+				Iq("\240\159\142\175 Cible : " .. K.Name, F.Accent);
 			end);
 		end;
-		if O == 0 then
-			m("TextLabel", {
+		if m == 0 then
+			B("TextLabel", {
 				Name = "EmptyLbl",
 				Size = UDim2.new(1, 0, 0, 34),
 				BackgroundTransparency = 1,
 				Text = "Aucun autre joueur",
-				TextColor3 = x.TextMuted,
+				TextColor3 = F.TextMuted,
 				Font = Enum.Font.Gotham,
 				TextSize = 12,
 				ZIndex = 42,
-				Parent = B,
+				Parent = D,
 			});
 		end;
 	end;
-	local w = false;
-	i.MouseButton1Click:Connect(function()
-		w = not w;
-		if w then
-			s();
+	local f = false;
+	K.MouseButton1Click:Connect(function()
+		f = not f;
+		if f then
+			l();
 		end;
-		Z.Visible = w;
-		(T:Create(H, TweenInfo.new(.15), { Rotation = w and -45 or 45 })):Play();
-		(T:Create(f, TweenInfo.new(.15), { Rotation = w and 45 or -45 })):Play();
+		N.Visible = f;
+		(o:Create(d, TweenInfo.new(.15), { Rotation = f and -45 or 45 })):Play();
+		(o:Create(v, TweenInfo.new(.15), { Rotation = f and 45 or -45 })):Play();
 	end);
-	p.PlayerAdded:Connect(function()
-		if w then
-			s();
+	q.PlayerAdded:Connect(function()
+		if f then
+			l();
 		end;
 	end);
-	p.PlayerRemoving:Connect(function(p)
-		if W.TrollSelected == p then
-			W.TrollSelected = nil;
-			e.Text = "\226\128\148 Aucun joueur s\195\169lectionn\195\169 \226\128\148";
-			e.TextColor3 = x.TextMuted;
+	q.PlayerRemoving:Connect(function(q)
+		if U.TrollSelected == q then
+			U.TrollSelected = nil;
+			r.Text = "\226\128\148 Aucun joueur s\195\169lectionn\195\169 \226\128\148";
+			r.TextColor3 = F.TextMuted;
 		end;
-		if w then
-			s();
+		if f then
+			l();
 		end;
 	end);
 end;
-nA = function()
+LY = function()
 		return;
 	end;
-FA = function(p)
-		m("TextLabel", {
+local pY = {
+		DashEnabled = false,
+		DashPower = 120,
+		DashKey = Enum.KeyCode.Q,
+		DashCooldown = .6,
+		DashLastUse = 0,
+		TpMouseEnabled = false,
+		TpMouseKey = Enum.KeyCode.T,
+		SlideEnabled = false,
+		SlideSpeed = 90,
+		SlideKey = Enum.KeyCode.C,
+		SlideDuration = .9,
+		SlideLastUse = 0,
+		SlideActive = false,
+		SlideConn = nil,
+		WallRunEnabled = false,
+		WallRunSpeed = 45,
+		WallRunStick = .6,
+		WallRunConn = nil,
+		WallRunActive = false,
+		MoonWalkEnabled = false,
+		MoonWalkSpeed = -16,
+		MoonWalkConn = nil,
+		IceSkateEnabled = false,
+		IceSkateFriction = .985,
+		IceSkateAccel = .35,
+		IceSkateVel = Vector3.zero,
+		IceSkateConn = nil,
+		WallJumpEnabled = false,
+		WallJumpPower = 65,
+		WallJumpKey = Enum.KeyCode.Space,
+		WallJumpConn = nil,
+		WallJumpLastTouch = 0,
+		GrappleEnabled = false,
+		GrappleRange = 300,
+		GrappleSpeed = 180,
+		GrappleKey = Enum.KeyCode.G,
+		GrappleConn = nil,
+		GrappleActive = false,
+		GrappleTarget = nil,
+		RollEnabled = false,
+		RollSpeed = 70,
+		RollKey = Enum.KeyCode.R,
+		RollDuration = .6,
+		RollLastUse = 0,
+		RollConn = nil,
+		RollActive = false,
+		CrouchSlideEnabled = false,
+		CrouchSlideSpeed = 60,
+		CrouchSlideKey = Enum.KeyCode.LeftControl,
+		CrouchSlideDuration = .8,
+		CrouchSlideLastUse = 0,
+		CrouchSlideConn = nil,
+		CrouchSlideActive = false,
+		ParaglideEnabled = false,
+		ParaglideFallSpeed = 4,
+		ParaglideForward = 22,
+		ParaglideKey = Enum.KeyCode.P,
+		ParaglideConn = nil,
+		ParaglideActive = false,
+	};
+local function xY(q, o, m)
+	return K.InputBegan:Connect(function(K, r)
+		if r and not m then
+			return;
+		end;
+		if K.UserInputType ~= Enum.UserInputType.Keyboard then
+			return;
+		end;
+		if K.KeyCode == q then
+			o();
+		end;
+	end);
+end;
+local function nY()
+	local q = pY;
+	if not q.DashEnabled then
+		return;
+	end;
+	if tick() - q.DashLastUse < q.DashCooldown then
+		return;
+	end;
+	q.DashLastUse = tick();
+	local o = S.Character;
+	local m = o and o:FindFirstChild("HumanoidRootPart");
+	local K = o and o:FindFirstChildOfClass("Humanoid");
+	if not ((m and K)) then
+		return;
+	end;
+	local r = K.MoveDirection;
+	if r.Magnitude < .1 then
+		r = workspace.CurrentCamera.CFrame.LookVector;
+	end;
+	r = (Vector3.new(r.X, 0, r.Z)).Unit;
+	local d = Instance.new("BodyVelocity");
+	d.Velocity = r * q.DashPower;
+	d.MaxForce = Vector3.new(9000000000, 0, 9000000000);
+	d.P = 5000;
+	d.Parent = m;
+	I:AddItem(d, .18);
+	local v = Instance.new("Attachment", m);
+	local N = Instance.new("Trail", m);
+	N.Attachment0 = v;
+	N.Attachment1 = v;
+	N.Lifetime = .3;
+	N.Color = ColorSequence.new(F.Accent);
+	I:AddItem(N, .4);
+	I:AddItem(v, .4);
+	Iq("\240\159\146\168 Dash", F.Accent);
+end;
+xY(pY.DashKey, nY);
+local function gY()
+	local q = pY;
+	if not q.TpMouseEnabled then
+		return;
+	end;
+	local o = S:GetMouse();
+	local m = S.Character;
+	local K = m and m:FindFirstChild("HumanoidRootPart");
+	if not ((o and K)) then
+		return;
+	end;
+	local r = o.Hit;
+	if not r then
+		return;
+	end;
+	pcall(function()
+		K.CFrame = r + Vector3.new(0, 3, 0);
+		K.AssemblyLinearVelocity = Vector3.zero;
+	end);
+	Iq("\240\159\150\177 TP Mouse", F.Accent);
+end;
+xY(pY.TpMouseKey, gY);
+local function qM()
+	local q = pY;
+	if q.SlideConn then
+		q.SlideConn:Disconnect();
+		q.SlideConn = nil;
+	end;
+	q.SlideActive = false;
+	local o = S.Character;
+	local m = o and o:FindFirstChildOfClass("Humanoid");
+	if m then
+		pcall(function()
+			m.PlatformStand = false;
+		end);
+	end;
+end;
+local function oM()
+	local q = pY;
+	if not q.SlideEnabled or q.SlideActive then
+		return;
+	end;
+	if tick() - q.SlideLastUse < 1 then
+		return;
+	end;
+	q.SlideLastUse = tick();
+	q.SlideActive = true;
+	local o = S.Character;
+	local K = o and o:FindFirstChild("HumanoidRootPart");
+	local r = o and o:FindFirstChildOfClass("Humanoid");
+	if not ((K and r)) then
+		q.SlideActive = false;
+		return;
+	end;
+	local I = r.MoveDirection;
+	if I.Magnitude < .1 then
+		I = K.CFrame.LookVector;
+	end;
+	I = (Vector3.new(I.X, 0, I.Z)).Unit;
+	local d = tick();
+	q.SlideConn = m.Heartbeat:Connect(function()
+			if tick() - d > q.SlideDuration then
+				qM();
+				return;
+			end;
+			if not K or not K.Parent then
+				qM();
+				return;
+			end;
+			pcall(function()
+				K.CFrame = CFrame.new(K.Position, K.Position + I);
+				K.AssemblyLinearVelocity = Vector3.new(I.X * q.SlideSpeed, K.AssemblyLinearVelocity.Y, I.Z * q.SlideSpeed);
+			end);
+		end);
+	Iq("\240\159\155\183 Slide", F.Accent);
+end;
+xY(pY.SlideKey, oM);
+local mM = m.Heartbeat:Connect(function()
+		local q = pY;
+		if not q.WallRunEnabled then
+			q.WallRunActive = false;
+			return;
+		end;
+		local o = S.Character;
+		local m = o and o:FindFirstChild("HumanoidRootPart");
+		local K = o and o:FindFirstChildOfClass("Humanoid");
+		if not ((m and K)) then
+			return;
+		end;
+		local r = m.Position;
+		local I = {
+				m.CFrame.RightVector,
+				-m.CFrame.RightVector,
+				m.CFrame.LookVector,
+				-m.CFrame.LookVector,
+			};
+		local d = nil;
+		for q, m in ipairs(I) do
+			local K = Ray.new(r, m * 2.5);
+			local I, S, v = workspace:FindPartOnRayWithIgnoreList(K, { o });
+			if I and (v and math.abs(v.Y) < .3) then
+				d = v;
+				break;
+			end;
+		end;
+		if d and K.FloorMaterial == Enum.Material.Air then
+			q.WallRunActive = true;
+			local o = m.CFrame.LookVector;
+			local K = ((o - d * o:Dot(d))).Unit;
+			local r = -d * q.WallRunStick;
+			pcall(function()
+				m.AssemblyLinearVelocity = (K * q.WallRunSpeed) + Vector3.new(r.X, math.max(m.AssemblyLinearVelocity.Y, -2), r.Z);
+			end);
+		else
+			q.WallRunActive = false;
+		end;
+	end);
+local KM = m.Heartbeat:Connect(function()
+		local q = pY;
+		if not q.MoonWalkEnabled then
+			return;
+		end;
+		local o = S.Character;
+		local m = o and o:FindFirstChildOfClass("Humanoid");
+		if not m then
+			return;
+		end;
+		if m.MoveDirection.Magnitude > .1 then
+			m.WalkSpeed = math.abs(q.MoonWalkSpeed);
+			local K = o:FindFirstChild("HumanoidRootPart");
+			if K then
+				pcall(function()
+					local o = workspace.CurrentCamera;
+					local m = -o.CFrame.LookVector;
+					m = (Vector3.new(m.X, 0, m.Z)).Unit;
+					K.AssemblyLinearVelocity = Vector3.new(m.X * math.abs(q.MoonWalkSpeed), K.AssemblyLinearVelocity.Y, m.Z * math.abs(q.MoonWalkSpeed));
+				end);
+			end;
+		end;
+	end);
+local rM = m.Heartbeat:Connect(function()
+		local q = pY;
+		if not q.IceSkateEnabled then
+			q.IceSkateVel = Vector3.zero;
+			return;
+		end;
+		local o = S.Character;
+		local m = o and o:FindFirstChild("HumanoidRootPart");
+		local K = o and o:FindFirstChildOfClass("Humanoid");
+		if not ((m and K)) then
+			return;
+		end;
+		local r = K.MoveDirection;
+		q.IceSkateVel = q.IceSkateVel * q.IceSkateFriction;
+		if r.Magnitude > .1 then
+			q.IceSkateVel = q.IceSkateVel + r * q.IceSkateAccel;
+		end;
+		pcall(function()
+			m.AssemblyLinearVelocity = Vector3.new(q.IceSkateVel.X, m.AssemblyLinearVelocity.Y, q.IceSkateVel.Z);
+		end);
+	end);
+local IM = nil;
+local SM = m.Heartbeat:Connect(function()
+		local q = pY;
+		if not q.WallJumpEnabled then
+			return;
+		end;
+		local o = S.Character;
+		local m = o and o:FindFirstChild("HumanoidRootPart");
+		local K = o and o:FindFirstChildOfClass("Humanoid");
+		if not ((m and K)) then
+			return;
+		end;
+		if K.FloorMaterial ~= Enum.Material.Air then
+			return;
+		end;
+		for K, r in ipairs({
+			m.CFrame.RightVector,
+			-m.CFrame.RightVector,
+			m.CFrame.LookVector,
+			-m.CFrame.LookVector,
+		}) do
+			local I = Ray.new(m.Position, r * 2.5);
+			local S, d, v = workspace:FindPartOnRayWithIgnoreList(I, { o });
+			if S and (v and math.abs(v.Y) < .3) then
+				IM = v;
+				q.WallJumpLastTouch = tick();
+				break;
+			end;
+		end;
+	end);
+local function dM()
+	local q = pY;
+	if not q.WallJumpEnabled then
+		return;
+	end;
+	if tick() - q.WallJumpLastTouch > .35 then
+		return;
+	end;
+	if not IM then
+		return;
+	end;
+	local o = S.Character;
+	local m = o and o:FindFirstChild("HumanoidRootPart");
+	local K = o and o:FindFirstChildOfClass("Humanoid");
+	if not ((m and K)) then
+		return;
+	end;
+	local r = IM * q.WallJumpPower + Vector3.new(0, q.WallJumpPower * .9, 0);
+	pcall(function()
+		m.AssemblyLinearVelocity = r;
+		K:ChangeState(Enum.HumanoidStateType.Jumping);
+	end);
+	Iq("\240\159\167\151 Wall Jump", F.Accent);
+end;
+xY(pY.WallJumpKey, dM, true);
+local function vM()
+	local q = pY;
+	q.GrappleActive = false;
+	q.GrappleTarget = nil;
+	if q.GrappleConn then
+		q.GrappleConn:Disconnect();
+		q.GrappleConn = nil;
+	end;
+end;
+local function NM()
+	local q = pY;
+	if not q.GrappleEnabled then
+		return;
+	end;
+	if q.GrappleActive then
+		vM();
+		return;
+	end;
+	local o = S.Character;
+	local K = o and o:FindFirstChild("HumanoidRootPart");
+	if not K then
+		return;
+	end;
+	local r = workspace.CurrentCamera;
+	local I = r.CFrame.Position;
+	local d = r.CFrame.LookVector * q.GrappleRange;
+	local v = Ray.new(I, d);
+	local N, D = workspace:FindPartOnRayWithIgnoreList(v, { o, r });
+	if not D then
+		oq("Grapple", "Aucune cible dans la port\195\169e", true);
+		return;
+	end;
+	q.GrappleActive = true;
+	q.GrappleTarget = D;
+	q.GrappleConn = m.Heartbeat:Connect(function()
+			if not q.GrappleActive or not q.GrappleTarget then
+				return;
+			end;
+			local o = S.Character;
+			local m = o and o:FindFirstChild("HumanoidRootPart");
+			if not m then
+				vM();
+				return;
+			end;
+			local K = q.GrappleTarget - m.Position;
+			local r = K.Magnitude;
+			if r < 4 then
+				vM();
+				return;
+			end;
+			local I = K.Unit * q.GrappleSpeed;
+			pcall(function()
+				m.AssemblyLinearVelocity = I;
+			end);
+		end);
+	Iq("\240\159\170\157 Grapple", F.Accent);
+end;
+xY(pY.GrappleKey, NM);
+local function DM()
+	local q = pY;
+	if q.RollConn then
+		q.RollConn:Disconnect();
+		q.RollConn = nil;
+	end;
+	q.RollActive = false;
+	local o = S.Character;
+	local m = o and o:FindFirstChildOfClass("Humanoid");
+	if m then
+		pcall(function()
+			m.PlatformStand = false;
+		end);
+	end;
+end;
+local function lM()
+	local q = pY;
+	if not q.RollEnabled or q.RollActive then
+		return;
+	end;
+	if tick() - q.RollLastUse < .8 then
+		return;
+	end;
+	q.RollLastUse = tick();
+	q.RollActive = true;
+	local o = S.Character;
+	local K = o and o:FindFirstChild("HumanoidRootPart");
+	local r = o and o:FindFirstChildOfClass("Humanoid");
+	if not ((K and r)) then
+		q.RollActive = false;
+		return;
+	end;
+	local I = r.MoveDirection;
+	if I.Magnitude < .1 then
+		I = K.CFrame.LookVector;
+	end;
+	I = (Vector3.new(I.X, 0, I.Z)).Unit;
+	local d = tick();
+	local v = K.CFrame;
+	q.RollConn = m.Heartbeat:Connect(function()
+			local o = ((tick() - d)) / q.RollDuration;
+			if o >= 1 then
+				DM();
+				return;
+			end;
+			if not K or not K.Parent then
+				DM();
+				return;
+			end;
+			local m = CFrame.Angles(math.rad(-360 * o), 0, 0);
+			pcall(function()
+				K.CFrame = (CFrame.new(v.Position + I * ((q.RollSpeed * o))) * ((v - v.Position))) * m;
+				K.AssemblyLinearVelocity = I * q.RollSpeed;
+			end);
+		end);
+	Iq("\240\159\140\128 Roll", F.Accent);
+end;
+xY(pY.RollKey, lM);
+local function FM()
+	local q = pY;
+	if q.CrouchSlideConn then
+		q.CrouchSlideConn:Disconnect();
+		q.CrouchSlideConn = nil;
+	end;
+	q.CrouchSlideActive = false;
+	local o = S.Character;
+	local m = o and o:FindFirstChildOfClass("Humanoid");
+	if m then
+		pcall(function()
+			m.PlatformStand = false;
+			m.WalkSpeed = E.WalkSpeed;
+		end);
+	end;
+end;
+local function fM()
+	local q = pY;
+	if not q.CrouchSlideEnabled or q.CrouchSlideActive then
+		return;
+	end;
+	if tick() - q.CrouchSlideLastUse < 1 then
+		return;
+	end;
+	q.CrouchSlideLastUse = tick();
+	q.CrouchSlideActive = true;
+	local o = S.Character;
+	local K = o and o:FindFirstChild("HumanoidRootPart");
+	local r = o and o:FindFirstChildOfClass("Humanoid");
+	if not ((K and r)) then
+		q.CrouchSlideActive = false;
+		return;
+	end;
+	local I = r.MoveDirection;
+	if I.Magnitude < .1 then
+		I = K.CFrame.LookVector;
+	end;
+	I = (Vector3.new(I.X, 0, I.Z)).Unit;
+	pcall(function()
+		r.PlatformStand = true;
+	end);
+	local d = tick();
+	q.CrouchSlideConn = m.Heartbeat:Connect(function()
+			if tick() - d > q.CrouchSlideDuration then
+				FM();
+				return;
+			end;
+			if not K or not K.Parent then
+				FM();
+				return;
+			end;
+			pcall(function()
+				K.AssemblyLinearVelocity = Vector3.new(I.X * q.CrouchSlideSpeed, K.AssemblyLinearVelocity.Y, I.Z * q.CrouchSlideSpeed);
+			end);
+		end);
+	Iq("\240\159\155\157 Crouch Slide", F.Accent);
+end;
+xY(pY.CrouchSlideKey, fM);
+local QM = m.Heartbeat:Connect(function()
+		local q = pY;
+		if not q.ParaglideEnabled then
+			return;
+		end;
+		local o = S.Character;
+		local m = o and o:FindFirstChild("HumanoidRootPart");
+		local K = o and o:FindFirstChildOfClass("Humanoid");
+		if not ((m and K)) then
+			return;
+		end;
+		if m.AssemblyLinearVelocity.Y < -2 then
+			q.ParaglideActive = true;
+			local o = workspace.CurrentCamera;
+			local K = o.CFrame.LookVector;
+			K = (Vector3.new(K.X, 0, K.Z)).Unit;
+			pcall(function()
+				m.AssemblyLinearVelocity = Vector3.new(K.X * q.ParaglideForward, -q.ParaglideFallSpeed, K.Z * q.ParaglideForward);
+			end);
+		else
+			q.ParaglideActive = false;
+		end;
+	end);
+local function AM()
+	local q = pY;
+	if q.SlideActive then
+		qM();
+	end;
+	if q.RollActive then
+		DM();
+	end;
+	if q.CrouchSlideActive then
+		FM();
+	end;
+	if q.GrappleActive then
+		vM();
+	end;
+	q.IceSkateVel = Vector3.zero;
+	q.WallRunActive = false;
+	q.ParaglideActive = false;
+end;
+JY = function(q)
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 32),
 			BackgroundTransparency = 1,
 			Text = "Player",
-			TextColor3 = x.TextPrimary,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamBold,
 			TextSize = 24,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 22),
 			Position = UDim2.new(0, 0, 0, 38),
 			BackgroundTransparency = 1,
 			Text = "Ciblage, mouvement & statistiques",
-			TextColor3 = x.TextSecondary,
+			TextColor3 = F.TextSecondary,
 			Font = Enum.Font.Gotham,
 			TextSize = 13,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		NA(p);
-		m("TextLabel", {
+		VY(q);
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 14),
 			Position = UDim2.new(0, 0, 0, 164),
 			BackgroundTransparency = 1,
 			Text = "ACTIONS CIBL\195\137ES",
-			TextColor3 = x.TextMuted,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.GothamBold,
 			TextSize = 10,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		local T = m("Frame", {
+		local o = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 0),
 				Position = UDim2.new(0, 0, 0, 186),
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 25,
-				Parent = p,
+				Parent = q,
 			});
-		m("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder, Parent = T });
-		lA(T, 1, "TP \195\128 LA CIBLE", "Te t\195\169l\195\169porte sur le joueur s\195\169lectionn\195\169", Color3.fromRGB(255, 80, 80), function()
-			local p = W.TrollSelected;
-			if not p or not p.Character then
-				p5("Player", "Aucune cible valide", true);
+		B("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder, Parent = o });
+		aY(o, 1, "TP \195\128 LA CIBLE", "Te t\195\169l\195\169porte sur le joueur s\195\169lectionn\195\169", Color3.fromRGB(255, 80, 80), function()
+			local q = U.TrollSelected;
+			if not q or not q.Character then
+				oq("Player", "Aucune cible valide", true);
 				return;
 			end;
-			local T = p.Character:FindFirstChild("HumanoidRootPart");
-			local O = t.Character;
-			local i = O and O:FindFirstChild("HumanoidRootPart");
-			if T and i then
+			local o = q.Character:FindFirstChild("HumanoidRootPart");
+			local m = S.Character;
+			local K = m and m:FindFirstChild("HumanoidRootPart");
+			if o and K then
 				pcall(function()
-					i.CFrame = T.CFrame + Vector3.new(0, 3, 3);
+					K.CFrame = o.CFrame + Vector3.new(0, 3, 3);
 				end);
-				e5("\240\159\142\175 TP vers " .. p.Name, Color3.fromRGB(255, 80, 80));
+				Iq("\240\159\142\175 TP vers " .. q.Name, Color3.fromRGB(255, 80, 80));
 			end;
 		end);
-		lA(T, 2, "SPECTATE CIBLE", "Ta cam\195\169ra suit le joueur s\195\169lectionn\195\169", Color3.fromRGB(170, 130, 235), function()
-			local p = W.TrollSelected;
-			local T = workspace.CurrentCamera;
-			if not p or not p.Character then
-				p5("Player", "Aucune cible valide", true);
+		aY(o, 2, "SPECTATE CIBLE", "Ta cam\195\169ra suit le joueur s\195\169lectionn\195\169", Color3.fromRGB(170, 130, 235), function()
+			local q = U.TrollSelected;
+			local o = workspace.CurrentCamera;
+			if not q or not q.Character then
+				oq("Player", "Aucune cible valide", true);
 				return;
 			end;
-			T.CameraSubject = p.Character:FindFirstChildOfClass("Humanoid") or p.Character;
-			e5("\240\159\145\129 Cam\195\169ra \226\134\146 " .. p.Name, Color3.fromRGB(170, 130, 235));
+			o.CameraSubject = q.Character:FindFirstChildOfClass("Humanoid") or q.Character;
+			Iq("\240\159\145\129 Cam\195\169ra \226\134\146 " .. q.Name, Color3.fromRGB(170, 130, 235));
 		end);
-		KA(T, 3, "S\'ACCROCHER \195\128 ELLE", "Assis sur les \195\169paules (visible par tous)", function()
-			return iA.conn ~= nil;
-		end, function(p)
-			gA();
-		end, x.Accent);
-		m("TextLabel", {
+		zY(o, 3, "S\'ACCROCHER \195\128 ELLE", "Assis sur les \195\169paules (visible par tous)", function()
+			return rY.conn ~= nil;
+		end, function(q)
+			dY();
+		end, F.Accent);
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 14),
 			Position = UDim2.new(0, 0, 0, 430),
 			BackgroundTransparency = 1,
 			Text = "MOUVEMENT",
-			TextColor3 = x.TextMuted,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.GothamBold,
 			TextSize = 10,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		local O = m("Frame", {
+		local m = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 0),
 				Position = UDim2.new(0, 0, 0, 452),
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 25,
-				Parent = p,
+				Parent = q,
 			});
-		m("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder, Parent = O });
-		local i = 0;
-		local function e()
-			i = i + 1;
-			return i;
+		B("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder, Parent = m });
+		local K = 0;
+		local function r()
+			K = K + 1;
+			return K;
 		end;
-		KA(O, e(), "FLY", "Vol (W/A/S/D) + emote zen", function()
-			return X.FlyEnabled;
-		end, function(p)
-			if p ~= X.FlyEnabled then
-				o5();
+		zY(m, r(), "FLY", "Vol (W/A/S/D) + emote zen", function()
+			return E.FlyEnabled;
+		end, function(q)
+			if q ~= E.FlyEnabled then
+				Yq();
 			end;
-		end, x.Accent);
-		KA(O, e(), "SPIN", "Tourne sur toi-m\195\170me", function()
-			return X.SpinEnabled;
-		end, function(p)
-			d5();
-		end, x.Accent);
-		DA(O, e(), "VITESSE SPIN", 2, 50, function()
-			return X.SpinSpeed;
-		end, function(p)
-			V5(p);
-		end, x.Accent);
-		KA(O, e(), "JERK", "Secousse rapide", function()
-			return X.JerkEnabled;
-		end, function(p)
-			R5();
-		end, x.Accent);
-		DA(O, e(), "INTENSIT\195\137 JERK", .5, 10, function()
-			return X.JerkIntensity;
-		end, function(p)
-			J5(p);
-		end, x.Accent);
-		KA(O, e(), "NOCLIP", "Traverse les murs", function()
-			return X.NoclipEnabled;
-		end, function(p)
-			A5();
-		end, x.Accent);
-		KA(O, e(), "INVISIBLE", "Personne ne te voit tant que c\'est actif", function()
-			return X.Invisible;
-		end, function(p)
-			q();
-		end, x.Accent);
-		KA(O, e(), "INFINITE JUMP", "Saut infini", function()
-			return X.InfiniteJump;
-		end, function(p)
-			z5();
-		end, x.Accent);
-		KA(O, e(), "ANTI-AFK", "\195\137vite le kick inactivit\195\169", function()
-			return X.AntiAFK;
-		end, function(p)
-			u5();
-		end, x.Accent);
-		KA(O, e(), "FULLBRIGHT", "\195\137claire toute la map", function()
-			return X.Fullbright;
-		end, function(p)
-			D5();
-		end, x.Accent);
-		KA(O, e(), "ANTI-FLING", "Bloque les tentatives de fling", function()
-			return X.AntiFling;
-		end, function(p)
-			l5();
-		end, x.Accent);
-		UA(O, e(), "Stats");
-		DA(O, e(), "WALKSPEED", 16, 200, function()
-			return X.WalkSpeed;
-		end, function(p)
-			G5(p);
-		end, x.Accent);
-		DA(O, e(), "JUMPPOWER", 50, 500, function()
-			return X.JumpPower;
-		end, function(p)
-			I5(p);
-		end, x.Accent);
-		DA(O, e(), "GRAVITY", 0, 196, function()
-			return X.Gravity;
-		end, function(p)
-			F5(p);
-		end, x.Accent);
-		lA(O, e(), "RESET CHARACTER", "Respawn imm\195\169diat", Color3.fromRGB(255, 80, 80), function()
-			n5();
-			p5("Player", "Reset en cours...", false);
+		end, F.Accent);
+		zY(m, r(), "SPIN", "Tourne sur toi-m\195\170me", function()
+			return E.SpinEnabled;
+		end, function(q)
+			sq();
+		end, F.Accent);
+		CY(m, r(), "VITESSE SPIN", 2, 50, function()
+			return E.SpinSpeed;
+		end, function(q)
+			Hq(q);
+		end, F.Accent);
+		zY(m, r(), "JERK", "Secousse rapide", function()
+			return E.JerkEnabled;
+		end, function(q)
+			jq();
+		end, F.Accent);
+		CY(m, r(), "INTENSIT\195\137 JERK", .5, 10, function()
+			return E.JerkIntensity;
+		end, function(q)
+			tq(q);
+		end, F.Accent);
+		zY(m, r(), "NOCLIP", "Traverse les murs", function()
+			return E.NoclipEnabled;
+		end, function(q)
+			wq();
+		end, F.Accent);
+		zY(m, r(), "INVISIBLE", "Personne ne te voit tant que c\'est actif", function()
+			return E.Invisible;
+		end, function(q)
+			T();
+		end, F.Accent);
+		zY(m, r(), "INFINITE JUMP", "Saut infini", function()
+			return E.InfiniteJump;
+		end, function(q)
+			Gq();
+		end, F.Accent);
+		zY(m, r(), "ANTI-AFK", "\195\137vite le kick inactivit\195\169", function()
+			return E.AntiAFK;
+		end, function(q)
+			Xq();
+		end, F.Accent);
+		zY(m, r(), "FULLBRIGHT", "\195\137claire toute la map", function()
+			return E.Fullbright;
+		end, function(q)
+			Cq();
+		end, F.Accent);
+		zY(m, r(), "ANTI-FLING", "Bloque les tentatives de fling", function()
+			return E.AntiFling;
+		end, function(q)
+			aq();
+		end, F.Accent);
+		local I = pY;
+		kY(m, r(), "Mouvement avanc\195\169");
+		zY(m, r(), "DASH", "Bond rapide (Q)", function()
+			return I.DashEnabled;
+		end, function(q)
+			I.DashEnabled = q;
+		end, F.Accent);
+		CY(m, r(), "DASH POWER", 40, 400, function()
+			return I.DashPower;
+		end, function(q)
+			I.DashPower = q;
+		end, F.Accent);
+		zY(m, r(), "TELEPORT MOUSE", "TP sur le curseur (T)", function()
+			return I.TpMouseEnabled;
+		end, function(q)
+			I.TpMouseEnabled = q;
+		end, F.Accent);
+		zY(m, r(), "SLIDE", "Glisse au sol (C)", function()
+			return I.SlideEnabled;
+		end, function(q)
+			I.SlideEnabled = q;
+		end, F.Accent);
+		CY(m, r(), "SLIDE SPEED", 30, 200, function()
+			return I.SlideSpeed;
+		end, function(q)
+			I.SlideSpeed = q;
+		end, F.Accent);
+		zY(m, r(), "WALL RUN", "Cours sur les murs", function()
+			return I.WallRunEnabled;
+		end, function(q)
+			I.WallRunEnabled = q;
+		end, F.Accent);
+		CY(m, r(), "WALL RUN SPEED", 20, 120, function()
+			return I.WallRunSpeed;
+		end, function(q)
+			I.WallRunSpeed = q;
+		end, F.Accent);
+		zY(m, r(), "MOON WALK", "Marche \195\160 reculons", function()
+			return I.MoonWalkEnabled;
+		end, function(q)
+			I.MoonWalkEnabled = q;
+		end, F.Accent);
+		zY(m, r(), "ICE SKATE", "Glisse avec inertie", function()
+			return I.IceSkateEnabled;
+		end, function(q)
+			I.IceSkateEnabled = q;
+		end, F.Accent);
+		zY(m, r(), "WALL JUMP", "Saut sur les murs (Space)", function()
+			return I.WallJumpEnabled;
+		end, function(q)
+			I.WallJumpEnabled = q;
+		end, F.Accent);
+		CY(m, r(), "WALL JUMP POWER", 30, 150, function()
+			return I.WallJumpPower;
+		end, function(q)
+			I.WallJumpPower = q;
+		end, F.Accent);
+		zY(m, r(), "GRAPPLE", "Crochet (G) \226\128\148 re-G pour l\195\162cher", function()
+			return I.GrappleEnabled;
+		end, function(q)
+			I.GrappleEnabled = q;
+			if not q then
+				vM();
+			end;
+		end, F.Accent);
+		CY(m, r(), "GRAPPLE RANGE", 100, 800, function()
+			return I.GrappleRange;
+		end, function(q)
+			I.GrappleRange = q;
+		end, F.Accent);
+		zY(m, r(), "ROLL", "Roulade (R)", function()
+			return I.RollEnabled;
+		end, function(q)
+			I.RollEnabled = q;
+		end, F.Accent);
+		zY(m, r(), "CROUCH SLIDE", "Glisse accroupi (Ctrl)", function()
+			return I.CrouchSlideEnabled;
+		end, function(q)
+			I.CrouchSlideEnabled = q;
+		end, F.Accent);
+		zY(m, r(), "PARAGLIDE", "Chute lente + avanc\195\169e auto", function()
+			return I.ParaglideEnabled;
+		end, function(q)
+			I.ParaglideEnabled = q;
+		end, F.Accent);
+		CY(m, r(), "PARAGLIDE FALL", 1, 30, function()
+			return I.ParaglideFallSpeed;
+		end, function(q)
+			I.ParaglideFallSpeed = q;
+		end, F.Accent);
+		CY(m, r(), "PARAGLIDE FORWARD", 0, 80, function()
+			return I.ParaglideForward;
+		end, function(q)
+			I.ParaglideForward = q;
+		end, F.Accent);
+		kY(m, r(), "Stats");
+		CY(m, r(), "WALKSPEED", 16, 200, function()
+			return E.WalkSpeed;
+		end, function(q)
+			Rq(q);
+		end, F.Accent);
+		CY(m, r(), "JUMPPOWER", 50, 500, function()
+			return E.JumpPower;
+		end, function(q)
+			Mq(q);
+		end, F.Accent);
+		CY(m, r(), "GRAVITY", 0, 196, function()
+			return E.Gravity;
+		end, function(q)
+			Jq(q);
+		end, F.Accent);
+		aY(m, r(), "RESET CHARACTER", "Respawn imm\195\169diat", Color3.fromRGB(255, 80, 80), function()
+			Lq();
+			oq("Player", "Reset en cours...", false);
 		end);
 	end;
-uA = function(p)
-		m("TextLabel", {
+XY = function(q)
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 32),
 			BackgroundTransparency = 1,
 			Text = "T\195\169l\195\169port\195\169",
-			TextColor3 = x.TextPrimary,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamBold,
 			TextSize = 24,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 22),
 			Position = UDim2.new(0, 0, 0, 38),
 			BackgroundTransparency = 1,
 			Text = "T\195\169l\195\169portation rapide",
-			TextColor3 = x.TextSecondary,
+			TextColor3 = F.TextSecondary,
 			Font = Enum.Font.Gotham,
 			TextSize = 13,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		local T = m("Frame", {
+		local o = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 0),
 				Position = UDim2.new(0, 0, 0, 76),
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 25,
-				Parent = p,
+				Parent = q,
 			});
-		m("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder, Parent = T });
-		lA(T, 1, "TP SPAWN", "Te t\195\169l\195\169porte au spawn", Color3.fromRGB(115, 155, 240), function()
-			U5();
+		B("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder, Parent = o });
+		aY(o, 1, "TP SPAWN", "Te t\195\169l\195\169porte au spawn", Color3.fromRGB(115, 155, 240), function()
+			kq();
 		end);
-		lA(T, 2, "SET MAP", "Sauvegarde ta position actuelle", Color3.fromRGB(140, 200, 155), function()
-			K5(false);
+		aY(o, 2, "SET MAP", "Sauvegarde ta position actuelle", Color3.fromRGB(140, 200, 155), function()
+			zq(false);
 		end);
-		lA(T, 3, "MAP", "TP \195\160 la position sauvegard\195\169e", Color3.fromRGB(240, 165, 95), function()
-			q5();
+		aY(o, 3, "MAP", "TP \195\160 la position sauvegard\195\169e", Color3.fromRGB(240, 165, 95), function()
+			Tq();
 		end);
 	end;
-EA = function(p)
-		m("TextLabel", {
+PY = function(q)
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 32),
 			BackgroundTransparency = 1,
 			Text = "Animation",
-			TextColor3 = x.TextPrimary,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamBold,
 			TextSize = 24,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 22),
 			Position = UDim2.new(0, 0, 0, 38),
 			BackgroundTransparency = 1,
 			Text = "Animations visibles par tous",
-			TextColor3 = x.TextSecondary,
+			TextColor3 = F.TextSecondary,
 			Font = Enum.Font.Gotham,
 			TextSize = 13,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		local T = m("Frame", {
+		local o = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 0),
 				Position = UDim2.new(0, 0, 0, 76),
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 25,
-				Parent = p,
+				Parent = q,
 			});
-		m("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder, Parent = T });
-		aA(T, 1, "SIT", "Assieds ton personnage", function()
-			return X.Sitting;
+		B("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder, Parent = o });
+		bY(o, 1, "SIT", "Assieds ton personnage", function()
+			return E.Sitting;
 		end, function()
-			y5();
+			cq();
 		end, Color3.fromRGB(140, 200, 155));
 	end;
-zA = function(p)
-		m("TextLabel", {
+GY = function(q)
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 32),
 			BackgroundTransparency = 1,
 			Text = "Auto Farm",
-			TextColor3 = x.TextPrimary,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamBold,
 			TextSize = 24,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 22),
 			Position = UDim2.new(0, 0, 0, 38),
 			BackgroundTransparency = 1,
 			Text = "R\195\169cup\195\168re les pi\195\168ces automatiquement",
-			TextColor3 = x.TextSecondary,
+			TextColor3 = F.TextSecondary,
 			Font = Enum.Font.Gotham,
 			TextSize = 13,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		local T = m("Frame", {
+		local o = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 0),
 				Position = UDim2.new(0, 0, 0, 76),
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 25,
-				Parent = p,
+				Parent = q,
 			});
-		m("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder, Parent = T });
-		local O = m("Frame", {
+		B("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder, Parent = o });
+		local m = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 64),
-				BackgroundColor3 = x.Surface,
+				BackgroundColor3 = F.Surface,
 				BackgroundTransparency = .25,
 				BorderSizePixel = 0,
 				LayoutOrder = 1,
 				ZIndex = 26,
-				Parent = T,
+				Parent = o,
 			});
-		h(O, 12);
-		b(O, x.Border, 1, .5);
-		local i = m("Frame", {
+		i(m, 12);
+		p(m, F.Border, 1, .5);
+		local K = B("Frame", {
 				Size = UDim2.new(0, 3, 0, 40),
 				Position = UDim2.new(0, 14, .5, 0),
 				AnchorPoint = Vector2.new(0, .5),
 				BackgroundColor3 = Color3.fromRGB(240, 200, 120),
 				BorderSizePixel = 0,
 				ZIndex = 27,
-				Parent = O,
+				Parent = m,
 			});
-		h(i, 2);
-		m("TextLabel", {
+		i(K, 2);
+		B("TextLabel", {
 			Size = UDim2.new(1, -30, 0, 16),
 			Position = UDim2.new(0, 26, 0, 8),
 			BackgroundTransparency = 1,
 			Text = "STATISTIQUES",
-			TextColor3 = x.TextMuted,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.GothamBold,
 			TextSize = 10,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 27,
-			Parent = O,
+			Parent = m,
 		});
-		local e = m("TextLabel", {
+		local r = B("TextLabel", {
 				Size = UDim2.new(1, -30, 0, 16),
 				Position = UDim2.new(0, 26, 0, 26),
 				BackgroundTransparency = 1,
 				Text = "Pi\195\168ces : 0",
-				TextColor3 = x.TextPrimary,
+				TextColor3 = F.TextPrimary,
 				Font = Enum.Font.GothamBold,
 				TextSize = 12,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				ZIndex = 27,
-				Parent = O,
+				Parent = m,
 			});
-		local t = m("TextLabel", {
+		local I = B("TextLabel", {
 				Size = UDim2.new(1, -30, 0, 16),
 				Position = UDim2.new(0, 26, 0, 42),
 				BackgroundTransparency = 1,
 				Text = "Temps : 0s",
-				TextColor3 = x.TextSecondary,
+				TextColor3 = F.TextSecondary,
 				Font = Enum.Font.Gotham,
 				TextSize = 11,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				ZIndex = 27,
-				Parent = O,
+				Parent = m,
 			});
 		task.spawn(function()
-			while O.Parent do
-				e.Text = "Pi\195\168ces : " .. u.coinsCollected;
-				if u.running and u.startTime > 0 then
-					t.Text = "Temps : " .. (math.floor(tick() - u.startTime) .. "s");
+			while m.Parent do
+				r.Text = "Pi\195\168ces : " .. X.coinsCollected;
+				if X.running and X.startTime > 0 then
+					I.Text = "Temps : " .. (math.floor(tick() - X.startTime) .. "s");
 				else
-					t.Text = "Temps : 0s";
+					I.Text = "Temps : 0s";
 				end;
 				task.wait(.5);
 			end;
 		end);
-		KA(T, 2, "AUTO FARM COINS", "Fly progressif + sous la map (anti-kick)", function()
-			return u.running;
-		end, function(p)
-			L5();
-		end, x.Accent);
-		UA(T, 3, "R\195\169glages");
-		DA(T, 4, "VITESSE FLY", 40, 400, function()
-			return a.FlySpeed;
-		end, function(p)
-			a.FlySpeed = p;
+		zY(o, 2, "AUTO FARM COINS", "Fly progressif + sous la map (anti-kick)", function()
+			return X.running;
+		end, function(q)
+			gq();
+		end, F.Accent);
+		kY(o, 3, "R\195\169glages");
+		CY(o, 4, "VITESSE FLY", 40, 400, function()
+			return b.FlySpeed;
+		end, function(q)
+			b.FlySpeed = q;
 		end, Color3.fromRGB(115, 155, 240));
-		DA(T, 5, "RAYON DE COLLECTE", 20, 500, function()
-			return a.CollectRadius;
-		end, function(p)
-			a.CollectRadius = p;
+		CY(o, 5, "RAYON DE COLLECTE", 20, 500, function()
+			return b.CollectRadius;
+		end, function(q)
+			b.CollectRadius = q;
 		end, Color3.fromRGB(170, 130, 235));
-		DA(T, 6, "PAUSE ANTI-KICK", 0, 2, function()
-			return a.AntiKickDelay;
-		end, function(p)
-			a.AntiKickDelay = p;
+		CY(o, 6, "PAUSE ANTI-KICK", 0, 2, function()
+			return b.AntiKickDelay;
+		end, function(q)
+			b.AntiKickDelay = q;
 		end, Color3.fromRGB(220, 115, 115));
-		DA(T, 7, "DISTANCE RAMASSAGE", 1, 10, function()
-			return a.CollectDistance;
-		end, function(p)
-			a.CollectDistance = p;
+		CY(o, 7, "DISTANCE RAMASSAGE", 1, 10, function()
+			return b.CollectDistance;
+		end, function(q)
+			b.CollectDistance = q;
 		end, Color3.fromRGB(130, 205, 155));
-		UA(T, 8, "Mode sous la map");
-		KA(T, 9, "DESCENDRE SOUS LA MAP", "Apr\195\168s chaque pi\195\168ce (anti-murder)", function()
-			return a.GoUnderMap;
-		end, function(p)
-			a.GoUnderMap = p;
-		end, x.Accent);
-		DA(T, 10, "PROFONDEUR", 2, 30, function()
-			return a.UnderMapDepth;
-		end, function(p)
-			a.UnderMapDepth = p;
+		kY(o, 8, "Mode sous la map");
+		zY(o, 9, "DESCENDRE SOUS LA MAP", "Apr\195\168s chaque pi\195\168ce (anti-murder)", function()
+			return b.GoUnderMap;
+		end, function(q)
+			b.GoUnderMap = q;
+		end, F.Accent);
+		CY(o, 10, "PROFONDEUR", 2, 30, function()
+			return b.UnderMapDepth;
+		end, function(q)
+			b.UnderMapDepth = q;
 		end, Color3.fromRGB(240, 165, 95));
-		UA(T, 11, "Avanc\195\169");
-		KA(T, 12, "TP DIRECT PI\195\136CE", "TP instantan\195\169 au lieu de fly (risqu\195\169)", function()
-			return a.TpDirect;
-		end, function(p)
-			a.TpDirect = p;
-		end, x.Accent);
-		KA(T, 13, "IGNORER SI MURDER PROCHE", "S\'arr\195\170te si un tueur approche", function()
-			return a.IgnoreIfMurderNear;
-		end, function(p)
-			a.IgnoreIfMurderNear = p;
-		end, x.Accent);
-		DA(T, 14, "DISTANCE MURDER", 10, 200, function()
-			return a.MurderDistance;
-		end, function(p)
-			a.MurderDistance = p;
+		kY(o, 11, "Avanc\195\169");
+		zY(o, 12, "TP DIRECT PI\195\136CE", "TP instantan\195\169 au lieu de fly (risqu\195\169)", function()
+			return b.TpDirect;
+		end, function(q)
+			b.TpDirect = q;
+		end, F.Accent);
+		zY(o, 13, "IGNORER SI MURDER PROCHE", "S\'arr\195\170te si un tueur approche", function()
+			return b.IgnoreIfMurderNear;
+		end, function(q)
+			b.IgnoreIfMurderNear = q;
+		end, F.Accent);
+		CY(o, 14, "DISTANCE MURDER", 10, 200, function()
+			return b.MurderDistance;
+		end, function(q)
+			b.MurderDistance = q;
 		end, Color3.fromRGB(255, 80, 80));
-		UA(T, 15, "Extras");
-		KA(T, 16, "AUTO SET MAP", "Sauvegarde auto la position au respawn", function()
-			return a.AutoSetMap;
-		end, function(p)
-			a.AutoSetMap = p;
-		end, x.Accent);
-		KA(T, 17, "RETOUR SPAWN APR\195\136S ROUND", "Retour au spawn \195\160 chaque respawn", function()
-			return a.ReturnSpawn;
-		end, function(p)
-			a.ReturnSpawn = p;
-		end, x.Accent);
-		lA(T, 18, "RESET STATS", "Remet \195\160 0 les compteurs", Color3.fromRGB(220, 115, 115), function()
-			u.coinsCollected = 0;
-			u.startTime = tick();
-			p5("Auto Farm", "Stats reset", false);
+		kY(o, 15, "Extras");
+		zY(o, 16, "AUTO SET MAP", "Sauvegarde auto la position au respawn", function()
+			return b.AutoSetMap;
+		end, function(q)
+			b.AutoSetMap = q;
+		end, F.Accent);
+		zY(o, 17, "RETOUR SPAWN APR\195\136S ROUND", "Retour au spawn \195\160 chaque respawn", function()
+			return b.ReturnSpawn;
+		end, function(q)
+			b.ReturnSpawn = q;
+		end, F.Accent);
+		aY(o, 18, "RESET STATS", "Remet \195\160 0 les compteurs", Color3.fromRGB(220, 115, 115), function()
+			X.coinsCollected = 0;
+			X.startTime = tick();
+			oq("Auto Farm", "Stats reset", false);
 		end);
 	end;
-YA = function(p)
-		m("TextLabel", {
+ZY = function(q)
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 32),
 			BackgroundTransparency = 1,
 			Text = "Combat",
-			TextColor3 = x.TextPrimary,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamBold,
 			TextSize = 24,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 22),
 			Position = UDim2.new(0, 0, 0, 38),
 			BackgroundTransparency = 1,
 			Text = "Section \195\160 venir",
-			TextColor3 = x.TextSecondary,
+			TextColor3 = F.TextSecondary,
 			Font = Enum.Font.Gotham,
 			TextSize = 13,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
 	end;
-yA = function(p)
-		m("TextLabel", {
+cY = function(q)
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 32),
 			BackgroundTransparency = 1,
 			Text = "Onglet Esp",
-			TextColor3 = x.TextPrimary,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamBold,
 			TextSize = 24,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 14),
 			Position = UDim2.new(0, 0, 0, 50),
 			BackgroundTransparency = 1,
 			Text = "R\195\148LES",
-			TextColor3 = x.TextMuted,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.GothamBold,
 			TextSize = 10,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		local T = m("Frame", {
+		local o = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 0),
 				Position = UDim2.new(0, 0, 0, 72),
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 25,
-				Parent = p,
+				Parent = q,
 			});
-		m("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder, Parent = T });
-		KA(T, 1, "ESP Murderer", "Voir le tueur", function()
-			return r.EspShowMurder;
-		end, function(p)
-			r.EspShowMurder = p;
-		end, x.Accent);
-		KA(T, 2, "ESP Sheriff", "Voir le sh\195\169rif", function()
-			return r.EspShowSheriff;
-		end, function(p)
-			r.EspShowSheriff = p;
-		end, x.Accent);
-		KA(T, 3, "ESP Innocent", "Voir les innocents", function()
-			return r.EspShowInnocent;
-		end, function(p)
-			r.EspShowInnocent = p;
-		end, x.Accent);
-		m("TextLabel", {
+		B("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder, Parent = o });
+		zY(o, 1, "ESP Murderer", "Voir le tueur", function()
+			return u.EspShowMurder;
+		end, function(q)
+			u.EspShowMurder = q;
+		end, F.Accent);
+		zY(o, 2, "ESP Sheriff", "Voir le sh\195\169rif", function()
+			return u.EspShowSheriff;
+		end, function(q)
+			u.EspShowSheriff = q;
+		end, F.Accent);
+		zY(o, 3, "ESP Innocent", "Voir les innocents", function()
+			return u.EspShowInnocent;
+		end, function(q)
+			u.EspShowInnocent = q;
+		end, F.Accent);
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 14),
 			Position = UDim2.new(0, 0, 0, 260),
 			BackgroundTransparency = 1,
 			Text = "OPTIONS",
-			TextColor3 = x.TextMuted,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.GothamBold,
 			TextSize = 10,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		local O = m("Frame", {
+		local m = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 0),
 				Position = UDim2.new(0, 0, 0, 282),
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 25,
-				Parent = p,
+				Parent = q,
 			});
-		m("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder, Parent = O });
-		KA(O, 1, "X-RAY", "Voir \195\160 travers les murs", function()
-			return r.XRayEnabled;
-		end, function(p)
-			r.XRayEnabled = p;
-			ZA();
-		end, x.Accent);
-		KA(O, 2, "Box", "Cadre multicolore autour du joueur", function()
-			return V.BoxEnabled;
-		end, function(p)
-			V.BoxEnabled = p;
-		end, x.Accent);
-		KA(O, 3, "TRACER", "Ligne multicolore vers le joueur", function()
-			return V.TracerEnabled;
-		end, function(p)
-			V.TracerEnabled = p;
-		end, x.Accent);
-		KA(O, 4, "ESP COIN", "Voir toutes les pi\195\168ces de la map", function()
-			return r.EspShowCoins;
-		end, function(p)
-			r.EspShowCoins = p;
-		end, x.Accent);
+		B("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder, Parent = m });
+		zY(m, 1, "X-RAY", "Voir \195\160 travers les murs", function()
+			return u.XRayEnabled;
+		end, function(q)
+			u.XRayEnabled = q;
+			DY();
+		end, F.Accent);
+		zY(m, 2, "Box", "Cadre multicolore autour du joueur", function()
+			return H.BoxEnabled;
+		end, function(q)
+			H.BoxEnabled = q;
+		end, F.Accent);
+		zY(m, 3, "TRACER", "Ligne multicolore vers le joueur", function()
+			return H.TracerEnabled;
+		end, function(q)
+			H.TracerEnabled = q;
+		end, F.Accent);
+		zY(m, 4, "ESP COIN", "Voir toutes les pi\195\168ces de la map", function()
+			return u.EspShowCoins;
+		end, function(q)
+			u.EspShowCoins = q;
+		end, F.Accent);
 	end;
-AA = function(p)
-		m("TextLabel", {
+wY = function(q)
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 32),
 			BackgroundTransparency = 1,
 			Text = "Murder",
-			TextColor3 = x.TextPrimary,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamBold,
 			TextSize = 24,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 22),
 			Position = UDim2.new(0, 0, 0, 38),
 			BackgroundTransparency = 1,
 			Text = "Actions c\195\180t\195\169 tueur",
-			TextColor3 = x.TextSecondary,
+			TextColor3 = F.TextSecondary,
 			Font = Enum.Font.Gotham,
 			TextSize = 13,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		local T = m("Frame", {
+		local o = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 0),
 				Position = UDim2.new(0, 0, 0, 76),
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 25,
-				Parent = p,
+				Parent = q,
 			});
-		m("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder, Parent = T });
-		KA(T, 1, "TP ALL IN FRONT", "Empile les joueurs \195\160 4 studs devant toi", function()
-			return M5.running;
-		end, function(p)
-			OA();
-		end, x.Accent);
-		lA(T, 2, "TP MURDERER", "Te t\195\169l\195\169porte au tueur", Color3.fromRGB(255, 80, 80), function()
-			local p = g5();
-			if not p then
-				p5("Erreur", "Tueur introuvable", true);
+		B("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder, Parent = o });
+		zY(o, 1, "TP ALL IN FRONT", "Empile les joueurs \195\160 4 studs devant toi", function()
+			return qY.running;
+		end, function(q)
+			KY();
+		end, F.Accent);
+		aY(o, 2, "TP MURDERER", "Te t\195\169l\195\169porte au tueur", Color3.fromRGB(255, 80, 80), function()
+			local q = dq();
+			if not q then
+				oq("Erreur", "Tueur introuvable", true);
 				return;
 			end;
-			local T = t.Character;
-			local O = T and T:FindFirstChild("HumanoidRootPart");
-			local i = p.Character and p.Character:FindFirstChild("HumanoidRootPart");
-			if O and i then
+			local o = S.Character;
+			local m = o and o:FindFirstChild("HumanoidRootPart");
+			local K = q.Character and q.Character:FindFirstChild("HumanoidRootPart");
+			if m and K then
 				pcall(function()
-					O.CFrame = i.CFrame + Vector3.new(0, 3, 3);
+					m.CFrame = K.CFrame + Vector3.new(0, 3, 3);
 				end);
-				p5("TP", "TP vers " .. p.Name, false);
+				oq("TP", "TP vers " .. q.Name, false);
 			end;
 		end);
 	end;
-GA = function(p)
-		m("TextLabel", {
+RY = function(q)
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 32),
 			BackgroundTransparency = 1,
 			Text = "Sheriff",
-			TextColor3 = x.TextPrimary,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamBold,
 			TextSize = 24,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 22),
 			Position = UDim2.new(0, 0, 0, 38),
 			BackgroundTransparency = 1,
 			Text = "Actions c\195\180t\195\169 sh\195\169rif",
-			TextColor3 = x.TextSecondary,
+			TextColor3 = F.TextSecondary,
 			Font = Enum.Font.Gotham,
 			TextSize = 13,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = p,
+			Parent = q,
 		});
-		local T = m("Frame", {
+		local o = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 0),
 				Position = UDim2.new(0, 0, 0, 76),
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 25,
-				Parent = p,
+				Parent = q,
 			});
-		m("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder, Parent = T });
-		KA(T, 1, "AUTO SHOOT MURDERER", "Tire auto sur le tueur (si Sheriff)", function()
-			return r.AutoShootEnabled;
-		end, function(p)
-			r.AutoShootEnabled = p;
-		end, x.Accent);
-		lA(T, 2, "TP SHERIFF", "Te t\195\169l\195\169porte au sh\195\169rif", Color3.fromRGB(60, 120, 255), function()
-			local p = H5();
-			if not p then
-				p5("Erreur", "Sh\195\169rif introuvable", true);
+		B("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder, Parent = o });
+		zY(o, 1, "AUTO SHOOT MURDERER", "Tire auto sur le tueur (si Sheriff)", function()
+			return u.AutoShootEnabled;
+		end, function(q)
+			u.AutoShootEnabled = q;
+		end, F.Accent);
+		aY(o, 2, "TP SHERIFF", "Te t\195\169l\195\169porte au sh\195\169rif", Color3.fromRGB(60, 120, 255), function()
+			local q = vq();
+			if not q then
+				oq("Erreur", "Sh\195\169rif introuvable", true);
 				return;
 			end;
-			local T = t.Character;
-			local O = T and T:FindFirstChild("HumanoidRootPart");
-			local i = p.Character and p.Character:FindFirstChild("HumanoidRootPart");
-			if O and i then
+			local o = S.Character;
+			local m = o and o:FindFirstChild("HumanoidRootPart");
+			local K = q.Character and q.Character:FindFirstChild("HumanoidRootPart");
+			if m and K then
 				pcall(function()
-					O.CFrame = i.CFrame + Vector3.new(0, 3, 3);
+					m.CFrame = K.CFrame + Vector3.new(0, 3, 3);
 				end);
-				p5("TP", "TP vers " .. p.Name, false);
+				oq("TP", "TP vers " .. q.Name, false);
 			end;
 		end);
 	end;
-IA = function(O)
-		m("TextLabel", {
+MY = function(m)
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 32),
 			BackgroundTransparency = 1,
 			Text = "Troll",
-			TextColor3 = x.TextPrimary,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamBold,
 			TextSize = 24,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = O,
+			Parent = m,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 22),
 			Position = UDim2.new(0, 0, 0, 38),
 			BackgroundTransparency = 1,
 			Text = "Cible un joueur, puis utilise les actions",
-			TextColor3 = x.TextSecondary,
+			TextColor3 = F.TextSecondary,
 			Font = Enum.Font.Gotham,
 			TextSize = 13,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = O,
+			Parent = m,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 14),
 			Position = UDim2.new(0, 0, 0, 76),
 			BackgroundTransparency = 1,
 			Text = "JOUEUR CIBL\195\137",
-			TextColor3 = x.TextMuted,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.GothamBold,
 			TextSize = 10,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = O,
+			Parent = m,
 		});
-		local i = m("TextButton", {
+		local K = B("TextButton", {
 				Size = UDim2.new(1, 0, 0, 44),
 				Position = UDim2.new(0, 0, 0, 96),
-				BackgroundColor3 = x.Surface,
+				BackgroundColor3 = F.Surface,
 				BackgroundTransparency = .25,
 				BorderSizePixel = 0,
 				Text = "",
 				AutoButtonColor = false,
 				ZIndex = 30,
-				Parent = O,
+				Parent = m,
 			});
-		h(i, 10);
-		b(i, x.Border, 1, .4);
-		local e = m("TextLabel", {
+		i(K, 10);
+		p(K, F.Border, 1, .4);
+		local r = B("TextLabel", {
 				Size = UDim2.new(1, -70, 1, 0),
 				Position = UDim2.new(0, 16, 0, 0),
 				BackgroundTransparency = 1,
 				Text = "\226\128\148 Aucun joueur s\195\169lectionn\195\169 \226\128\148",
-				TextColor3 = x.TextMuted,
+				TextColor3 = F.TextMuted,
 				Font = Enum.Font.GothamMedium,
 				TextSize = 13,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				ZIndex = 31,
-				Parent = i,
+				Parent = K,
 			});
-		local g, H, f = Q(i, "right", x.TextMuted, 8);
-		g.Position = UDim2.new(1, -24, .5, 0);
-		g.AnchorPoint = Vector2.new(.5, .5);
-		local Z = m("Frame", {
+		local I, d, v = x(K, "right", F.TextMuted, 8);
+		I.Position = UDim2.new(1, -24, .5, 0);
+		I.AnchorPoint = Vector2.new(.5, .5);
+		local N = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 0),
 				Position = UDim2.new(0, 0, 0, 148),
-				BackgroundColor3 = x.Surface,
+				BackgroundColor3 = F.Surface,
 				BackgroundTransparency = .05,
 				BorderSizePixel = 0,
 				Visible = false,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 40,
-				Parent = O,
+				Parent = m,
 			});
-		h(Z, 12);
-		b(Z, x.Border, 1, .3);
-		local B = m("Frame", {
+		i(N, 12);
+		p(N, F.Border, 1, .3);
+		local D = B("Frame", {
 				Size = UDim2.new(1, -12, 0, 6),
 				Position = UDim2.new(0, 6, 0, 6),
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 41,
-				Parent = Z,
+				Parent = N,
 			});
-		m("UIListLayout", { Padding = UDim.new(0, 2), SortOrder = Enum.SortOrder.LayoutOrder, Parent = B });
-		local function s()
-			for p, T in ipairs(B:GetChildren()) do
-				if T:IsA("TextButton") or (T:IsA("TextLabel") and T.Name == "EmptyLbl") then
-					T:Destroy();
+		B("UIListLayout", { Padding = UDim.new(0, 2), SortOrder = Enum.SortOrder.LayoutOrder, Parent = D });
+		local function l()
+			for q, o in ipairs(D:GetChildren()) do
+				if o:IsA("TextButton") or (o:IsA("TextLabel") and o.Name == "EmptyLbl") then
+					o:Destroy();
 				end;
 			end;
-			local O = 0;
-			for p, i in ipairs(p:GetPlayers()) do
-				if i == t then
+			local m = 0;
+			for q, K in ipairs(q:GetPlayers()) do
+				if K == S then
 					continue;
 				end;
-				O = O + 1;
-				local g = m("TextButton", {
+				m = m + 1;
+				local I = B("TextButton", {
 						Size = UDim2.new(1, 0, 0, 34),
-						BackgroundColor3 = x.SurfaceHi,
+						BackgroundColor3 = F.SurfaceHi,
 						BackgroundTransparency = .6,
 						BorderSizePixel = 0,
 						Text = "",
 						AutoButtonColor = false,
-						LayoutOrder = O,
+						LayoutOrder = m,
 						ZIndex = 42,
-						Parent = B,
+						Parent = D,
 					});
-				h(g, 8);
-				local s = t5(i);
-				local w = f5(s);
-				m("TextLabel", {
+				i(I, 8);
+				local l = Sq(K);
+				local f = Nq(l);
+				B("TextLabel", {
 					Size = UDim2.new(1, -50, 1, 0),
 					Position = UDim2.new(0, 12, 0, 0),
 					BackgroundTransparency = 1,
-					Text = i.Name .. ("  (" .. (s .. ")")),
-					TextColor3 = x.TextPrimary,
+					Text = K.Name .. ("  (" .. (l .. ")")),
+					TextColor3 = F.TextPrimary,
 					Font = Enum.Font.GothamMedium,
 					TextSize = 13,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					ZIndex = 43,
-					Parent = g,
+					Parent = I,
 				});
-				m("Frame", {
+				B("Frame", {
 					Size = UDim2.new(0, 4, 0, 18),
 					Position = UDim2.new(1, -14, .5, 0),
 					AnchorPoint = Vector2.new(0, .5),
-					BackgroundColor3 = w,
+					BackgroundColor3 = f,
 					BorderSizePixel = 0,
 					ZIndex = 43,
-					Parent = g,
+					Parent = I,
 				});
-				g.MouseEnter:Connect(function()
-					(T:Create(g, TweenInfo.new(.15), { BackgroundTransparency = .25 })):Play();
+				I.MouseEnter:Connect(function()
+					(o:Create(I, TweenInfo.new(.15), { BackgroundTransparency = .25 })):Play();
 				end);
-				g.MouseLeave:Connect(function()
-					(T:Create(g, TweenInfo.new(.15), { BackgroundTransparency = .6 })):Play();
+				I.MouseLeave:Connect(function()
+					(o:Create(I, TweenInfo.new(.15), { BackgroundTransparency = .6 })):Play();
 				end);
-				g.MouseButton1Click:Connect(function()
-					W.TrollSelected = i;
-					e.Text = i.Name;
-					e.TextColor3 = x.Accent;
-					Z.Visible = false;
-					(T:Create(H, TweenInfo.new(.15), { Rotation = 45 })):Play();
-					(T:Create(f, TweenInfo.new(.15), { Rotation = -45 })):Play();
-					e5("\240\159\142\175 Cible : " .. i.Name, x.Accent);
+				I.MouseButton1Click:Connect(function()
+					U.TrollSelected = K;
+					r.Text = K.Name;
+					r.TextColor3 = F.Accent;
+					N.Visible = false;
+					(o:Create(d, TweenInfo.new(.15), { Rotation = 45 })):Play();
+					(o:Create(v, TweenInfo.new(.15), { Rotation = -45 })):Play();
+					Iq("\240\159\142\175 Cible : " .. K.Name, F.Accent);
 				end);
 			end;
-			if O == 0 then
-				m("TextLabel", {
+			if m == 0 then
+				B("TextLabel", {
 					Name = "EmptyLbl",
 					Size = UDim2.new(1, 0, 0, 34),
 					BackgroundTransparency = 1,
 					Text = "Aucun autre joueur",
-					TextColor3 = x.TextMuted,
+					TextColor3 = F.TextMuted,
 					Font = Enum.Font.Gotham,
 					TextSize = 12,
 					ZIndex = 42,
-					Parent = B,
+					Parent = D,
 				});
 			end;
 		end;
-		local w = false;
-		i.MouseButton1Click:Connect(function()
-			w = not w;
-			if w then
-				s();
+		local f = false;
+		K.MouseButton1Click:Connect(function()
+			f = not f;
+			if f then
+				l();
 			end;
-			Z.Visible = w;
-			(T:Create(H, TweenInfo.new(.15), { Rotation = w and -45 or 45 })):Play();
-			(T:Create(f, TweenInfo.new(.15), { Rotation = w and 45 or -45 })):Play();
+			N.Visible = f;
+			(o:Create(d, TweenInfo.new(.15), { Rotation = f and -45 or 45 })):Play();
+			(o:Create(v, TweenInfo.new(.15), { Rotation = f and 45 or -45 })):Play();
 		end);
-		p.PlayerAdded:Connect(function()
-			if w then
-				s();
-			end;
-		end);
-		p.PlayerRemoving:Connect(function(p)
-			if W.TrollSelected == p then
-				W.TrollSelected = nil;
-				e.Text = "\226\128\148 Aucun joueur s\195\169lectionn\195\169 \226\128\148";
-				e.TextColor3 = x.TextMuted;
-			end;
-			if w then
-				s();
+		q.PlayerAdded:Connect(function()
+			if f then
+				l();
 			end;
 		end);
-		m("TextLabel", {
+		q.PlayerRemoving:Connect(function(q)
+			if U.TrollSelected == q then
+				U.TrollSelected = nil;
+				r.Text = "\226\128\148 Aucun joueur s\195\169lectionn\195\169 \226\128\148";
+				r.TextColor3 = F.TextMuted;
+			end;
+			if f then
+				l();
+			end;
+		end);
+		B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 14),
 			Position = UDim2.new(0, 0, 0, 164),
 			BackgroundTransparency = 1,
 			Text = "ACTIONS",
-			TextColor3 = x.TextMuted,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.GothamBold,
 			TextSize = 10,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = O,
+			Parent = m,
 		});
-		local C = m("Frame", {
+		local Q = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 0),
 				Position = UDim2.new(0, 0, 0, 186),
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 25,
-				Parent = O,
+				Parent = m,
 			});
-		m("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder, Parent = C });
-		lA(C, 1, "TP \195\128 LA CIBLE", "Te t\195\169l\195\169porte sur le joueur s\195\169lectionn\195\169", Color3.fromRGB(255, 80, 80), function()
-			local p = W.TrollSelected;
-			if not p or not p.Character then
-				p5("Troll", "Aucune cible valide", true);
+		B("UIListLayout", { Padding = UDim.new(0, 10), SortOrder = Enum.SortOrder.LayoutOrder, Parent = Q });
+		aY(Q, 1, "TP \195\128 LA CIBLE", "Te t\195\169l\195\169porte sur le joueur s\195\169lectionn\195\169", Color3.fromRGB(255, 80, 80), function()
+			local q = U.TrollSelected;
+			if not q or not q.Character then
+				oq("Troll", "Aucune cible valide", true);
 				return;
 			end;
-			local T = p.Character:FindFirstChild("HumanoidRootPart");
-			local O = t.Character;
-			local i = O and O:FindFirstChild("HumanoidRootPart");
-			if T and i then
+			local o = q.Character:FindFirstChild("HumanoidRootPart");
+			local m = S.Character;
+			local K = m and m:FindFirstChild("HumanoidRootPart");
+			if o and K then
 				pcall(function()
-					i.CFrame = T.CFrame + Vector3.new(0, 3, 3);
+					K.CFrame = o.CFrame + Vector3.new(0, 3, 3);
 				end);
-				e5("\240\159\142\175 TP vers " .. p.Name, Color3.fromRGB(255, 80, 80));
+				Iq("\240\159\142\175 TP vers " .. q.Name, Color3.fromRGB(255, 80, 80));
 			end;
 		end);
-		lA(C, 2, "SPECTATE CIBLE", "Ta cam\195\169ra suit le joueur s\195\169lectionn\195\169", Color3.fromRGB(170, 130, 235), function()
-			local p = W.TrollSelected;
-			local T = workspace.CurrentCamera;
-			if not p or not p.Character then
-				p5("Troll", "Aucune cible valide", true);
+		aY(Q, 2, "SPECTATE CIBLE", "Ta cam\195\169ra suit le joueur s\195\169lectionn\195\169", Color3.fromRGB(170, 130, 235), function()
+			local q = U.TrollSelected;
+			local o = workspace.CurrentCamera;
+			if not q or not q.Character then
+				oq("Troll", "Aucune cible valide", true);
 				return;
 			end;
-			T.CameraSubject = p.Character:FindFirstChildOfClass("Humanoid") or p.Character;
-			e5("\240\159\145\129 Cam\195\169ra \226\134\146 " .. p.Name, Color3.fromRGB(170, 130, 235));
+			o.CameraSubject = q.Character:FindFirstChildOfClass("Humanoid") or q.Character;
+			Iq("\240\159\145\129 Cam\195\169ra \226\134\146 " .. q.Name, Color3.fromRGB(170, 130, 235));
 		end);
 	end;
-kA = function(p)
-		if W.CurrentPage == p then
+eY = function(q)
+		if U.CurrentPage == q then
 			return;
 		end;
-		W.CurrentPage = p;
-		for T, O in pairs(W.NavItems) do
-			O.setActive(T == p);
+		U.CurrentPage = q;
+		for o, m in pairs(U.NavItems) do
+			m.setActive(o == q);
 		end;
-		local O = W.Scroll;
-		if not O then
+		local m = U.Scroll;
+		if not m then
 			return;
 		end;
-		local i = O:FindFirstChild("PageBody");
-		if i then
-			for p, O in ipairs(i:GetChildren()) do
-				if O:IsA("GuiObject") then
-					(T:Create(O, TweenInfo.new(.15), { BackgroundTransparency = 1 })):Play();
-					if O:IsA("TextLabel") then
-						(T:Create(O, TweenInfo.new(.15), { TextTransparency = 1 })):Play();
+		local K = m:FindFirstChild("PageBody");
+		if K then
+			for q, m in ipairs(K:GetChildren()) do
+				if m:IsA("GuiObject") then
+					(o:Create(m, TweenInfo.new(.15), { BackgroundTransparency = 1 })):Play();
+					if m:IsA("TextLabel") then
+						(o:Create(m, TweenInfo.new(.15), { TextTransparency = 1 })):Play();
 					end;
 				end;
 			end;
 			task.wait(.18);
-			i:Destroy();
+			K:Destroy();
 		end;
-		O.CanvasPosition = Vector2.new(0, 0);
-		local e = m("Frame", {
+		m.CanvasPosition = Vector2.new(0, 0);
+		local r = B("Frame", {
 				Name = "PageBody",
 				Size = UDim2.new(1, -48, 0, 0),
 				Position = UDim2.new(0, 24, 0, 20),
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 24,
-				Parent = O,
+				Parent = m,
 			});
-		if p == "home" then
-			RA(e);
-		elseif p == "esp" then
-			yA(e);
-		elseif p == "murder" then
-			AA(e);
-		elseif p == "sheriff" then
-			GA(e);
-		elseif p == "player" then
-			FA(e);
-		elseif p == "combat" then
-			YA(e);
-		elseif p == "autofarm" then
-			zA(e);
-		elseif p == "troll" then
-			IA(e);
-		elseif p == "animation" then
-			EA(e);
-		elseif p == "teleport" then
-			uA(e);
-		elseif p == "settings" then
-			JA(e);
+		if q == "home" then
+			jY(r);
+		elseif q == "esp" then
+			cY(r);
+		elseif q == "murder" then
+			wY(r);
+		elseif q == "sheriff" then
+			RY(r);
+		elseif q == "player" then
+			JY(r);
+		elseif q == "combat" then
+			ZY(r);
+		elseif q == "autofarm" then
+			GY(r);
+		elseif q == "troll" then
+			MY(r);
+		elseif q == "animation" then
+			PY(r);
+		elseif q == "teleport" then
+			XY(r);
+		elseif q == "settings" then
+			tY(r);
 		end;
 	end;
-local function bA(p, O, i, e)
-	local t = m("TextButton", {
+local function yM(q, m, K, r)
+	local I = B("TextButton", {
 			Size = UDim2.new(1, 0, 0, 38),
-			BackgroundColor3 = x.Surface,
+			BackgroundColor3 = F.Surface,
 			BackgroundTransparency = 1,
 			BorderSizePixel = 0,
 			Text = "",
 			AutoButtonColor = false,
-			LayoutOrder = e,
+			LayoutOrder = r,
 			ZIndex = 20,
-			Parent = p,
+			Parent = q,
 		});
-	h(t, 8);
-	local g = m("Frame", {
+	i(I, 8);
+	local S = B("Frame", {
 			Size = UDim2.new(0, 3, 0, 0),
 			Position = UDim2.new(0, 0, .5, 0),
 			AnchorPoint = Vector2.new(0, .5),
-			BackgroundColor3 = x.Accent,
+			BackgroundColor3 = F.Accent,
 			BorderSizePixel = 0,
 			ZIndex = 22,
-			Parent = t,
+			Parent = I,
 		});
-	h(g, 2);
-	local H = m("TextLabel", {
+	i(S, 2);
+	local d = B("TextLabel", {
 			Size = UDim2.new(1, -20, 1, 0),
 			Position = UDim2.new(0, 18, 0, 0),
 			BackgroundTransparency = 1,
-			Text = O,
-			TextColor3 = x.TextSecondary,
+			Text = m,
+			TextColor3 = F.TextSecondary,
 			Font = Enum.Font.GothamMedium,
 			TextSize = 13,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 21,
-			Parent = t,
+			Parent = I,
 		});
-	local f = { active = false };
-	local function Z(p)
-		f.active = p;
-		if p then
-			(T:Create(t, TweenInfo.new(.2), { BackgroundTransparency = .7 })):Play();
-			(T:Create(g, TweenInfo.new(.25, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Size = UDim2.new(0, 3, 0, 22) })):Play();
-			(T:Create(H, TweenInfo.new(.2), { TextColor3 = x.Accent, TextSize = 14 })):Play();
+	local v = { active = false };
+	local function N(q)
+		v.active = q;
+		if q then
+			(o:Create(I, TweenInfo.new(.2), { BackgroundTransparency = .7 })):Play();
+			(o:Create(S, TweenInfo.new(.25, Enum.EasingStyle.Back, Enum.EasingDirection.Out), { Size = UDim2.new(0, 3, 0, 22) })):Play();
+			(o:Create(d, TweenInfo.new(.2), { TextColor3 = F.Accent, TextSize = 14 })):Play();
 		else
-			(T:Create(t, TweenInfo.new(.2), { BackgroundTransparency = 1 })):Play();
-			(T:Create(g, TweenInfo.new(.2), { Size = UDim2.new(0, 3, 0, 0) })):Play();
-			(T:Create(H, TweenInfo.new(.2), { TextColor3 = x.TextSecondary, TextSize = 13 })):Play();
+			(o:Create(I, TweenInfo.new(.2), { BackgroundTransparency = 1 })):Play();
+			(o:Create(S, TweenInfo.new(.2), { Size = UDim2.new(0, 3, 0, 0) })):Play();
+			(o:Create(d, TweenInfo.new(.2), { TextColor3 = F.TextSecondary, TextSize = 13 })):Play();
 		end;
 	end;
-	t.MouseEnter:Connect(function()
-		if not f.active then
-			(T:Create(t, TweenInfo.new(.15), { BackgroundTransparency = .85 })):Play();
-			(T:Create(H, TweenInfo.new(.15), { TextColor3 = x.TextPrimary })):Play();
+	I.MouseEnter:Connect(function()
+		if not v.active then
+			(o:Create(I, TweenInfo.new(.15), { BackgroundTransparency = .85 })):Play();
+			(o:Create(d, TweenInfo.new(.15), { TextColor3 = F.TextPrimary })):Play();
 		end;
 	end);
-	t.MouseLeave:Connect(function()
-		if not f.active then
-			(T:Create(t, TweenInfo.new(.15), { BackgroundTransparency = 1 })):Play();
-			(T:Create(H, TweenInfo.new(.15), { TextColor3 = x.TextSecondary })):Play();
+	I.MouseLeave:Connect(function()
+		if not v.active then
+			(o:Create(I, TweenInfo.new(.15), { BackgroundTransparency = 1 })):Play();
+			(o:Create(d, TweenInfo.new(.15), { TextColor3 = F.TextSecondary })):Play();
 		end;
 	end);
-	W.NavItems[i] = { btn = t, setActive = Z, state = f };
-	return t, Z;
+	U.NavItems[K] = { btn = I, setActive = N, state = v };
+	return I, N;
 end;
-local function QA(p, T, O)
-	local i = m("Frame", {
+local function YM(q, o, m)
+	local K = B("Frame", {
 			Size = UDim2.new(1, -4, 0, 22),
 			BackgroundTransparency = 1,
-			LayoutOrder = O,
+			LayoutOrder = m,
 			ZIndex = 19,
-			Parent = p,
+			Parent = q,
 		});
-	m("TextLabel", {
+	B("TextLabel", {
 		Size = UDim2.new(1, 0, 1, 0),
 		Position = UDim2.new(0, 8, 0, 0),
 		BackgroundTransparency = 1,
-		Text = string.upper(T),
-		TextColor3 = x.TextMuted,
+		Text = string.upper(o),
+		TextColor3 = F.TextMuted,
 		Font = Enum.Font.GothamBold,
 		TextSize = 9,
 		TextXAlignment = Enum.TextXAlignment.Left,
 		ZIndex = 19,
-		Parent = i,
+		Parent = K,
 	});
 end;
-local function cA()
-	local p = m("ScreenGui", {
-			Name = "MenuV71_GUI",
+local function hM()
+	local q = B("ScreenGui", {
+			Name = "MenuV72_GUI",
 			ResetOnSpawn = false,
 			IgnoreGuiInset = true,
 			ZIndexBehavior = Enum.ZIndexBehavior.Sibling,
 			DisplayOrder = 999,
-			Parent = g,
+			Parent = d,
 		});
-	W.Gui = p;
-	local O = WA("LoadingContainer", UDim2.new(0, 460, 0, 240), p);
-	W.LoadingFrame = O;
-	O.BackgroundTransparency = 1;
-	(T:Create(O, TweenInfo.new(.5), { BackgroundTransparency = 0 })):Play();
-	local i = m("Frame", {
+	U.Gui = q;
+	local m = UY("LoadingContainer", UDim2.new(0, 460, 0, 240), q);
+	U.LoadingFrame = m;
+	m.BackgroundTransparency = 1;
+	(o:Create(m, TweenInfo.new(.5), { BackgroundTransparency = 0 })):Play();
+	local K = B("Frame", {
 			Size = UDim2.new(0, 60, 0, 60),
 			Position = UDim2.new(.5, 0, 0, 30),
 			AnchorPoint = Vector2.new(.5, 0),
 			BackgroundTransparency = 1,
 			ZIndex = 8,
-			Parent = O,
+			Parent = m,
 		});
-	for p = 1, 14, 1 do
-		local T = ((p - 1)) * (((math.pi * 2) / 14));
-		local O = m("Frame", {
+	for q = 1, 14, 1 do
+		local o = ((q - 1)) * (((math.pi * 2) / 14));
+		local m = B("Frame", {
 				Size = UDim2.new(0, 5, 0, 5),
-				Position = UDim2.new(.5, math.cos(T) * 22, .5, math.sin(T) * 22),
+				Position = UDim2.new(.5, math.cos(o) * 22, .5, math.sin(o) * 22),
 				AnchorPoint = Vector2.new(.5, .5),
-				BackgroundColor3 = x.Accent,
-				BackgroundTransparency = 1 - ((p / 14)) * .75,
+				BackgroundColor3 = F.Accent,
+				BackgroundTransparency = 1 - ((q / 14)) * .75,
 				BorderSizePixel = 0,
 				ZIndex = 9,
-				Parent = i,
+				Parent = K,
 			});
-		h(O, 2);
-		C(O, "BackgroundColor3", "Accent");
+		i(m, 2);
+		A(m, "BackgroundColor3", "Accent");
 	end;
 	task.spawn(function()
-		while i.Parent do
-			i.Rotation = ((i.Rotation + 5)) % 360;
+		while K.Parent do
+			K.Rotation = ((K.Rotation + 5)) % 360;
 			task.wait(.02);
 		end;
 	end);
-	m("TextLabel", {
+	B("TextLabel", {
 		Size = UDim2.new(1, 0, 0, 32),
 		Position = UDim2.new(0, 0, 0, 98),
 		BackgroundTransparency = 1,
 		Text = "Chargement",
-		TextColor3 = x.TextPrimary,
+		TextColor3 = F.TextPrimary,
 		Font = Enum.Font.GothamBold,
 		TextSize = 24,
 		ZIndex = 8,
-		Parent = O,
+		Parent = m,
 	});
-	local e = m("TextLabel", {
+	local r = B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 20),
 			Position = UDim2.new(0, 0, 0, 134),
 			BackgroundTransparency = 1,
 			Text = "Initialisation...",
-			TextColor3 = x.TextMuted,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.Gotham,
 			TextSize = 12,
 			ZIndex = 8,
-			Parent = O,
+			Parent = m,
 		});
-	local t = m("Frame", {
+	local I = B("Frame", {
 			Size = UDim2.new(.7, 0, 0, 8),
 			Position = UDim2.new(.5, 0, 0, 172),
 			AnchorPoint = Vector2.new(.5, 0),
-			BackgroundColor3 = x.SurfaceHi,
+			BackgroundColor3 = F.SurfaceHi,
 			BackgroundTransparency = .4,
 			BorderSizePixel = 0,
 			ZIndex = 8,
-			Parent = O,
+			Parent = m,
 		});
-	h(t, 4);
-	local H = m("Frame", {
+	i(I, 4);
+	local S = B("Frame", {
 			Size = UDim2.new(0, 0, 1, 0),
-			BackgroundColor3 = x.Accent,
+			BackgroundColor3 = F.Accent,
 			BorderSizePixel = 0,
 			ZIndex = 9,
-			Parent = t,
+			Parent = I,
 			ClipsDescendants = true,
 		});
-	h(H, 4);
-	C(H, "BackgroundColor3", "Accent");
-	local f = m("TextLabel", {
+	i(S, 4);
+	A(S, "BackgroundColor3", "Accent");
+	local v = B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 18),
 			Position = UDim2.new(0, 0, 0, 192),
 			BackgroundTransparency = 1,
 			Text = "0 %",
-			TextColor3 = x.TextMuted,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.GothamBold,
 			TextSize = 11,
 			ZIndex = 8,
-			Parent = O,
+			Parent = m,
 		});
-	local Z = tick();
+	local N = tick();
 	task.spawn(function()
-		while tick() - Z < v.LoadingDuration do
-			local p = math.clamp(((tick() - Z)) / v.LoadingDuration, 0, 1);
-			H.Size = UDim2.new(p, 0, 1, 0);
-			f.Text = math.floor(p * 100) .. " %";
-			if p < .3 then
-				e.Text = "Initialisation...";
-			elseif p < .6 then
-				e.Text = "Chargement...";
-			elseif p < .9 then
-				e.Text = "Pr\195\169paration...";
+		while tick() - N < O.LoadingDuration do
+			local q = math.clamp(((tick() - N)) / O.LoadingDuration, 0, 1);
+			S.Size = UDim2.new(q, 0, 1, 0);
+			v.Text = math.floor(q * 100) .. " %";
+			if q < .3 then
+				r.Text = "Initialisation...";
+			elseif q < .6 then
+				r.Text = "Chargement...";
+			elseif q < .9 then
+				r.Text = "Pr\195\169paration...";
 			else
-				e.Text = "Finalisation...";
+				r.Text = "Finalisation...";
 			end;
 			task.wait(.03);
 		end;
-		H.Size = UDim2.new(1, 0, 1, 0);
-		f.Text = "100 %";
+		S.Size = UDim2.new(1, 0, 1, 0);
+		v.Text = "100 %";
 	end);
-	return O;
+	return m;
 end;
-local function LA(p)
-	local T = W.Gui;
-	local O = WA("CodeContainer", UDim2.new(0, 500, 0, 380), T);
-	W.CodeFrame = O;
-	O.BackgroundTransparency = 1;
-	local i = m("TextLabel", {
+local function OM(q)
+	local o = U.Gui;
+	local m = UY("CodeContainer", UDim2.new(0, 500, 0, 380), o);
+	U.CodeFrame = m;
+	m.BackgroundTransparency = 1;
+	local K = B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 18),
 			Position = UDim2.new(0, 0, 0, 36),
 			BackgroundTransparency = 1,
 			Text = "ACC\195\136S S\195\137CURIS\195\137",
-			TextColor3 = x.Accent,
+			TextColor3 = F.Accent,
 			Font = Enum.Font.GothamBold,
 			TextSize = 11,
 			ZIndex = 12,
-			Parent = O,
+			Parent = m,
 		});
-	C(i, "TextColor3", "Accent");
-	m("TextLabel", {
+	A(K, "TextColor3", "Accent");
+	B("TextLabel", {
 		Size = UDim2.new(1, 0, 0, 38),
 		Position = UDim2.new(0, 0, 0, 60),
 		BackgroundTransparency = 1,
 		Text = "V\195\169rification requise",
-		TextColor3 = x.TextPrimary,
+		TextColor3 = F.TextPrimary,
 		Font = Enum.Font.GothamBold,
 		TextSize = 26,
 		ZIndex = 12,
-		Parent = O,
+		Parent = m,
 	});
-	m("TextLabel", {
+	B("TextLabel", {
 		Size = UDim2.new(1, -60, 0, 34),
 		Position = UDim2.new(0, 30, 0, 104),
 		BackgroundTransparency = 1,
 		Text = "Entre le code d\'acc\195\168s",
-		TextColor3 = x.TextSecondary,
+		TextColor3 = F.TextSecondary,
 		Font = Enum.Font.Gotham,
 		TextSize = 13,
 		TextWrapped = true,
 		ZIndex = 12,
-		Parent = O,
+		Parent = m,
 	});
-	local e = m("TextBox", {
+	local r = B("TextBox", {
 			Size = UDim2.new(.82, 0, 0, 54),
 			Position = UDim2.new(.5, 0, 0, 154),
 			AnchorPoint = Vector2.new(.5, 0),
-			BackgroundColor3 = x.Surface,
+			BackgroundColor3 = F.Surface,
 			BackgroundTransparency = .3,
 			BorderSizePixel = 0,
 			Text = "",
 			PlaceholderText = "Code d\'acc\195\168s...",
-			PlaceholderColor3 = x.TextMuted,
-			TextColor3 = x.TextPrimary,
+			PlaceholderColor3 = F.TextMuted,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamMedium,
 			TextSize = 16,
 			TextXAlignment = Enum.TextXAlignment.Center,
 			ClearTextOnFocus = false,
 			ZIndex = 13,
-			Parent = O,
+			Parent = m,
 		});
-	h(e, 12);
-	local t = b(e, x.Border, 1.5, .3);
-	e.Focused:Connect(function()
-		t.Color = x.Accent;
-		t.Transparency = .2;
+	i(r, 12);
+	local I = p(r, F.Border, 1.5, .3);
+	r.Focused:Connect(function()
+		I.Color = F.Accent;
+		I.Transparency = .2;
 	end);
-	e.FocusLost:Connect(function()
-		t.Color = x.Border;
-		t.Transparency = .3;
+	r.FocusLost:Connect(function()
+		I.Color = F.Border;
+		I.Transparency = .3;
 	end);
-	local g = m("TextLabel", {
+	local S = B("TextLabel", {
 			Size = UDim2.new(1, 0, 0, 20),
 			Position = UDim2.new(0, 0, 0, 216),
 			BackgroundTransparency = 1,
 			Text = "",
-			TextColor3 = x.TextMuted,
+			TextColor3 = F.TextMuted,
 			Font = Enum.Font.Gotham,
 			TextSize = 12,
 			ZIndex = 12,
-			Parent = O,
+			Parent = m,
 		});
-	local H = m("TextButton", {
+	local d = B("TextButton", {
 			Size = UDim2.new(.82, 0, 0, 48),
 			Position = UDim2.new(.5, 0, 0, 248),
 			AnchorPoint = Vector2.new(.5, 0),
-			BackgroundColor3 = x.Accent,
+			BackgroundColor3 = F.Accent,
 			BorderSizePixel = 0,
 			Text = "VALIDER",
-			TextColor3 = x.TextOnAccent,
+			TextColor3 = F.TextOnAccent,
 			Font = Enum.Font.GothamBold,
 			TextSize = 14,
 			AutoButtonColor = false,
 			ZIndex = 13,
-			Parent = O,
+			Parent = m,
 		});
-	h(H, 12);
-	C(H, "BackgroundColor3", "Accent");
-	C(H, "TextColor3", "TextOnAccent");
-	local Z, B, s = 0, 5, false;
-	local function w()
-		if s then
+	i(d, 12);
+	A(d, "BackgroundColor3", "Accent");
+	A(d, "TextColor3", "TextOnAccent");
+	local v, D, l = 0, 5, false;
+	local function f()
+		if l then
 			return;
 		end;
-		if e.Text == f then
-			s = true;
-			W.Authenticated = true;
-			g.Text = "Acc\195\168s autoris\195\169";
-			g.TextColor3 = x.Success;
-			t.Color = x.Success;
+		if r.Text == N then
+			l = true;
+			U.Authenticated = true;
+			S.Text = "Acc\195\168s autoris\195\169";
+			S.TextColor3 = F.Success;
+			I.Color = F.Success;
 			task.wait(.4);
-			L(O, .35, function()
-				W.CodeFrame = nil;
-				if p then
-					p();
+			g(m, .35, function()
+				U.CodeFrame = nil;
+				if q then
+					q();
 				end;
 			end);
 		else
-			Z = Z + 1;
-			g.Text = string.format("Code incorrect \226\128\148 %d/%d", Z, B);
-			g.TextColor3 = x.Error;
-			t.Color = x.Error;
-			if Z >= B then
-				s = true;
-				g.Text = "Acc\195\168s bloqu\195\169";
+			v = v + 1;
+			S.Text = string.format("Code incorrect \226\128\148 %d/%d", v, D);
+			S.TextColor3 = F.Error;
+			I.Color = F.Error;
+			if v >= D then
+				l = true;
+				S.Text = "Acc\195\168s bloqu\195\169";
 				task.wait(1.5);
-				if T then
-					T:Destroy();
+				if o then
+					o:Destroy();
 				end;
 				return;
 			end;
-			e.Text = "";
+			r.Text = "";
 			pcall(function()
-				e:CaptureFocus();
+				r:CaptureFocus();
 			end);
 		end;
 	end;
-	H.MouseButton1Click:Connect(w);
-	e.FocusLost:Connect(function(p)
-		if p then
-			w();
+	d.MouseButton1Click:Connect(f);
+	r.FocusLost:Connect(function(q)
+		if q then
+			f();
 		end;
 	end);
 	task.spawn(function()
 		task.wait(.6);
 		pcall(function()
-			e:CaptureFocus();
+			r:CaptureFocus();
 		end);
 	end);
-	M(O, .5);
-	return O;
+	qq(m, .5);
+	return m;
 end;
-local function MA(O, i)
-	for e, t in ipairs(k) do
-		local g = m("Frame", {
+local function UM(m, K)
+	for r, I in ipairs(e) do
+		local S = B("Frame", {
 				Size = UDim2.new(1, -10, 0, 64),
-				BackgroundColor3 = x.Surface,
+				BackgroundColor3 = F.Surface,
 				BackgroundTransparency = .25,
 				BorderSizePixel = 0,
-				LayoutOrder = e,
+				LayoutOrder = r,
 				ZIndex = 27,
-				Parent = O,
+				Parent = m,
 			});
-		h(g, 12);
-		b(g, x.Border, 1, .5);
-		local H = m("Frame", {
+		i(S, 12);
+		p(S, F.Border, 1, .5);
+		local d = B("Frame", {
 				Size = UDim2.new(0, 10, 0, 10),
 				Position = UDim2.new(0, 10, 0, 10),
-				BackgroundColor3 = t.online and Color3.fromRGB(120, 220, 130) or Color3.fromRGB(110, 110, 120),
+				BackgroundColor3 = I.online and Color3.fromRGB(120, 220, 130) or Color3.fromRGB(110, 110, 120),
 				BorderSizePixel = 0,
 				ZIndex = 30,
-				Parent = g,
+				Parent = S,
 			});
-		h(H, 5);
-		m("UIStroke", {
-			Color = x.BgTop,
+		i(d, 5);
+		B("UIStroke", {
+			Color = F.BgTop,
 			Thickness = 2,
 			ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-			Parent = H,
+			Parent = d,
 		});
-		local f = m("Frame", {
+		local v = B("Frame", {
 				Size = UDim2.new(0, 48, 0, 48),
 				Position = UDim2.new(0, 28, .5, 0),
 				AnchorPoint = Vector2.new(0, .5),
-				BackgroundColor3 = x.SurfaceHi,
+				BackgroundColor3 = F.SurfaceHi,
 				BorderSizePixel = 0,
 				ZIndex = 28,
-				Parent = g,
+				Parent = S,
 			});
-		h(f, 24);
-		local Z = m("ImageLabel", {
+		i(v, 24);
+		local N = B("ImageLabel", {
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				Image = "",
 				ZIndex = 29,
-				Parent = f,
+				Parent = v,
 			});
-		h(Z, 24);
+		i(N, 24);
 		task.spawn(function()
-			local T, O = pcall(function()
-					return p:GetUserThumbnailAsync(t.userId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100);
+			local o, m = pcall(function()
+					return q:GetUserThumbnailAsync(I.userId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100);
 				end);
-			if T and O then
-				Z.Image = O;
+			if o and m then
+				N.Image = m;
 			end;
 		end);
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, -260, 0, 18),
 			Position = UDim2.new(0, 90, 0, 14),
 			BackgroundTransparency = 1,
-			Text = t.name,
-			TextColor3 = x.TextPrimary,
+			Text = I.name,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamBold,
 			TextSize = 14,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 29,
-			Parent = g,
+			Parent = S,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, -260, 0, 14),
 			Position = UDim2.new(0, 90, 0, 34),
 			BackgroundTransparency = 1,
-			Text = t.online and "En ligne" or "Hors ligne",
-			TextColor3 = t.online and Color3.fromRGB(120, 220, 130) or x.TextMuted,
+			Text = I.online and "En ligne" or "Hors ligne",
+			TextColor3 = I.online and Color3.fromRGB(120, 220, 130) or F.TextMuted,
 			Font = Enum.Font.GothamMedium,
 			TextSize = 11,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 29,
-			Parent = g,
+			Parent = S,
 		});
-		local B = m("TextButton", {
+		local D = B("TextButton", {
 				Size = UDim2.new(0, 90, 0, 30),
 				Position = UDim2.new(1, -200, .5, 0),
 				AnchorPoint = Vector2.new(0, .5),
-				BackgroundColor3 = t.online and x.Accent or x.SurfaceHi,
-				BackgroundTransparency = t.online and 0 or .3,
+				BackgroundColor3 = I.online and F.Accent or F.SurfaceHi,
+				BackgroundTransparency = I.online and 0 or .3,
 				BorderSizePixel = 0,
 				Text = "REJOINDRE",
-				TextColor3 = t.online and x.TextOnAccent or x.TextMuted,
+				TextColor3 = I.online and F.TextOnAccent or F.TextMuted,
 				Font = Enum.Font.GothamBold,
 				TextSize = 11,
 				AutoButtonColor = false,
 				ZIndex = 29,
-				Parent = g,
+				Parent = S,
 			});
-		h(B, 8);
-		if t.online then
-			B.MouseEnter:Connect(function()
-				(T:Create(B, TweenInfo.new(.15), { BackgroundTransparency = .15 })):Play();
+		i(D, 8);
+		if I.online then
+			D.MouseEnter:Connect(function()
+				(o:Create(D, TweenInfo.new(.15), { BackgroundTransparency = .15 })):Play();
 			end);
-			B.MouseLeave:Connect(function()
-				(T:Create(B, TweenInfo.new(.15), { BackgroundTransparency = 0 })):Play();
+			D.MouseLeave:Connect(function()
+				(o:Create(D, TweenInfo.new(.15), { BackgroundTransparency = 0 })):Play();
 			end);
-			B.MouseButton1Click:Connect(function()
-				p5("Communaut\195\169", "Connexion \195\160 " .. (t.name .. " en cours..."), false);
-				e5("\240\159\148\151 Rejoindre " .. t.name, x.Accent);
+			D.MouseButton1Click:Connect(function()
+				oq("Communaut\195\169", "Connexion \195\160 " .. (I.name .. " en cours..."), false);
+				Iq("\240\159\148\151 Rejoindre " .. I.name, F.Accent);
 			end);
 		else
-			B.MouseButton1Click:Connect(function()
-				p5("Communaut\195\169", t.name .. " est hors ligne", true);
+			D.MouseButton1Click:Connect(function()
+				oq("Communaut\195\169", I.name .. " est hors ligne", true);
 			end);
 		end;
-		local s = m("TextButton", {
+		local l = B("TextButton", {
 				Size = UDim2.new(0, 90, 0, 30),
 				Position = UDim2.new(1, -100, .5, 0),
 				AnchorPoint = Vector2.new(0, .5),
-				BackgroundColor3 = x.SurfaceHi,
+				BackgroundColor3 = F.SurfaceHi,
 				BackgroundTransparency = .2,
 				BorderSizePixel = 0,
 				Text = "MESSAGE",
-				TextColor3 = x.TextPrimary,
+				TextColor3 = F.TextPrimary,
 				Font = Enum.Font.GothamBold,
 				TextSize = 11,
 				AutoButtonColor = false,
 				ZIndex = 29,
-				Parent = g,
+				Parent = S,
 			});
-		h(s, 8);
-		s.MouseEnter:Connect(function()
-			(T:Create(s, TweenInfo.new(.15), { BackgroundTransparency = .05, BackgroundColor3 = x.AccentSoft })):Play();
+		i(l, 8);
+		l.MouseEnter:Connect(function()
+			(o:Create(l, TweenInfo.new(.15), { BackgroundTransparency = .05, BackgroundColor3 = F.AccentSoft })):Play();
 		end);
-		s.MouseLeave:Connect(function()
-			(T:Create(s, TweenInfo.new(.15), { BackgroundTransparency = .2, BackgroundColor3 = x.SurfaceHi })):Play();
+		l.MouseLeave:Connect(function()
+			(o:Create(l, TweenInfo.new(.15), { BackgroundTransparency = .2, BackgroundColor3 = F.SurfaceHi })):Play();
 		end);
-		s.MouseButton1Click:Connect(function()
-			if i then
-				i(t);
+		l.MouseButton1Click:Connect(function()
+			if K then
+				K(I);
 			end;
 		end);
 	end;
 end;
-qA = function()
-		if W.CommunityOpen and (W.CommunityFrame and W.CommunityFrame.Parent) then
+TY = function()
+		if U.CommunityOpen and (U.CommunityFrame and U.CommunityFrame.Parent) then
 			return;
 		end;
-		local p = W.Gui;
-		if not p then
+		local q = U.Gui;
+		if not q then
 			return;
 		end;
-		local O = WA("CommunityFrame", UDim2.new(0, 560, 0, 600), p);
-		W.CommunityFrame = O;
-		W.CommunityOpen = true;
-		O.BackgroundTransparency = 1;
-		c(O, .5);
-		local i = m("TextButton", {
+		local m = UY("CommunityFrame", UDim2.new(0, 560, 0, 600), q);
+		U.CommunityFrame = m;
+		U.CommunityOpen = true;
+		m.BackgroundTransparency = 1;
+		n(m, .5);
+		local K = B("TextButton", {
 				Size = UDim2.new(0, 28, 0, 28),
 				Position = UDim2.new(1, -40, 0, 16),
 				BackgroundColor3 = Color3.fromRGB(36, 38, 48),
@@ -4745,247 +5380,247 @@ qA = function()
 				TextSize = 13,
 				AutoButtonColor = false,
 				ZIndex = 60,
-				Parent = O,
+				Parent = m,
 			});
-		h(i, 8);
-		b(i, x.Border, 1, .4);
-		i.MouseEnter:Connect(function()
-			(T:Create(i, TweenInfo.new(.15), { BackgroundColor3 = Color3.fromRGB(200, 60, 60), BackgroundTransparency = 0 })):Play();
-			(T:Create(i, TweenInfo.new(.15), { TextColor3 = Color3.fromRGB(255, 255, 255) })):Play();
+		i(K, 8);
+		p(K, F.Border, 1, .4);
+		K.MouseEnter:Connect(function()
+			(o:Create(K, TweenInfo.new(.15), { BackgroundColor3 = Color3.fromRGB(200, 60, 60), BackgroundTransparency = 0 })):Play();
+			(o:Create(K, TweenInfo.new(.15), { TextColor3 = Color3.fromRGB(255, 255, 255) })):Play();
 		end);
-		i.MouseLeave:Connect(function()
-			(T:Create(i, TweenInfo.new(.15), { BackgroundColor3 = Color3.fromRGB(36, 38, 48), BackgroundTransparency = .15 })):Play();
-			(T:Create(i, TweenInfo.new(.15), { TextColor3 = Color3.fromRGB(220, 225, 235) })):Play();
+		K.MouseLeave:Connect(function()
+			(o:Create(K, TweenInfo.new(.15), { BackgroundColor3 = Color3.fromRGB(36, 38, 48), BackgroundTransparency = .15 })):Play();
+			(o:Create(K, TweenInfo.new(.15), { TextColor3 = Color3.fromRGB(220, 225, 235) })):Play();
 		end);
-		i.MouseButton1Click:Connect(function()
-			jA();
+		K.MouseButton1Click:Connect(function()
+			WY();
 		end);
-		local e = m("Frame", {
+		local r = B("Frame", {
 				Name = "CommHolder",
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				ZIndex = 25,
-				Parent = O,
+				Parent = m,
 			});
-		local t, g;
-		t = function()
-				for p, T in ipairs(e:GetChildren()) do
-					T:Destroy();
+		local I, S;
+		I = function()
+				for q, o in ipairs(r:GetChildren()) do
+					o:Destroy();
 				end;
-				m("TextLabel", {
+				B("TextLabel", {
 					Size = UDim2.new(1, -100, 0, 30),
 					Position = UDim2.new(0, 32, 0, 22),
 					BackgroundTransparency = 1,
 					Text = "Communaut\195\169 Mulba",
-					TextColor3 = x.TextPrimary,
+					TextColor3 = F.TextPrimary,
 					Font = Enum.Font.GothamBlack,
 					TextSize = 22,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					ZIndex = 25,
-					Parent = e,
+					Parent = r,
 				});
-				m("TextLabel", {
+				B("TextLabel", {
 					Size = UDim2.new(1, -100, 0, 18),
 					Position = UDim2.new(0, 32, 0, 52),
 					BackgroundTransparency = 1,
 					Text = "Tous les utilisateurs du cheat \226\128\148 connect\195\169s en direct",
-					TextColor3 = x.TextSecondary,
+					TextColor3 = F.TextSecondary,
 					Font = Enum.Font.Gotham,
 					TextSize = 12,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					ZIndex = 25,
-					Parent = e,
+					Parent = r,
 				});
-				local p = 0;
-				for T, O in ipairs(k) do
-					if O.online then
-						p = p + 1;
+				local q = 0;
+				for o, m in ipairs(e) do
+					if m.online then
+						q = q + 1;
 					end;
 				end;
-				local T = m("Frame", {
+				local o = B("Frame", {
 						Size = UDim2.new(0, 130, 0, 42),
 						Position = UDim2.new(1, -160, 0, 26),
-						BackgroundColor3 = x.Surface,
+						BackgroundColor3 = F.Surface,
 						BackgroundTransparency = .3,
 						BorderSizePixel = 0,
 						ZIndex = 26,
-						Parent = e,
+						Parent = r,
 					});
-				h(T, 10);
-				b(T, x.Border, 1, .5);
-				local O = m("Frame", {
+				i(o, 10);
+				p(o, F.Border, 1, .5);
+				local m = B("Frame", {
 						Size = UDim2.new(0, 8, 0, 8),
 						Position = UDim2.new(0, 14, .5, 0),
 						AnchorPoint = Vector2.new(0, .5),
-						BackgroundColor3 = x.Success,
+						BackgroundColor3 = F.Success,
 						BorderSizePixel = 0,
 						ZIndex = 27,
-						Parent = T,
+						Parent = o,
 					});
-				h(O, 4);
-				m("TextLabel", {
+				i(m, 4);
+				B("TextLabel", {
 					Size = UDim2.new(1, -34, 1, 0),
 					Position = UDim2.new(0, 30, 0, 0),
 					BackgroundTransparency = 1,
-					Text = p .. " en ligne",
-					TextColor3 = x.Success,
+					Text = q .. " en ligne",
+					TextColor3 = F.Success,
 					Font = Enum.Font.GothamBold,
 					TextSize = 12,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					ZIndex = 27,
-					Parent = T,
+					Parent = o,
 				});
-				m("Frame", {
+				B("Frame", {
 					Size = UDim2.new(1, -64, 0, 1),
 					Position = UDim2.new(0, 32, 0, 86),
-					BackgroundColor3 = x.Border,
+					BackgroundColor3 = F.Border,
 					BackgroundTransparency = .5,
 					BorderSizePixel = 0,
 					ZIndex = 25,
-					Parent = e,
+					Parent = r,
 				});
-				local i = m("ScrollingFrame", {
+				local K = B("ScrollingFrame", {
 						Size = UDim2.new(1, -64, 1, -130),
 						Position = UDim2.new(0, 32, 0, 100),
 						BackgroundTransparency = 1,
 						BorderSizePixel = 0,
 						ScrollBarThickness = 6,
-						ScrollBarImageColor3 = x.SurfaceHi,
+						ScrollBarImageColor3 = F.SurfaceHi,
 						ScrollBarImageTransparency = .3,
 						CanvasSize = UDim2.new(0, 0, 0, 0),
 						AutomaticCanvasSize = Enum.AutomaticSize.Y,
 						ScrollingDirection = Enum.ScrollingDirection.Y,
 						ZIndex = 26,
-						Parent = e,
+						Parent = r,
 					});
-				local t = m("Frame", {
+				local I = B("Frame", {
 						Size = UDim2.new(1, 0, 0, 0),
 						BackgroundTransparency = 1,
 						AutomaticSize = Enum.AutomaticSize.Y,
 						ZIndex = 26,
-						Parent = i,
+						Parent = K,
 					});
-				m("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder, Parent = t });
-				MA(t, function(p)
-					g(p);
+				B("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder, Parent = I });
+				UM(I, function(q)
+					S(q);
 				end);
 			end;
-		g = function(p)
-				for p, T in ipairs(e:GetChildren()) do
-					T:Destroy();
+		S = function(q)
+				for q, o in ipairs(r:GetChildren()) do
+					o:Destroy();
 				end;
-				local O = m("TextButton", {
+				local m = B("TextButton", {
 						Size = UDim2.new(0, 90, 0, 32),
 						Position = UDim2.new(0, 32, 0, 22),
-						BackgroundColor3 = x.Surface,
+						BackgroundColor3 = F.Surface,
 						BackgroundTransparency = .2,
 						BorderSizePixel = 0,
 						Text = "\226\134\144 Retour",
-						TextColor3 = x.TextPrimary,
+						TextColor3 = F.TextPrimary,
 						Font = Enum.Font.GothamBold,
 						TextSize = 12,
 						AutoButtonColor = false,
 						ZIndex = 30,
-						Parent = e,
+						Parent = r,
 					});
-				h(O, 8);
-				b(O, x.Border, 1, .4);
-				O.MouseEnter:Connect(function()
-					(T:Create(O, TweenInfo.new(.15), { BackgroundTransparency = .05, BackgroundColor3 = x.SurfaceHi })):Play();
+				i(m, 8);
+				p(m, F.Border, 1, .4);
+				m.MouseEnter:Connect(function()
+					(o:Create(m, TweenInfo.new(.15), { BackgroundTransparency = .05, BackgroundColor3 = F.SurfaceHi })):Play();
 				end);
-				O.MouseLeave:Connect(function()
-					(T:Create(O, TweenInfo.new(.15), { BackgroundTransparency = .2, BackgroundColor3 = x.Surface })):Play();
+				m.MouseLeave:Connect(function()
+					(o:Create(m, TweenInfo.new(.15), { BackgroundTransparency = .2, BackgroundColor3 = F.Surface })):Play();
 				end);
-				O.MouseButton1Click:Connect(function()
-					t();
+				m.MouseButton1Click:Connect(function()
+					I();
 				end);
-				m("TextLabel", {
+				B("TextLabel", {
 					Size = UDim2.new(1, -200, 0, 20),
 					Position = UDim2.new(0, 140, 0, 26),
 					BackgroundTransparency = 1,
-					Text = p.name,
-					TextColor3 = x.TextPrimary,
+					Text = q.name,
+					TextColor3 = F.TextPrimary,
 					Font = Enum.Font.GothamBold,
 					TextSize = 15,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					ZIndex = 30,
-					Parent = e,
+					Parent = r,
 				});
-				m("TextLabel", {
+				B("TextLabel", {
 					Size = UDim2.new(1, -200, 0, 14),
 					Position = UDim2.new(0, 140, 0, 46),
 					BackgroundTransparency = 1,
-					Text = p.online and "\226\151\143 En ligne" or "\226\151\143 Hors ligne",
-					TextColor3 = p.online and Color3.fromRGB(120, 220, 130) or x.TextMuted,
+					Text = q.online and "\226\151\143 En ligne" or "\226\151\143 Hors ligne",
+					TextColor3 = q.online and Color3.fromRGB(120, 220, 130) or F.TextMuted,
 					Font = Enum.Font.GothamMedium,
 					TextSize = 11,
 					TextXAlignment = Enum.TextXAlignment.Left,
 					ZIndex = 30,
-					Parent = e,
+					Parent = r,
 				});
-				m("Frame", {
+				B("Frame", {
 					Size = UDim2.new(1, -64, 0, 1),
 					Position = UDim2.new(0, 32, 0, 84),
-					BackgroundColor3 = x.Border,
+					BackgroundColor3 = F.Border,
 					BackgroundTransparency = .5,
 					BorderSizePixel = 0,
 					ZIndex = 25,
-					Parent = e,
+					Parent = r,
 				});
-				local i = m("ScrollingFrame", {
+				local K = B("ScrollingFrame", {
 						Size = UDim2.new(1, -64, 1, -224),
 						Position = UDim2.new(0, 32, 0, 96),
 						BackgroundTransparency = 1,
 						BorderSizePixel = 0,
 						ScrollBarThickness = 6,
-						ScrollBarImageColor3 = x.SurfaceHi,
+						ScrollBarImageColor3 = F.SurfaceHi,
 						ScrollBarImageTransparency = .3,
 						CanvasSize = UDim2.new(0, 0, 0, 0),
 						AutomaticCanvasSize = Enum.AutomaticSize.Y,
 						ScrollingDirection = Enum.ScrollingDirection.Y,
 						ZIndex = 26,
-						Parent = e,
+						Parent = r,
 					});
-				local g = m("Frame", {
+				local S = B("Frame", {
 						Size = UDim2.new(1, 0, 0, 0),
 						BackgroundTransparency = 1,
 						AutomaticSize = Enum.AutomaticSize.Y,
 						ZIndex = 26,
-						Parent = i,
+						Parent = K,
 					});
-				m("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder, Parent = g });
-				local H = 0;
-				local function f(p, T)
-					H = H + 1;
-					local O = m("Frame", {
+				B("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder, Parent = S });
+				local d = 0;
+				local function v(q, o)
+					d = d + 1;
+					local m = B("Frame", {
 							Size = UDim2.new(1, 0, 0, 0),
 							BackgroundTransparency = 1,
-							LayoutOrder = H,
+							LayoutOrder = d,
 							AutomaticSize = Enum.AutomaticSize.Y,
 							ZIndex = 30,
-							Parent = g,
+							Parent = S,
 						});
-					local e = m("Frame", {
-							BackgroundColor3 = T and x.BubbleMine or x.BubbleOther,
+					local r = B("Frame", {
+							BackgroundColor3 = o and F.BubbleMine or F.BubbleOther,
 							BorderSizePixel = 0,
 							AutomaticSize = Enum.AutomaticSize.XY,
 							ZIndex = 31,
-							Parent = O,
+							Parent = m,
 						});
-					if T then
-						e.AnchorPoint = Vector2.new(1, 0);
-						e.Position = UDim2.new(1, 0, 0, 0);
+					if o then
+						r.AnchorPoint = Vector2.new(1, 0);
+						r.Position = UDim2.new(1, 0, 0, 0);
 					else
-						e.AnchorPoint = Vector2.new(0, 0);
-						e.Position = UDim2.new(0, 0, 0, 0);
+						r.AnchorPoint = Vector2.new(0, 0);
+						r.Position = UDim2.new(0, 0, 0, 0);
 					end;
-					h(e, 12);
-					m("TextLabel", {
+					i(r, 12);
+					B("TextLabel", {
 						Position = UDim2.new(0, 14, 0, 8),
 						Size = UDim2.new(0, 340, 0, 0),
 						BackgroundTransparency = 1,
-						Text = p,
-						TextColor3 = T and Color3.fromRGB(255, 255, 255) or x.TextPrimary,
+						Text = q,
+						TextColor3 = o and Color3.fromRGB(255, 255, 255) or F.TextPrimary,
 						Font = Enum.Font.GothamMedium,
 						TextSize = 13,
 						TextXAlignment = Enum.TextXAlignment.Left,
@@ -4993,75 +5628,75 @@ qA = function()
 						TextWrapped = true,
 						AutomaticSize = Enum.AutomaticSize.Y,
 						ZIndex = 32,
-						Parent = e,
+						Parent = r,
 					});
-					m("Frame", {
+					B("Frame", {
 						Size = UDim2.new(0, 14, 0, 8),
 						Position = UDim2.new(0, 0, 1, 0),
 						BackgroundTransparency = 1,
 						ZIndex = 31,
-						Parent = e,
+						Parent = r,
 					});
 					task.defer(function()
-						if i then
-							i.CanvasPosition = Vector2.new(0, math.max(0, (g.AbsoluteSize.Y - i.AbsoluteSize.Y) + 40));
+						if K then
+							K.CanvasPosition = Vector2.new(0, math.max(0, (S.AbsoluteSize.Y - K.AbsoluteSize.Y) + 40));
 						end;
 					end);
 				end;
-				local Z = m("Frame", {
+				local N = B("Frame", {
 						Size = UDim2.new(1, -64, 0, 54),
 						Position = UDim2.new(0, 32, 1, -70),
-						BackgroundColor3 = x.Surface,
+						BackgroundColor3 = F.Surface,
 						BackgroundTransparency = .2,
 						BorderSizePixel = 0,
 						ZIndex = 30,
-						Parent = e,
+						Parent = r,
 					});
-				h(Z, 12);
-				b(Z, x.Border, 1, .4);
-				local B = m("TextBox", {
+				i(N, 12);
+				p(N, F.Border, 1, .4);
+				local D = B("TextBox", {
 						Size = UDim2.new(1, -110, 1, 0),
 						Position = UDim2.new(0, 16, 0, 0),
 						BackgroundTransparency = 1,
 						Text = "",
 						PlaceholderText = "\195\137cris un message...",
-						PlaceholderColor3 = x.TextMuted,
-						TextColor3 = x.TextPrimary,
+						PlaceholderColor3 = F.TextMuted,
+						TextColor3 = F.TextPrimary,
 						Font = Enum.Font.Gotham,
 						TextSize = 13,
 						TextXAlignment = Enum.TextXAlignment.Left,
 						ClearTextOnFocus = false,
 						ZIndex = 31,
-						Parent = Z,
+						Parent = N,
 					});
-				local s = m("TextButton", {
+				local l = B("TextButton", {
 						Size = UDim2.new(0, 80, 0, 38),
 						Position = UDim2.new(1, -92, .5, 0),
 						AnchorPoint = Vector2.new(0, .5),
-						BackgroundColor3 = x.Accent,
+						BackgroundColor3 = F.Accent,
 						BorderSizePixel = 0,
 						Text = "ENVOYER",
-						TextColor3 = x.TextOnAccent,
+						TextColor3 = F.TextOnAccent,
 						Font = Enum.Font.GothamBold,
 						TextSize = 11,
 						AutoButtonColor = false,
 						ZIndex = 31,
-						Parent = Z,
+						Parent = N,
 					});
-				h(s, 8);
-				C(s, "BackgroundColor3", "Accent");
-				local function w()
-					local p = B.Text;
-					if p == nil or p == "" then
+				i(l, 8);
+				A(l, "BackgroundColor3", "Accent");
+				local function f()
+					local q = D.Text;
+					if q == nil or q == "" then
 						return;
 					end;
-					B.Text = "";
-					f(p, true);
+					D.Text = "";
+					v(q, true);
 					task.delay(math.random(8, 20) / 10, function()
-						if not e or not e.Parent then
+						if not r or not r.Parent then
 							return;
 						end;
-						local p = {
+						local q = {
 								"ok",
 								"lol",
 								"je suis l\195\160",
@@ -5073,99 +5708,102 @@ qA = function()
 								"vas-y",
 								"\195\167a marche",
 							};
-						f(p[math.random(1, #p)], false);
+						v(q[math.random(1, #q)], false);
 					end);
 				end;
-				s.MouseButton1Click:Connect(w);
-				B.FocusLost:Connect(function(p)
-					if p then
-						w();
+				l.MouseButton1Click:Connect(f);
+				D.FocusLost:Connect(function(q)
+					if q then
+						f();
 					end;
 				end);
 			end;
-		t();
+		I();
 	end;
-jA = function()
-		if not ((W.CommunityFrame and W.CommunityFrame.Parent)) then
+WY = function()
+		if not ((U.CommunityFrame and U.CommunityFrame.Parent)) then
 			return;
 		end;
-		L(W.CommunityFrame, .35, function()
-			W.CommunityFrame = nil;
-			W.CommunityOpen = false;
+		g(U.CommunityFrame, .35, function()
+			U.CommunityFrame = nil;
+			U.CommunityOpen = false;
 		end);
 	end;
-local function px(p)
-	local T = string.lower(p);
-	if T:find("salut") or T:find("bonjour") or T:find("hey") or T:find("yo") or T:find("coucou") or T:find("bonsoir") then
+local function uM(q)
+	local o = string.lower(q);
+	if o:find("salut") or o:find("bonjour") or o:find("hey") or o:find("yo") or o:find("coucou") or o:find("bonsoir") then
 		return "Salut ! Je suis l\'assistance Mulba. Dis-moi ce que tu veux faire et je te guide. Par exemple : activer l\'ESP, utiliser le Fly, lancer l\'Auto Farm, ou rejoindre la communaut\195\169.";
 	end;
-	if T:find("je comprends pas") or T:find("je comprend pas") or T:find("comprends rien") or T:find("je sais pas") or T:find("aide moi") or T:find("aide-moi") or T:find("help") or T:find("explique") or T:find("expliquer") or T:find("comment \195\167a marche") or T:find("comment sa marche") or T:find("c\'est quoi") then
+	if o:find("je comprends pas") or o:find("je comprend pas") or o:find("comprends rien") or o:find("je sais pas") or o:find("aide moi") or o:find("aide-moi") or o:find("help") or o:find("explique") or o:find("expliquer") or o:find("comment \195\167a marche") or o:find("comment sa marche") or o:find("c\'est quoi") then
 		return "Pas de souci. Dis-moi ce que tu veux faire exactement. Par exemple : ouvrir l\'ESP, voler avec le Fly, farm les pi\195\168ces, TP sur le tueur, ou rejoindre la communaut\195\169. Je te guide \195\169tape par \195\169tape.";
 	end;
-	if T:find("bug") or T:find("marche pas") or T:find("fonctionne pas") or T:find("erreur") or T:find("plante") then
+	if o:find("bug") or o:find("marche pas") or o:find("fonctionne pas") or o:find("erreur") or o:find("plante") then
 		return "Si quelque chose ne marche pas : 1) V\195\169rifie que tu as bien activ\195\169 l\'option dans le bon onglet. 2) R\195\169essaie en d\195\169sactivant puis r\195\169activant. 3) Si \195\167a persiste, dis-moi quelle fonction pr\195\169cise bug et je t\'aide \195\160 corriger.";
 	end;
-	if T:find("menu") or T:find("touche m") or T:find("ouvrir") or T:find("fermer") then
+	if o:find("menu") or o:find("touche m") or o:find("ouvrir") or o:find("fermer") then
 		return "Pour ouvrir ou fermer le menu, appuie sur la touche M. Tu peux aussi cliquer sur le petit panneau M au-dessus de ta t\195\170te en jeu.";
 	end;
-	if T:find("invisible") or T:find("invisibilit\195\169") or T:find("invisibilite") then
+	if o:find("invisible") or o:find("invisibilit\195\169") or o:find("invisibilite") then
 		return "Le bouton INVISIBLE est dans \'Player\' > MOUVEMENT. Active-le et personne ne te verra tant qu\'il reste activ\195\169. D\195\169sactive-le pour redevenir visible.";
 	end;
-	if T:find("esp") or T:find("voir les joueurs") or T:find("voir qui") or T:find("couleur") then
+	if o:find("dash") or o:find("slide") or o:find("wall run") or o:find("wall jump") or o:find("grapple") or o:find("roll") or o:find("paraglide") or o:find("moon walk") or o:find("ice skate") or o:find("crouch") or o:find("mouvement") then
+		return "La section \'MOUVEMENT AVANC\195\137\' est dans l\'onglet \'Player\'. Dash (Q), Slide (C), Wall Jump (Space), Grapple (G), Roll (R), Crouch Slide (Ctrl), TP Mouse (T). Les autres (Wall Run, Moon Walk, Ice Skate, Paraglide) s\'activent depuis le menu.";
+	end;
+	if o:find("esp") or o:find("voir les joueurs") or o:find("voir qui") or o:find("couleur") then
 		return "Pour activer l\'ESP : va dans l\'onglet \'Onglet Esp\' (sidebar). Tu peux activer ESP Murderer, ESP Sheriff, ESP Innocent, X-Ray, Box, Tracer ou ESP Coin. Les couleurs : rouge = tueur, bleu = sh\195\169rif, vert = innocent.";
 	end;
-	if T:find("fly") or T:find("vol") or T:find("voler") then
+	if o:find("fly") or o:find("vol") or o:find("voler") then
 		return "Pour voler : va dans l\'onglet \'Player\' > section MOUVEMENT > active FLY. Utilise W/A/S/D pour te d\195\169placer. Une emote zen s\'active automatiquement quand tu voles.";
 	end;
-	if T:find("autofarm") or T:find("auto farm") or T:find("farm") or T:find("pi\195\168ce") or T:find("pi\195\168ces") or T:find("coin") or T:find("coins") then
+	if o:find("autofarm") or o:find("auto farm") or o:find("farm") or o:find("pi\195\168ce") or o:find("pi\195\168ces") or o:find("coin") or o:find("coins") then
 		return "Pour farmer les pi\195\168ces : va dans l\'onglet \'Auto Farm\' > active \'AUTO FARM COINS\'. Tu peux r\195\169gler la vitesse, le rayon de collecte, la profondeur sous la map, et m\195\170me activer \'TP DIRECT PI\195\136CE\' pour aller plus vite (plus risqu\195\169).";
 	end;
-	if T:find("murder") or T:find("tueur") or T:find("assassin") then
+	if o:find("murder") or o:find("tueur") or o:find("assassin") then
 		return "Onglet \'Murder\' : tu as \'TP ALL IN FRONT\' (empile les joueurs devant toi) et \'TP MURDERER\' (te TP sur le tueur). Active aussi ESP Murderer dans l\'onglet Esp pour le voir en rouge.";
 	end;
-	if T:find("sheriff") or T:find("sh\195\169rif") or T:find("auto shoot") or T:find("tirer") then
+	if o:find("sheriff") or o:find("sh\195\169rif") or o:find("auto shoot") or o:find("tirer") then
 		return "Onglet \'Sheriff\' : active \'AUTO SHOOT MURDERER\' si tu es sh\195\169rif, \195\167a tire automatiquement sur le tueur. Et \'TP SHERIFF\' pour te TP sur lui. Active ESP Sheriff pour le rep\195\169rer en bleu.";
 	end;
-	if T:find("tp") or T:find("t\195\169l\195\169port") or T:find("teleport") or T:find("spawn") or T:find("map") then
+	if o:find("tp") or o:find("t\195\169l\195\169port") or o:find("teleport") or o:find("spawn") or o:find("map") then
 		return "Pour te TP : onglet \'T\195\169l\195\169port\195\169\' > \'TP SPAWN\' (au spawn), \'SET MAP\' (sauvegarde ta position), \'MAP\' (revient \195\160 la position sauvegard\195\169e). Tu peux aussi TP sur une cible dans \'Player\' ou \'Troll\'.";
 	end;
-	if T:find("troll") or T:find("cibler") or T:find("cible") or T:find("spectate") or T:find("accrocher") then
+	if o:find("troll") or o:find("cibler") or o:find("cible") or o:find("spectate") or o:find("accrocher") then
 		return "Onglet \'Troll\' : s\195\169lectionne un joueur dans la liste d\195\169roulante, puis TP sur lui ou spectate. Tu peux aussi t\'accrocher \195\160 lui depuis \'Player\' > \'S\'ACCROCHER \195\128 ELLE\'.";
 	end;
-	if T:find("noclip") or T:find("traverse") or T:find("mur") or T:find("murs") then
+	if o:find("noclip") or o:find("traverse") or o:find("mur") or o:find("murs") then
 		return "Le Noclip est dans \'Player\' > MOUVEMENT > NOCLIP. Il te permet de traverser les murs. Attention : il se d\195\169sactive automatiquement quand le Fly est actif.";
 	end;
-	if T:find("fullbright") or T:find("lumi\195\168re") or T:find("lumiere") or T:find("sombre") or T:find("\195\169clair") then
+	if o:find("fullbright") or o:find("lumi\195\168re") or o:find("lumiere") or o:find("sombre") or o:find("\195\169clair") then
 		return "Le Fullbright est dans \'Player\' > MOUVEMENT > FULLBRIGHT. Il \195\169claire toute la map instantan\195\169ment, pratique sur les maps sombres.";
 	end;
-	if T:find("communaut\195\169") or T:find("community") or T:find("liste") or T:find("membres") or T:find("message") then
+	if o:find("communaut\195\169") or o:find("community") or o:find("liste") or o:find("membres") or o:find("message") then
 		return "La Communaut\195\169 Mulba est accessible via le bouton M bleu en haut \195\160 droite de la sidebar. Tu y vois tous les membres avec leur statut en ligne/hors ligne, et tu peux leur envoyer un message priv\195\169.";
 	end;
-	if T:find("vitesse") or T:find("walkspeed") or T:find("jump") or T:find("saut") then
+	if o:find("vitesse") or o:find("walkspeed") or o:find("jump") or o:find("saut") then
 		return "Dans \'Player\' > section Stats, tu peux r\195\169gler WALKSPEED, JUMPPOWER et GRAVITY avec des sliders. Plus la valeur est haute, plus tu vas vite ou sautes haut.";
 	end;
-	if T:find("merci") or T:find("thanks") or T:find("thx") or T:find("cimer") then
+	if o:find("merci") or o:find("thanks") or o:find("thx") or o:find("cimer") then
 		return "Avec plaisir ! Si tu as besoin d\'autre chose, je suis l\195\160. Bon jeu.";
 	end;
-	if T:find("aide") or T:find("aidez") or T:find("que faire") or T:find("quoi faire") then
-		return "Je peux t\'aider sur : ESP, Fly, Auto Farm, Murder, Sheriff, TP, Troll, Noclip, Invisible, Fullbright, Communaut\195\169, Menu (touche M). Dis-moi pr\195\169cis\195\169ment ce que tu veux faire.";
+	if o:find("aide") or o:find("aidez") or o:find("que faire") or o:find("quoi faire") then
+		return "Je peux t\'aider sur : ESP, Fly, Mouvement avanc\195\169 (Dash/Slide/Wall Run...), Auto Farm, Murder, Sheriff, TP, Troll, Noclip, Invisible, Fullbright, Communaut\195\169, Menu (touche M). Dis-moi pr\195\169cis\195\169ment ce que tu veux faire.";
 	end;
-	return "Je n\'ai pas bien compris ta demande. Reformule ou dis-moi juste un mot-cl\195\169 : ESP, Fly, Auto Farm, Murder, Sheriff, TP, Troll, Noclip, Invisible, Fullbright, Communaut\195\169, ou Menu. Je te guiderai pr\195\169cis\195\169ment.";
+	return "Je n\'ai pas bien compris ta demande. Reformule ou dis-moi juste un mot-cl\195\169 : ESP, Fly, Mouvement avanc\195\169, Auto Farm, Murder, Sheriff, TP, Troll, Noclip, Invisible, Fullbright, Communaut\195\169, ou Menu. Je te guiderai pr\195\169cis\195\169ment.";
 end;
-mA = function()
-		if W.AIOpen and (W.AIFrame and W.AIFrame.Parent) then
+BY = function()
+		if U.AIOpen and (U.AIFrame and U.AIFrame.Parent) then
 			return;
 		end;
-		local p = W.Gui;
-		if not p then
+		local q = U.Gui;
+		if not q then
 			return;
 		end;
-		local O = WA("AIFrame", UDim2.new(0, 520, 0, 620), p);
-		W.AIFrame = O;
-		W.AIOpen = true;
-		O.BackgroundTransparency = 1;
-		c(O, .5);
-		local i = m("TextButton", {
+		local m = UY("AIFrame", UDim2.new(0, 520, 0, 620), q);
+		U.AIFrame = m;
+		U.AIOpen = true;
+		m.BackgroundTransparency = 1;
+		n(m, .5);
+		local K = B("TextButton", {
 				Size = UDim2.new(0, 28, 0, 28),
 				Position = UDim2.new(1, -40, 0, 16),
 				BackgroundColor3 = Color3.fromRGB(36, 38, 48),
@@ -5177,108 +5815,108 @@ mA = function()
 				TextSize = 13,
 				AutoButtonColor = false,
 				ZIndex = 60,
-				Parent = O,
+				Parent = m,
 			});
-		h(i, 8);
-		b(i, x.Border, 1, .4);
-		i.MouseEnter:Connect(function()
-			(T:Create(i, TweenInfo.new(.15), { BackgroundColor3 = Color3.fromRGB(200, 60, 60), BackgroundTransparency = 0 })):Play();
-			(T:Create(i, TweenInfo.new(.15), { TextColor3 = Color3.fromRGB(255, 255, 255) })):Play();
+		i(K, 8);
+		p(K, F.Border, 1, .4);
+		K.MouseEnter:Connect(function()
+			(o:Create(K, TweenInfo.new(.15), { BackgroundColor3 = Color3.fromRGB(200, 60, 60), BackgroundTransparency = 0 })):Play();
+			(o:Create(K, TweenInfo.new(.15), { TextColor3 = Color3.fromRGB(255, 255, 255) })):Play();
 		end);
-		i.MouseLeave:Connect(function()
-			(T:Create(i, TweenInfo.new(.15), { BackgroundColor3 = Color3.fromRGB(36, 38, 48), BackgroundTransparency = .15 })):Play();
-			(T:Create(i, TweenInfo.new(.15), { TextColor3 = Color3.fromRGB(220, 225, 235) })):Play();
+		K.MouseLeave:Connect(function()
+			(o:Create(K, TweenInfo.new(.15), { BackgroundColor3 = Color3.fromRGB(36, 38, 48), BackgroundTransparency = .15 })):Play();
+			(o:Create(K, TweenInfo.new(.15), { TextColor3 = Color3.fromRGB(220, 225, 235) })):Play();
 		end);
-		i.MouseButton1Click:Connect(function()
-			hA();
+		K.MouseButton1Click:Connect(function()
+			iY();
 		end);
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, -100, 0, 30),
 			Position = UDim2.new(0, 32, 0, 22),
 			BackgroundTransparency = 1,
 			Text = "Assistance IA Mulba",
-			TextColor3 = x.TextPrimary,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamBlack,
 			TextSize = 20,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = O,
+			Parent = m,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, -100, 0, 18),
 			Position = UDim2.new(0, 32, 0, 50),
 			BackgroundTransparency = 1,
 			Text = "Pose ta question, je r\195\169ponds en direct",
-			TextColor3 = x.TextSecondary,
+			TextColor3 = F.TextSecondary,
 			Font = Enum.Font.Gotham,
 			TextSize = 12,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 25,
-			Parent = O,
+			Parent = m,
 		});
-		m("Frame", {
+		B("Frame", {
 			Size = UDim2.new(1, -64, 0, 1),
 			Position = UDim2.new(0, 32, 0, 82),
-			BackgroundColor3 = x.Border,
+			BackgroundColor3 = F.Border,
 			BackgroundTransparency = .5,
 			BorderSizePixel = 0,
 			ZIndex = 25,
-			Parent = O,
+			Parent = m,
 		});
-		local e = m("ScrollingFrame", {
+		local r = B("ScrollingFrame", {
 				Size = UDim2.new(1, -64, 1, -216),
 				Position = UDim2.new(0, 32, 0, 96),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				ScrollBarThickness = 6,
-				ScrollBarImageColor3 = x.SurfaceHi,
+				ScrollBarImageColor3 = F.SurfaceHi,
 				ScrollBarImageTransparency = .3,
 				CanvasSize = UDim2.new(0, 0, 0, 0),
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
 				ScrollingDirection = Enum.ScrollingDirection.Y,
 				ZIndex = 26,
-				Parent = O,
+				Parent = m,
 			});
-		local t = m("Frame", {
+		local I = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 0),
 				BackgroundTransparency = 1,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 26,
-				Parent = e,
+				Parent = r,
 			});
-		m("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder, Parent = t });
-		local g = 0;
-		local function H(p, T)
-			g = g + 1;
-			local O = m("Frame", {
+		B("UIListLayout", { Padding = UDim.new(0, 8), SortOrder = Enum.SortOrder.LayoutOrder, Parent = I });
+		local S = 0;
+		local function d(q, o)
+			S = S + 1;
+			local m = B("Frame", {
 					Size = UDim2.new(1, 0, 0, 0),
 					BackgroundTransparency = 1,
-					LayoutOrder = g,
+					LayoutOrder = S,
 					AutomaticSize = Enum.AutomaticSize.Y,
 					ZIndex = 30,
-					Parent = t,
+					Parent = I,
 				});
-			local i = m("Frame", {
-					BackgroundColor3 = T and x.BubbleMine or x.BubbleOther,
+			local K = B("Frame", {
+					BackgroundColor3 = o and F.BubbleMine or F.BubbleOther,
 					BorderSizePixel = 0,
 					AutomaticSize = Enum.AutomaticSize.XY,
 					ZIndex = 31,
-					Parent = O,
+					Parent = m,
 				});
-			if T then
-				i.AnchorPoint = Vector2.new(1, 0);
-				i.Position = UDim2.new(1, 0, 0, 0);
+			if o then
+				K.AnchorPoint = Vector2.new(1, 0);
+				K.Position = UDim2.new(1, 0, 0, 0);
 			else
-				i.AnchorPoint = Vector2.new(0, 0);
-				i.Position = UDim2.new(0, 0, 0, 0);
+				K.AnchorPoint = Vector2.new(0, 0);
+				K.Position = UDim2.new(0, 0, 0, 0);
 			end;
-			h(i, 12);
-			m("TextLabel", {
+			i(K, 12);
+			B("TextLabel", {
 				Position = UDim2.new(0, 14, 0, 8),
 				Size = UDim2.new(0, 340, 0, 0),
 				BackgroundTransparency = 1,
-				Text = p,
-				TextColor3 = T and Color3.fromRGB(255, 255, 255) or x.TextPrimary,
+				Text = q,
+				TextColor3 = o and Color3.fromRGB(255, 255, 255) or F.TextPrimary,
 				Font = Enum.Font.GothamMedium,
 				TextSize = 13,
 				TextXAlignment = Enum.TextXAlignment.Left,
@@ -5286,110 +5924,110 @@ mA = function()
 				TextWrapped = true,
 				AutomaticSize = Enum.AutomaticSize.Y,
 				ZIndex = 32,
-				Parent = i,
+				Parent = K,
 			});
-			m("Frame", {
+			B("Frame", {
 				Size = UDim2.new(0, 14, 0, 8),
 				Position = UDim2.new(0, 0, 1, 0),
 				BackgroundTransparency = 1,
 				ZIndex = 31,
-				Parent = i,
+				Parent = K,
 			});
 			task.defer(function()
-				if e then
-					e.CanvasPosition = Vector2.new(0, math.max(0, (t.AbsoluteSize.Y - e.AbsoluteSize.Y) + 40));
+				if r then
+					r.CanvasPosition = Vector2.new(0, math.max(0, (I.AbsoluteSize.Y - r.AbsoluteSize.Y) + 40));
 				end;
 			end);
 		end;
-		H("Salut, assistance IA Mulba. Comment je peux vous aider ?", false);
-		local f = m("Frame", {
+		d("Salut, assistance IA Mulba. Comment je peux vous aider ?", false);
+		local v = B("Frame", {
 				Size = UDim2.new(1, -64, 0, 54),
 				Position = UDim2.new(0, 32, 1, -70),
-				BackgroundColor3 = x.Surface,
+				BackgroundColor3 = F.Surface,
 				BackgroundTransparency = .2,
 				BorderSizePixel = 0,
 				ZIndex = 30,
-				Parent = O,
+				Parent = m,
 			});
-		h(f, 12);
-		b(f, x.Border, 1, .4);
-		local Z = m("TextBox", {
+		i(v, 12);
+		p(v, F.Border, 1, .4);
+		local N = B("TextBox", {
 				Size = UDim2.new(1, -110, 1, 0),
 				Position = UDim2.new(0, 16, 0, 0),
 				BackgroundTransparency = 1,
 				Text = "",
 				PlaceholderText = "\195\137cris ta question...",
-				PlaceholderColor3 = x.TextMuted,
-				TextColor3 = x.TextPrimary,
+				PlaceholderColor3 = F.TextMuted,
+				TextColor3 = F.TextPrimary,
 				Font = Enum.Font.Gotham,
 				TextSize = 13,
 				TextXAlignment = Enum.TextXAlignment.Left,
 				ClearTextOnFocus = false,
 				ZIndex = 31,
-				Parent = f,
+				Parent = v,
 			});
-		local B = m("TextButton", {
+		local D = B("TextButton", {
 				Size = UDim2.new(0, 80, 0, 38),
 				Position = UDim2.new(1, -92, .5, 0),
 				AnchorPoint = Vector2.new(0, .5),
-				BackgroundColor3 = x.Accent,
+				BackgroundColor3 = F.Accent,
 				BorderSizePixel = 0,
 				Text = "ENVOYER",
-				TextColor3 = x.TextOnAccent,
+				TextColor3 = F.TextOnAccent,
 				Font = Enum.Font.GothamBold,
 				TextSize = 11,
 				AutoButtonColor = false,
 				ZIndex = 31,
-				Parent = f,
+				Parent = v,
 			});
-		h(B, 8);
-		C(B, "BackgroundColor3", "Accent");
-		local function s()
-			local p = Z.Text;
-			if p == nil or p == "" then
+		i(D, 8);
+		A(D, "BackgroundColor3", "Accent");
+		local function l()
+			local q = N.Text;
+			if q == nil or q == "" then
 				return;
 			end;
-			Z.Text = "";
-			H(p, true);
+			N.Text = "";
+			d(q, true);
 			task.delay(.6, function()
-				if not O or not O.Parent then
+				if not m or not m.Parent then
 					return;
 				end;
-				H(px(p), false);
+				d(uM(q), false);
 			end);
 		end;
-		B.MouseButton1Click:Connect(s);
-		Z.FocusLost:Connect(function(p)
-			if p then
-				s();
+		D.MouseButton1Click:Connect(l);
+		N.FocusLost:Connect(function(q)
+			if q then
+				l();
 			end;
 		end);
 	end;
-hA = function()
-		if not ((W.AIFrame and W.AIFrame.Parent)) then
+iY = function()
+		if not ((U.AIFrame and U.AIFrame.Parent)) then
 			return;
 		end;
-		L(W.AIFrame, .35, function()
-			W.AIFrame = nil;
-			W.AIOpen = false;
+		g(U.AIFrame, .35, function()
+			U.AIFrame = nil;
+			U.AIOpen = false;
 		end);
 	end;
-VA = function()
-		local O = W.Gui;
-		if not O then
+HY = function()
+		local m = U.Gui;
+		if not m then
 			return;
 		end;
-		if W.Shell and W.Shell.Parent then
+		if U.Shell and U.Shell.Parent then
 			return;
 		end;
-		W.NavItems = {};
-		W.CurrentPage = nil;
-		local i = WA("Shell", UDim2.new(0, 820, 0, 540), O);
-		W.Shell = i;
-		W.MenuOpen = true;
-		i.BackgroundTransparency = 1;
-		c(i, .55);
-		local e = m("TextButton", {
+		U.NavItems = {};
+		U.CurrentPage = nil;
+		local K = UY("Shell", UDim2.new(0, 820, 0, 540), m);
+		U.Shell = K;
+		U.MenuOpen = true;
+		K.BackgroundTransparency = 1;
+		n(K, .55);
+		local r = B("TextButton", {
 				Size = UDim2.new(0, 28, 0, 28),
 				Position = UDim2.new(1, -40, 0, 16),
 				BackgroundColor3 = Color3.fromRGB(36, 38, 48),
@@ -5401,115 +6039,115 @@ VA = function()
 				TextSize = 13,
 				AutoButtonColor = false,
 				ZIndex = 60,
-				Parent = i,
+				Parent = K,
 			});
-		h(e, 8);
-		b(e, x.Border, 1, .4);
-		e.MouseEnter:Connect(function()
-			(T:Create(e, TweenInfo.new(.15), { BackgroundColor3 = Color3.fromRGB(200, 60, 60), BackgroundTransparency = 0 })):Play();
-			(T:Create(e, TweenInfo.new(.15), { TextColor3 = Color3.fromRGB(255, 255, 255) })):Play();
+		i(r, 8);
+		p(r, F.Border, 1, .4);
+		r.MouseEnter:Connect(function()
+			(o:Create(r, TweenInfo.new(.15), { BackgroundColor3 = Color3.fromRGB(200, 60, 60), BackgroundTransparency = 0 })):Play();
+			(o:Create(r, TweenInfo.new(.15), { TextColor3 = Color3.fromRGB(255, 255, 255) })):Play();
 		end);
-		e.MouseLeave:Connect(function()
-			(T:Create(e, TweenInfo.new(.15), { BackgroundColor3 = Color3.fromRGB(36, 38, 48), BackgroundTransparency = .15 })):Play();
-			(T:Create(e, TweenInfo.new(.15), { TextColor3 = Color3.fromRGB(220, 225, 235) })):Play();
+		r.MouseLeave:Connect(function()
+			(o:Create(r, TweenInfo.new(.15), { BackgroundColor3 = Color3.fromRGB(36, 38, 48), BackgroundTransparency = .15 })):Play();
+			(o:Create(r, TweenInfo.new(.15), { TextColor3 = Color3.fromRGB(220, 225, 235) })):Play();
 		end);
-		e.MouseButton1Click:Connect(dA);
-		local g = m("Frame", {
+		r.MouseButton1Click:Connect(sY);
+		local I = B("Frame", {
 				Name = "Sidebar",
 				Size = UDim2.new(0, 240, 1, 0),
-				BackgroundColor3 = x.SurfaceSide,
+				BackgroundColor3 = F.SurfaceSide,
 				BackgroundTransparency = .35,
 				BorderSizePixel = 0,
 				ZIndex = 8,
-				Parent = i,
+				Parent = K,
 			});
-		h(g, 20);
-		W.Sidebar = g;
-		local H = m("Frame", {
+		i(I, 20);
+		U.Sidebar = I;
+		local d = B("Frame", {
 				Size = UDim2.new(1, 0, 0, 90),
-				BackgroundColor3 = x.BgTop,
+				BackgroundColor3 = F.BgTop,
 				BackgroundTransparency = .65,
 				BorderSizePixel = 0,
 				ZIndex = 15,
-				Parent = g,
+				Parent = I,
 			});
-		h(H, 20);
-		m("Frame", {
+		i(d, 20);
+		B("Frame", {
 			Size = UDim2.new(1, 0, 0, 20),
 			Position = UDim2.new(0, 0, 1, -20),
-			BackgroundColor3 = x.BgTop,
+			BackgroundColor3 = F.BgTop,
 			BackgroundTransparency = .65,
 			BorderSizePixel = 0,
 			ZIndex = 15,
-			Parent = H,
+			Parent = d,
 		});
-		local f = m("Frame", {
+		local v = B("Frame", {
 				Size = UDim2.new(0, 52, 0, 52),
 				Position = UDim2.new(0, 18, .5, 0),
 				AnchorPoint = Vector2.new(0, .5),
 				BackgroundColor3 = Color3.fromRGB(70, 130, 245),
 				BorderSizePixel = 0,
 				ZIndex = 16,
-				Parent = H,
+				Parent = d,
 			});
-		h(f, 26);
-		local Z = m("Frame", {
+		i(v, 26);
+		local N = B("Frame", {
 				Size = UDim2.new(1, -4, 1, -4),
 				Position = UDim2.new(.5, 0, .5, 0),
 				AnchorPoint = Vector2.new(.5, .5),
 				BackgroundColor3 = Color3.fromRGB(50, 100, 220),
 				BorderSizePixel = 0,
 				ZIndex = 17,
-				Parent = f,
+				Parent = v,
 			});
-		h(Z, 24);
-		local B = m("ImageLabel", {
+		i(N, 24);
+		local D = B("ImageLabel", {
 				Size = UDim2.new(1, 0, 1, 0),
 				Position = UDim2.new(.5, 0, .5, 0),
 				AnchorPoint = Vector2.new(.5, .5),
 				BackgroundTransparency = 1,
 				Image = "",
 				ZIndex = 18,
-				Parent = Z,
+				Parent = N,
 			});
-		h(B, 24);
+		i(D, 24);
 		task.spawn(function()
-			local T, O = pcall(function()
-					return p:GetUserThumbnailAsync(t.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100);
+			local o, m = pcall(function()
+					return q:GetUserThumbnailAsync(S.UserId, Enum.ThumbnailType.HeadShot, Enum.ThumbnailSize.Size100x100);
 				end);
-			if T and O then
-				B.Image = O;
+			if o and m then
+				D.Image = m;
 			end;
 		end);
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, -90, 0, 22),
 			Position = UDim2.new(0, 80, 0, 24),
 			BackgroundTransparency = 1,
-			Text = t.DisplayName,
-			TextColor3 = x.TextPrimary,
+			Text = S.DisplayName,
+			TextColor3 = F.TextPrimary,
 			Font = Enum.Font.GothamBold,
 			TextSize = 15,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			TextTruncate = Enum.TextTruncate.AtEnd,
 			ZIndex = 16,
-			Parent = H,
+			Parent = d,
 		});
-		m("TextLabel", {
+		B("TextLabel", {
 			Size = UDim2.new(1, -90, 0, 16),
 			Position = UDim2.new(0, 80, 0, 46),
 			BackgroundTransparency = 1,
 			Text = "Premium",
-			TextColor3 = x.Accent,
+			TextColor3 = F.Accent,
 			Font = Enum.Font.GothamMedium,
 			TextSize = 11,
 			TextXAlignment = Enum.TextXAlignment.Left,
 			ZIndex = 16,
-			Parent = H,
+			Parent = d,
 		});
-		local s = m("TextButton", {
+		local l = B("TextButton", {
 				Size = UDim2.new(0, 30, 0, 30),
 				Position = UDim2.new(1, -42, 0, 32),
-				BackgroundColor3 = x.Accent,
+				BackgroundColor3 = F.Accent,
 				BorderSizePixel = 0,
 				Text = "M",
 				TextColor3 = Color3.fromRGB(255, 255, 255),
@@ -5517,222 +6155,225 @@ VA = function()
 				TextSize = 15,
 				AutoButtonColor = false,
 				ZIndex = 20,
-				Parent = H,
+				Parent = d,
 			});
-		h(s, 15);
-		local w = m("UIStroke", {
-				Color = x.AccentGlow,
+		i(l, 15);
+		local f = B("UIStroke", {
+				Color = F.AccentGlow,
 				Thickness = 1.5,
 				Transparency = .4,
 				ApplyStrokeMode = Enum.ApplyStrokeMode.Border,
-				Parent = s,
+				Parent = l,
 			});
-		C(s, "BackgroundColor3", "Accent");
-		s.MouseEnter:Connect(function()
-			(T:Create(s, TweenInfo.new(.18), { Size = UDim2.new(0, 34, 0, 34), Position = UDim2.new(1, -44, 0, 30) })):Play();
-			(T:Create(w, TweenInfo.new(.18), { Transparency = 0 })):Play();
+		A(l, "BackgroundColor3", "Accent");
+		l.MouseEnter:Connect(function()
+			(o:Create(l, TweenInfo.new(.18), { Size = UDim2.new(0, 34, 0, 34), Position = UDim2.new(1, -44, 0, 30) })):Play();
+			(o:Create(f, TweenInfo.new(.18), { Transparency = 0 })):Play();
 		end);
-		s.MouseLeave:Connect(function()
-			(T:Create(s, TweenInfo.new(.18), { Size = UDim2.new(0, 30, 0, 30), Position = UDim2.new(1, -42, 0, 32) })):Play();
-			(T:Create(w, TweenInfo.new(.18), { Transparency = .4 })):Play();
+		l.MouseLeave:Connect(function()
+			(o:Create(l, TweenInfo.new(.18), { Size = UDim2.new(0, 30, 0, 30), Position = UDim2.new(1, -42, 0, 32) })):Play();
+			(o:Create(f, TweenInfo.new(.18), { Transparency = .4 })):Play();
 		end);
-		s.MouseButton1Click:Connect(function()
-			if qA then
-				qA();
+		l.MouseButton1Click:Connect(function()
+			if TY then
+				TY();
 			end;
 		end);
-		m("Frame", {
+		B("Frame", {
 			Size = UDim2.new(1, -32, 0, 1),
 			Position = UDim2.new(0, 16, 0, 90),
-			BackgroundColor3 = x.Border,
+			BackgroundColor3 = F.Border,
 			BackgroundTransparency = .5,
 			BorderSizePixel = 0,
 			ZIndex = 15,
-			Parent = g,
+			Parent = I,
 		});
-		local P = m("ScrollingFrame", {
+		local Q = B("ScrollingFrame", {
 				Size = UDim2.new(1, -16, 1, -110),
 				Position = UDim2.new(0, 8, 0, 100),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				ScrollBarThickness = 3,
-				ScrollBarImageColor3 = x.SurfaceHi,
+				ScrollBarImageColor3 = F.SurfaceHi,
 				ScrollBarImageTransparency = .5,
 				CanvasSize = UDim2.new(0, 0, 0, 0),
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
 				ScrollingDirection = Enum.ScrollingDirection.Y,
 				ZIndex = 18,
-				Parent = g,
+				Parent = I,
 			});
-		m("UIListLayout", { Padding = UDim.new(0, 2), SortOrder = Enum.SortOrder.LayoutOrder, Parent = P });
-		QA(P, "G\195\169n\195\169ral", 1);
-		bA(P, "Accueil", "home", 2);
-		bA(P, "ESP", "esp", 3);
-		QA(P, "Personnage", 4);
-		bA(P, "Player", "player", 5);
-		bA(P, "Combat", "combat", 6);
-		bA(P, "Troll", "troll", 7);
-		bA(P, "T\195\169l\195\169port\195\169", "teleport", 8);
-		bA(P, "Animation", "animation", 9);
-		bA(P, "Auto Farm", "autofarm", 10);
-		QA(P, "MM2", 11);
-		bA(P, "Murder", "murder", 12);
-		bA(P, "Sheriff", "sheriff", 13);
-		QA(P, "Autre", 14);
-		bA(P, "Param\195\168tres", "settings", 15);
-		W.NavItems.home.btn.MouseButton1Click:Connect(function()
-			kA("home");
+		B("UIListLayout", { Padding = UDim.new(0, 2), SortOrder = Enum.SortOrder.LayoutOrder, Parent = Q });
+		YM(Q, "G\195\169n\195\169ral", 1);
+		yM(Q, "Accueil", "home", 2);
+		yM(Q, "ESP", "esp", 3);
+		YM(Q, "Personnage", 4);
+		yM(Q, "Player", "player", 5);
+		yM(Q, "Combat", "combat", 6);
+		yM(Q, "Troll", "troll", 7);
+		yM(Q, "T\195\169l\195\169port\195\169", "teleport", 8);
+		yM(Q, "Animation", "animation", 9);
+		yM(Q, "Auto Farm", "autofarm", 10);
+		YM(Q, "MM2", 11);
+		yM(Q, "Murder", "murder", 12);
+		yM(Q, "Sheriff", "sheriff", 13);
+		YM(Q, "Autre", 14);
+		yM(Q, "Param\195\168tres", "settings", 15);
+		U.NavItems.home.btn.MouseButton1Click:Connect(function()
+			eY("home");
 		end);
-		W.NavItems.esp.btn.MouseButton1Click:Connect(function()
-			kA("esp");
+		U.NavItems.esp.btn.MouseButton1Click:Connect(function()
+			eY("esp");
 		end);
-		W.NavItems.murder.btn.MouseButton1Click:Connect(function()
-			kA("murder");
+		U.NavItems.murder.btn.MouseButton1Click:Connect(function()
+			eY("murder");
 		end);
-		W.NavItems.sheriff.btn.MouseButton1Click:Connect(function()
-			kA("sheriff");
+		U.NavItems.sheriff.btn.MouseButton1Click:Connect(function()
+			eY("sheriff");
 		end);
-		W.NavItems.player.btn.MouseButton1Click:Connect(function()
-			kA("player");
+		U.NavItems.player.btn.MouseButton1Click:Connect(function()
+			eY("player");
 		end);
-		W.NavItems.combat.btn.MouseButton1Click:Connect(function()
-			kA("combat");
+		U.NavItems.combat.btn.MouseButton1Click:Connect(function()
+			eY("combat");
 		end);
-		W.NavItems.autofarm.btn.MouseButton1Click:Connect(function()
-			kA("autofarm");
+		U.NavItems.autofarm.btn.MouseButton1Click:Connect(function()
+			eY("autofarm");
 		end);
-		W.NavItems.teleport.btn.MouseButton1Click:Connect(function()
-			kA("teleport");
+		U.NavItems.teleport.btn.MouseButton1Click:Connect(function()
+			eY("teleport");
 		end);
-		W.NavItems.troll.btn.MouseButton1Click:Connect(function()
-			kA("troll");
+		U.NavItems.troll.btn.MouseButton1Click:Connect(function()
+			eY("troll");
 		end);
-		W.NavItems.animation.btn.MouseButton1Click:Connect(function()
-			kA("animation");
+		U.NavItems.animation.btn.MouseButton1Click:Connect(function()
+			eY("animation");
 		end);
-		W.NavItems.settings.btn.MouseButton1Click:Connect(function()
-			kA("settings");
+		U.NavItems.settings.btn.MouseButton1Click:Connect(function()
+			eY("settings");
 		end);
-		local o = m("Frame", {
+		local y = B("Frame", {
 				Name = "Content",
 				Size = UDim2.new(1, -240, 1, 0),
 				Position = UDim2.new(0, 240, 0, 0),
 				BackgroundTransparency = 1,
 				ClipsDescendants = true,
 				ZIndex = 14,
-				Parent = i,
+				Parent = K,
 			});
-		W.Content = o;
-		local S = m("ScrollingFrame", {
+		U.Content = y;
+		local Y = B("ScrollingFrame", {
 				Name = "Scroll",
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundTransparency = 1,
 				BorderSizePixel = 0,
 				ScrollBarThickness = 6,
-				ScrollBarImageColor3 = x.SurfaceHi,
+				ScrollBarImageColor3 = F.SurfaceHi,
 				ScrollBarImageTransparency = .3,
 				CanvasSize = UDim2.new(0, 0, 0, 0),
 				AutomaticCanvasSize = Enum.AutomaticSize.Y,
 				ScrollingDirection = Enum.ScrollingDirection.Y,
 				ClipsDescendants = true,
 				ZIndex = 24,
-				Parent = o,
+				Parent = y,
 			});
-		W.Scroll = S;
+		U.Scroll = Y;
 		task.wait(.1);
-		kA("home");
+		eY("home");
 	end;
-t.CharacterAdded:Connect(function(p)
-	p:WaitForChild("Humanoid", 10);
+S.CharacterAdded:Connect(function(q)
+	q:WaitForChild("Humanoid", 10);
 	task.wait(.6);
-	J.nowe = false;
-	J.tpwalking = false;
-	w5();
-	eA();
-	XA();
-	if r.XRayEnabled then
+	t.nowe = false;
+	t.tpwalking = false;
+	Qq();
+	IY();
+	if AM then
+		AM();
+	end;
+	EY();
+	if u.XRayEnabled then
 		task.wait(.5);
-		if p then
-			HA(p, t);
+		if q then
+			vY(q, S);
 		end;
 	end;
-	if X.FlyEnabled then
-		C5();
+	if E.FlyEnabled then
+		Aq();
 	end;
-	if X.SpinEnabled then
-		W5();
+	if E.SpinEnabled then
+		Uq();
 	end;
-	if X.JerkEnabled then
-		X5();
+	if E.JerkEnabled then
+		Eq();
 	end;
-	X.Sitting = false;
-	if X.Invisible then
-		X.Invisible = false;
-		D.saved = {};
-		if D.conn then
-			D.conn:Disconnect();
-			D.conn = nil;
+	E.Sitting = false;
+	if E.Invisible then
+		E.Invisible = false;
+		C.saved = {};
+		if C.conn then
+			C.conn:Disconnect();
+			C.conn = nil;
 		end;
 	end;
-	local T = p:FindFirstChildOfClass("Humanoid");
-	if T then
-		T.WalkSpeed = X.WalkSpeed;
-		T.UseJumpPower = true;
-		T.JumpPower = X.JumpPower;
+	local o = q:FindFirstChildOfClass("Humanoid");
+	if o then
+		o.WalkSpeed = E.WalkSpeed;
+		o.UseJumpPower = true;
+		o.JumpPower = E.JumpPower;
 	end;
-	workspace.Gravity = X.Gravity;
-	if a.AutoSetMap then
+	workspace.Gravity = E.Gravity;
+	if b.AutoSetMap then
 		task.wait(.4);
-		K5(true);
+		zq(true);
 	end;
-	if a.ReturnSpawn then
+	if b.ReturnSpawn then
 		task.wait(.5);
-		U5();
+		kq();
 	end;
 end);
-i.InputBegan:Connect(function(p, T)
-	if T then
+K.InputBegan:Connect(function(q, o)
+	if o then
 		return;
 	end;
-	if p.KeyCode == Enum.KeyCode.Escape then
-		if W.CommunityOpen then
-			jA();
+	if q.KeyCode == Enum.KeyCode.Escape then
+		if U.CommunityOpen then
+			WY();
 		end;
-		if W.AIOpen then
-			hA();
+		if U.AIOpen then
+			iY();
 		end;
 		return;
 	end;
-	if p.KeyCode ~= Enum.KeyCode.M then
+	if q.KeyCode ~= Enum.KeyCode.M then
 		return;
 	end;
-	if not W.Authenticated then
+	if not U.Authenticated then
 		return;
 	end;
-	if W.Shell and W.Shell.Parent then
-		dA();
+	if U.Shell and U.Shell.Parent then
+		sY();
 	else
-		if VA then
-			VA();
+		if HY then
+			HY();
 		end;
 	end;
 end);
-local function Tx()
-	j("Initialisation...");
-	local p = g:FindFirstChild("MenuV70_GUI") or g:FindFirstChild("MenuV71_GUI");
-	if p then
-		p:Destroy();
+local function sM()
+	W("Initialisation...");
+	local q = d:FindFirstChild("MenuV70_GUI") or d:FindFirstChild("MenuV71_GUI") or d:FindFirstChild("MenuV72_GUI");
+	if q then
+		q:Destroy();
 	end;
-	cA();
-	task.wait(v.LoadingDuration + .4);
-	rA(W.LoadingFrame, function()
-		W.LoadingFrame = nil;
+	hM();
+	task.wait(O.LoadingDuration + .4);
+	uY(U.LoadingFrame, function()
+		U.LoadingFrame = nil;
 	end);
 	task.wait(.5);
-	LA(function()
-		W.Authenticated = true;
-		XA();
-		VA();
+	OM(function()
+		U.Authenticated = true;
+		EY();
+		HY();
 	end);
 end;
-Tx();
+sM();
